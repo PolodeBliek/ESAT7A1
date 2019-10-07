@@ -23,22 +23,22 @@ from skimage.exposure import histogram
 import math
 from statistics import mean
 
+
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
+
+from collections.abc import Sequence
+from itertools import chain, count
+from hulpfunctie_sobel import *
+from Hysterisis import hyst
+
 # Open the image
-
-img = np.array(Image.open('foto_rechthoeken.png'))#.astype(np.uint8)
-print(img)
-
-
+name_image = 'foto_schaduwen.png'
+img = np.array(Image.open('input_images/' + name_image))#.astype(np.uint8)
 
 # Apply gray scale
-#New grayscale image = ( (0.3 * R) + (0.59 * G) + (0.11 * B) ).
-gray_img = (0.3 * img[:, :, 0] + 0.59 * img[:, :, 1] + 0.11 * img[:, :, 2])#.astype(np.uint8)
-print(gray_img)
-
-#[dimensie1,dimensie2,dimensie3]
+gray_img = grayscale(img)
 
 # Sobel Operator
 h, w = gray_img.shape
@@ -81,24 +81,21 @@ for i in range(1, h - 1):
         # Edge Magnitude
         mag = np.sqrt(pow(horizontalGrad, 2.0) + pow(verticalGrad, 2.0))
         newgradientImage[i - 1, j - 1] = mag
+plt.imsave('Sobel_foto.jpg', newgradientImage, cmap='gray', format='jpg')
 
+#############
+#toepassen van hysteresis
+#MET DEZE WAARDEN VALT NOG TE EXPERIMENTEREN
+
+iar = hyst(np.array(gem_kleur_van_pixels('Sobel_foto.jpg')),10,27)
+
+iar_boolToNum = [0 if i == False else 255 for i in iar]
+np_array_iar_reconverted = np.array(iar_reconverted(iar_boolToNum))
+np_array_to_float = np_array_iar_reconverted.astype(np.uint8)
+
+###############
 plt.figure()
-plt.title('nieuwe foto.png')
-plt.imsave('Sobel_foto.png', newgradientImage, cmap='gray', format='png')
-plt.imshow(newgradientImage, cmap='gray')
-plt.show()
-
-gem_kleur_vab_pixel
-image = np.array(Image.open('Sobel_foto.png'))#.astype(np.uint8)
-for eachRow in image:
-    for eachPix in eachRow:
-        avgColor = mean(eachPix[:3])  # eerste 3 getallen vd array die de kleur geven
-        gem_kleur_van_pixel.append(avgColor)
-from Hysterisis import hyst
-hyst(image,0.2, 0.5)
-
-plt.figure()
-plt.title('Sobel_met_Hyst.png')
-plt.imsave('Sobel_met_Hystfoto.png', newgradientImage, cmap='gray', format='png')
-plt.imshow(newgradientImage, cmap='gray')
+plt.title('Sobel_met_Hyst.jpg')
+plt.imsave('output_images/' + name_image.replace('.jpg', '_') + 'Sobel_met_Hystfoto.png', np_array_to_float, cmap='gray', format='jpg')
+plt.imshow(np_array_to_float, cmap='gray')
 plt.show()
