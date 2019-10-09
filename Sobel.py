@@ -34,7 +34,7 @@ from hulpfunctie_sobel import *
 from Hysterisis import hyst
 
 # Open the image
-name_image = 'foto_schaduwen.png'
+name_image = 'test_foto.png'
 img = np.array(Image.open('input_images/' + name_image))#.astype(np.uint8)
 
 # Apply gray scale
@@ -87,15 +87,18 @@ plt.imsave('Sobel_foto.jpg', newgradientImage, cmap='gray', format='jpg')
 #toepassen van hysteresis
 #MET DEZE WAARDEN VALT NOG TE EXPERIMENTEREN
 
-iar = hyst(np.array(gem_kleur_van_pixels('Sobel_foto.jpg')),10,27)
+iar = hyst(np.array(gem_kleur_van_pixels('Sobel_foto.jpg')),15,20)
 
 iar_boolToNum = [0 if i == False else 255 for i in iar]
-np_array_iar_reconverted = np.array(iar_reconverted(iar_boolToNum))
+
+
+np_array_iar_reconverted = np.array(iar_reconverted(iar_boolToNum,h,w))
 np_array_to_float = np_array_iar_reconverted.astype(np.uint8)
+print(np_array_to_float)
 
 ###############
 plt.figure()
 plt.title('Sobel_met_Hyst.jpg')
-plt.imsave('output_images/' + name_image.replace('.jpg', '_') + 'Sobel_met_Hystfoto.png', np_array_to_float, cmap='gray', format='jpg')
+plt.imsave('output_images/' + 'Sobel_met_Hystfoto.jpg', np_array_to_float, cmap='gray', format='jpg')
 plt.imshow(np_array_to_float, cmap='gray')
 plt.show()

@@ -46,13 +46,13 @@ def gem_kleur_van_pixels(picture):
 
     return gem_kleur_van_pixel
 
-def iar_reconverted(iar_boolToNum):
+def iar_reconverted(iar_boolToNum,height,width):
 
     iar_reconverted = []
     index = 0
-    for i in range(480):
+    for i in range(height):                        #RANGES HANGEN AF VAN DE GROOTTE VAN DE IMAGE
         iar_reconverted.append([])
-        for k in range(640):
+        for k in range(width):
             j = iar_boolToNum[index]
             iar_reconverted[i].append([j, j, j])
             index += 1
