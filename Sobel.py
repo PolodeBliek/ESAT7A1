@@ -30,11 +30,11 @@ import matplotlib.pyplot as plt
 
 from collections.abc import Sequence
 from itertools import chain, count
+
 from hulpfunctie_sobel import *
-from Hysterisis import hyst
 
 # Open the image
-name_image = 'test_foto.png'
+name_image = 'foto_schaduwen.png'
 img = np.array(Image.open('input_images/' + name_image))#.astype(np.uint8)
 
 # Apply gray scale
@@ -90,7 +90,6 @@ plt.imsave('Sobel_foto.jpg', newgradientImage, cmap='gray', format='jpg')
 iar = hyst(np.array(gem_kleur_van_pixels('Sobel_foto.jpg')),15,20)
 
 iar_boolToNum = [0 if i == False else 255 for i in iar]
-
 
 np_array_iar_reconverted = np.array(iar_reconverted(iar_boolToNum,h,w))
 np_array_to_float = np_array_iar_reconverted.astype(np.uint8)
