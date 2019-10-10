@@ -17,7 +17,7 @@ while pictureTaken:
 
         cv2.imwrite("C:/Users/olivi/untitled/kinectfoto.png", color_flipped)  # Save
 
-    pictureTaken = False
+        pictureTaken = False
 
 
 # https://github.com/daan/calibrating-with-python-opencv/blob/02c90e4291adfb2426072f8f0837033754fc3a55/kinect-v2/color.py
