@@ -62,9 +62,15 @@ if __name__ == '__main__':
 
     kinect = AcquisitionKinect()
     frame = Frame()
+    imageNotTaken = 0
 
-    kinect.get_frame(frame)
-    kinect.get_color_frame()
-    image = kinect._frameRGB # Take image
-    image = cv2.cvtColor(image, cv2.COLOR_RGBA2RGB) # Convert image from RGBA to RGB
-    cv2.imwrite("C:/Users/Administrator/PycharmProjects/ESAT7A1/kinect_show.png", image) # Save image
+    while imageNotTaken < 2.5:
+        kinect.get_frame(frame)
+        kinect.get_color_frame()
+        image = kinect._frameRGB
+        #OpenCv uses RGB image, kinect returns type RGBA, remove extra dim.
+        image = cv2.cvtColor(image, cv2.COLOR_RGBA2RGB)
+        time.sleep(0.5)
+        imageNotTaken += 0.5
+
+    cv2.imwrite("C:/Users/Administrator/PycharmProjects/ESAT7A1/kinectcamera.png", image)  # Save image
