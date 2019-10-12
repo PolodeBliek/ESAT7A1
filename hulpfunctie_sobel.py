@@ -31,6 +31,24 @@ import matplotlib.pyplot as plt
 from collections.abc import Sequence
 from itertools import chain, count
 
+def gaussian(img):
+    h, w = img.shape
+    GaussianKernel = np.array([[1/16, 1/8, 1/16], [1/8, 1/4, 1/8], [1/16, 1/8, 1/16]])
+    newImg = np.zeros((h,w))
+    for i in range(1, h - 1):
+        for j in range(1, w - 1):
+            gaussianGrad = (GaussianKernel[0, 0] * img[i - 1, j - 1]) + \
+                           (GaussianKernel[0, 1] * img[i - 1, j]) + \
+                           (GaussianKernel[0, 2] * img[i - 1, j + 1]) + \
+                           (GaussianKernel[1, 0] * img[i, j - 1]) + \
+                           (GaussianKernel[1, 1] * img[i, j]) + \
+                           (GaussianKernel[1, 2] * img[i, j + 1]) + \
+                           (GaussianKernel[2, 0] * img[i + 1, j - 1]) + \
+                           (GaussianKernel[2, 1] * img[i + 1, j]) + \
+                           (GaussianKernel[2, 2] * img[i + 1, j + 1])
+            newImg[i - 1, j - 1] = abs(gaussianGrad)
+    return newImg
+
 def grayscale(image):
     return (0.3 * image[:, :, 0] + 0.59 * image[:, :, 1] + 0.11 * image[:, :, 2]).astype(np.uint8)
 
