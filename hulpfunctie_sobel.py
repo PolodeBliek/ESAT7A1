@@ -1,25 +1,3 @@
-import scipy
-import pip
-import PIL
-import matplotlib
-import skimage
-import numpy as np
-from PIL import Image
-import matplotlib.pyplot as plt
-import time
-import matplotlib.patches
-import random
-import copy
-import itertools
-
-from scipy.ndimage import gaussian_filter
-from scipy import signal
-from skimage import data, io
-from skimage import img_as_float
-from skimage.morphology import reconstruction
-from skimage.color import rgb2gray
-from scipy.signal import find_peaks
-from skimage.exposure import histogram
 import math
 from statistics import mean
 
@@ -28,8 +6,6 @@ import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
 
-from collections.abc import Sequence
-from itertools import chain, count
 
 def gaussian(img):
     h, w = img.shape

@@ -1,31 +1,25 @@
-import scipy
-import matplotlib
-import numpy as np
-import matplotlib.pyplot as plt
-import time
-import matplotlib.patches
-import random
-import copy
-import itertools
+timer = True
+if timer:
+    import time
+    t0 = time.time()
 
-
-import math
+import math #do we need this?
 from statistics import mean
-
-
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
-
-from collections.abc import Sequence
-from itertools import chain, count
+import sys
 
 from hulpfunctie_sobel import *
 
+activateCheckpoints = True         #Whether it will print the checkpoints (mainly for timing purposes)
+if activateCheckpoints:
+    print("Checkpoint 1")
+if timer:
+    t1 = time.time()
 #TestVariables
 name_image = '1_rechthoeken.png'    #Which photo
 gaussianAmount = 1                  #How many times Gaussian blur is done on image, must be natural number
-activateCheckpoints = False         #Whether it will print the checkpoints (mainly for timing purposes)
 demonstration = False               #Whether it will show figure at the end
 
 #Open Image
@@ -35,24 +29,23 @@ img = np.array(Image.open("C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\" + name
 # Apply gray scale
 gray_img = grayscale(img)
 
-if activateCheckpoints:
-    print("Checkpoint 1")
 
 # Sobel Operator
 h, w = gray_img.shape
 # define filters
 horizontal = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])  # s2
 vertical = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])  # s1
-GaussianKernel = np.array([[1/16, 1/8, 1/16], [1/8, 1/4, 1/8], [1/16, 1/8, 1/16]])
-print(img[0,0])
 
 if activateCheckpoints:
     print("Checkpoint 2")
 
+if timer:
+    t2 = time.time()
+
 #Apply Gaussian Blur
 for index in range(gaussianAmount):
-    print("Blur performed")
     gray_img = gaussian(gray_img)
+    plt.imsave('C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\' + 'Blur.jpg', gray_img, cmap='gray', format='jpg')
 # define images with 0s
 newHorizontalImage = np.zeros((h, w))
 newVerticalImage = np.zeros((h, w))
@@ -60,6 +53,17 @@ newGradientImage = np.zeros((h, w))
 
 if activateCheckpoints:
     print("Checkpoint 3")
+if timer:
+    t3 = time.time()
+
+if timer:
+    t5 = time.time()
+    print("0 -> 1", t1-t0)
+    print("1 -> 2", t2-t1)
+    print("2 -> 3", t3-t2)
+    print("Total:", t3-t0)
+sys.exit()
+
 
 # offset by 1
 for i in range(1, h - 1):
@@ -95,6 +99,8 @@ plt.imsave('C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\Sobel_foto.jpg', newGra
 
 if activateCheckpoints:
     print("Checkpoint 4")
+if timer:
+    t4 = time.time()
 
 #############
 #toepassen van hysteresis
@@ -109,6 +115,15 @@ np_array_to_float = np_array_iar_reconverted.astype(np.uint8)
 
 if activateCheckpoints:
     print("Checkpoint 5")
+
+if timer:
+    t5 = time.time()
+    print("0 -> 1", t1-t0)
+    print("1 -> 2", t2-t1)
+    print("2 -> 3", t3-t2)
+    print("3 -> 4", t4-t3)
+    print("4 -> 5", t5-t4)
+    print("Total:", t5-t0)
 ###############
 if demonstration:
     plt.figure()
