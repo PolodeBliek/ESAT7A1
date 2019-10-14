@@ -23,7 +23,7 @@ name_image      = '1_rechthoeken.png'    #Which photo
 gaussianAmount  = 1                  #How many times Gaussian blur is done on image, must be natural number
 demonstration   = False               #Whether it will show figure at the end
 currentDir      = os.path.dirname(os.path.abspath(__file__))
-directory       = currentDir + "\\" + name_image
+directory       = currentDir + "\\testImages\\" + name_image
 
 #Open Image
 img = np.array(Image.open("C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\" + name_image))#.astype(np.uint8)
@@ -49,7 +49,7 @@ if timer:
 #Apply Gaussian Blur
 for index in range(gaussianAmount):
     gray_img = gaussian(gray_img)
-    plt.imsave(directory + 'Blur.jpg', gray_img, cmap='gray', format='jpg')
+    plt.imsave(directory + '\\outputImages\\Blur.jpg', gray_img, cmap='gray', format='jpg')
 # define images with 0s
 newHorizontalImage = np.zeros((h, w))
 newVerticalImage = np.zeros((h, w))
@@ -99,7 +99,7 @@ for i in range(1, h - 1):
         # Edge Magnitude
         mag = np.sqrt(pow(horizontalGrad, 2.0) + pow(verticalGrad, 2.0))
         newGradientImage[i - 1, j - 1] = mag
-plt.imsave(directory + "\\Sobel_foto.jpg", newGradientImage, cmap='gray', format='jpg')
+plt.imsave(directory + "\\outputImages\\Sobel_foto.jpg", newGradientImage, cmap='gray', format='jpg')
 
 if activateCheckpoints:
     print("Checkpoint 4")
@@ -132,6 +132,6 @@ if timer:
 if demonstration:
     plt.figure()
     plt.title('Sobel_met_Hyst.jpg')
-    plt.imsave(directory + '\\' + 'Sobel_met_Hystfoto.jpg', np_array_to_float, cmap='gray', format='jpg')
+    plt.imsave(directory + '\\outputImages\\' + 'Sobel_met_Hystfoto.jpg', np_array_to_float, cmap='gray', format='jpg')
     plt.imshow(np_array_to_float, cmap='gray')
     plt.show()
