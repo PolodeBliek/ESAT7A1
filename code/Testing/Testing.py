@@ -8,6 +8,7 @@ from statistics import mean
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
+from scipy import ndimage
 
 def diff_then_background(pix):
     global backgroundColor
@@ -32,7 +33,7 @@ for file in files:
     demonstration = False               #Whether it will show figure at the end
 
     #Open Image
-    img = np.array(Image.open("C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\" + name_image))#.astype(np.uint8)
+    img = np.array(Image.open("C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\testImages\\" + name_image))#.astype(np.uint8)
 
 
     # Apply gray scale
@@ -77,36 +78,25 @@ for file in files:
 
     if activateCheckpoints:
         print("Checkpoint 3")
-    if timer:
-        t3 = time.time()
     # offset by 1
     if (upperRow-10) < 0:
         upperRow = -10
     if (lowerRow + 10) > (h - 1):
         lowerRow = h - 11
-    for i in range(upperRow - 10, lowerRow + 10):
+    t3 = time.time()
+    newHorizontalImage2 = ndimage.convolve(gray_img, horizontal)
+    newVerticalImage2 = ndimage.convolve(gray_img, vertical)
+    t4 = time.time()
+    for i in range(1, h - 1):
         for j in range(1, w - 1):
-            horizontalGrad = (gray_img_neg[i - 1, j - 1]) + \
-                             (gray_img[i - 1, j + 1]) + \
-                             (gray_img_neg_2[i, j - 1]) + \
-                             (gray_img2[i, j + 1]) + \
-                             (gray_img_neg[i + 1, j - 1]) + \
-                             (gray_img[i + 1, j + 1])
-
-            newHorizontalImage2[i - 1, j - 1] = abs(horizontalGrad)
-
-            verticalGrad = (gray_img_neg[i - 1, j - 1]) + \
-                           (gray_img_neg_2[i - 1, j]) + \
-                           (gray_img_neg[i - 1, j + 1]) + \
-                           (gray_img[i + 1, j - 1]) + \
-                           (gray_img2[i + 1, j]) + \
-                           (gray_img[i + 1, j + 1])
-
-            newVerticalImage2[i - 1, j - 1] = abs(verticalGrad)
-
             # Edge Magnitude
-            mag = np.sqrt(pow(horizontalGrad, 2.0) + pow(verticalGrad, 2.0))
+            mag = np.sqrt(pow(newHorizontalImage2[i - 1, j - 1], 2.0) + pow(newVerticalImage2[i - 1, j - 1], 2.0))
             newGradientImage2[i - 1, j - 1] = mag
+    t5 = time.time()
+    newVerticalImage2 = np.square(newVerticalImage2)
+    newHorizontalImage2 = np.square(newHorizontalImage2)
+    newSum = newHorizontalImage2 + newVerticalImage2
+    newSum = np.sqrt(newSum)
     t6 = time.time()
     for i in range(1, h - 1):
         for j in range(1, w - 1):
@@ -150,8 +140,10 @@ for file in files:
 
     if activateCheckpoints:
         print("Checkpoint 4")
-    if timer:
-        t4 = time.time()
-    print("CLASSIC METHOD: ", t4-t6)
-    print("NEW METHOD:     ", t6-t3)
+    t7 = time.time()
+    print("CLASSIC METHOD: ", t7 - t6)
+    print("NEW METHOD:     ", t5 - t3, (t5-t4)/(t5-t3))
+    print("NEW METHOD 2:   ", t4 - t3 + (t6 - t5))
+    print("FOR LOOP:       ", t5 - t4)
+    print("NUMPY:          ", t6 - t5)
     print("========================")
