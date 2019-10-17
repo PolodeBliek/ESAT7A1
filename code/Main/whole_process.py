@@ -130,19 +130,7 @@ def gaussian_blur(image):
     h, w = image.shape
     GaussianKernel = np.array([[1 / 16, 1 / 8, 1 / 16], [1 / 8, 1 / 4, 1 / 8], [1 / 16, 1 / 8, 1 / 16]])
     newImg = np.zeros((h, w))
-    for i in range(1, h - 1):
-        for j in range(1, w - 1):
-            gaussianGrad = (GaussianKernel[0, 0] * image[i - 1, j - 1]) + \
-                           (GaussianKernel[0, 1] * image[i - 1, j]) + \
-                           (GaussianKernel[0, 2] * image[i - 1, j + 1]) + \
-                           (GaussianKernel[1, 0] * image[i, j - 1]) + \
-                           (GaussianKernel[1, 1] * image[i, j]) + \
-                           (GaussianKernel[1, 2] * image[i, j + 1]) + \
-                           (GaussianKernel[2, 0] * image[i + 1, j - 1]) + \
-                           (GaussianKernel[2, 1] * image[i + 1, j]) + \
-                           (GaussianKernel[2, 2] * image[i + 1, j + 1])
-            newImg[i - 1, j - 1] = abs(gaussianGrad)
-
+    newImg = ndimage.convolve(newImg, GaussianKernel)
     return newImg
 
 
@@ -158,39 +146,11 @@ def sobel(image):
     newHorizontalImage = np.zeros((h, w))
     newVerticalImage = np.zeros((h, w))
     newGradientImage = np.zeros((h, w))
-
-    # offset by 1
-    for i in range(1, h - 1):
-        for j in range(1, w - 1):
-            horizontalGrad = (horizontal[0, 0] * image[i - 1, j - 1]) + \
-                             (horizontal[0, 1] * image[i - 1, j]) + \
-                             (horizontal[0, 2] * image[i - 1, j + 1]) + \
-                             (horizontal[1, 0] * image[i, j - 1]) + \
-                             (horizontal[1, 1] * image[i, j]) + \
-                             (horizontal[1, 2] * image[i, j + 1]) + \
-                             (horizontal[2, 0] * image[i + 1, j - 1]) + \
-                             (horizontal[2, 1] * image[i + 1, j]) + \
-                             (horizontal[2, 2] * image[i + 1, j + 1])
-
-            newHorizontalImage[i - 1, j - 1] = abs(horizontalGrad)
-
-            verticalGrad = (vertical[0, 0] * image[i - 1, j - 1]) + \
-                           (vertical[0, 1] * image[i - 1, j]) + \
-                           (vertical[0, 2] * image[i - 1, j + 1]) + \
-                           (vertical[1, 0] * image[i, j - 1]) + \
-                           (vertical[1, 1] * image[i, j]) + \
-                           (vertical[1, 2] * image[i, j + 1]) + \
-                           (vertical[2, 0] * image[i + 1, j - 1]) + \
-                           (vertical[2, 1] * image[i + 1, j]) + \
-                           (vertical[2, 2] * image[i + 1, j + 1])
-
-            newVerticalImage[i - 1, j - 1] = abs(verticalGrad)
-
-            # Edge Magnitude
-            mag = np.sqrt(pow(horizontalGrad, 2.0) + pow(verticalGrad, 2.0))
-            newGradientImage[i - 1, j - 1] = mag
-
-    return newGradientImage
+    newVerticalImage2 = np.square(newVerticalImage2)
+    newHorizontalImage2 = np.square(newHorizontalImage2)
+    newSum = newHorizontalImage2 + newVerticalImage2
+    newSum = np.sqrt(newSum)
+    return newSum
 
 
 def hysteresis(sobel_image, th_lo, th_hi, initial=False):
@@ -381,4 +341,3 @@ def main():
 if __name__ == '__main__':
 
     main()
-
