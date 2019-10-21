@@ -37,6 +37,7 @@ for file in files:
     t1 = time.time()
     NewImage2 = ndimage.convolve(img, GaussianKernel)
     t2 = time.time()
+    print(NewImage == NewImage2)
     t_classic += t1-t0
     t_new += t2-t1 + t5-t4
     print("CLASSIC METHOD: ", t1-t0)

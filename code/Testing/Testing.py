@@ -137,7 +137,7 @@ for file in files:
             mag = np.sqrt(pow(overlapGrad, 2.0) + pow(negOverlapGrad, 2.0))
             newGradientImage2[i - 1, j - 1] = mag
     plt.imsave('C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\Sobel_foto.jpg', newGradientImage, cmap='gray', format='jpg')
-
+    print(False in newGradientImage2 == newSum)
     if activateCheckpoints:
         print("Checkpoint 4")
     t7 = time.time()
