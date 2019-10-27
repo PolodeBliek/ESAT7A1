@@ -1,6 +1,6 @@
-#import cv2
-#from pykinect2 import PyKinectV2
-#from pykinect2 import PyKinectRuntime
+import cv2
+from pykinect2 import PyKinectV2
+from pykinect2 import PyKinectRuntime
 
 import numpy as np
 from statistics import mean
@@ -9,20 +9,27 @@ import os
 import matplotlib.pyplot as plt
 from scipy import ndimage
 import time
+import pickle
+from sklearn.cluster import DBSCAN
+
+import ntpath
 
 #Test Variables
-timed               = False
-kinectFreeTesting   = True
-printing            = False
-show                = False
-gauss_repetitions   = 1
-grayscale_save      = False
-gauss_save          = False
-sobel_save          = False
-hysteresis_save     = False
-detect              = True
-currentDir          = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "")
-
+timed                  = True
+kinectFreeTesting      = False
+printing               = True
+show                   = False
+gauss_repetitions      = 1
+low_threshold          = 40  # hysteresis
+high_threshold         = 60  # hysteresis
+grayscale_save         = True
+gauss_save             = True
+sobel_save             = True
+hysteresis_save        = True
+detection_matrix_save   = True
+detect                 = False
+currentDir             = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "")
+print(currentDir)
 
 if timed:
     time_gem_kleur  = 0
@@ -34,7 +41,6 @@ if timed:
     time_Gaussian   = 0
     time_Hysteris   = 0
     time_processing = 0
-
 
 
 ###### HULPFUNCTIES #######
@@ -78,18 +84,11 @@ def reconvert_to_img(hyst_array, height, width, name_image):
     reconverted_array = np.reshape(arary_Bool2Num, (height, width))
     reconverted_image = reconverted_array.astype(np.uint8)  # the values need to be uint8 types
 
-    # save and show the image
-    # plt.figure()
-    # plt.title('Processed image')
-    # plt.imsave('../processed_images/' + name_image[:-4] + '_processed.png', reconverted_image, cmap='gray', format='png')
-    # plt.imshow(reconverted_image, cmap='gray')
-    #
-    # plt.show()
     if timed:
         t1 = time.time()
         global time_reconvert
         time_reconvert = t1 - t0
-    return reconverted_array
+    return reconverted_image
 
 
 def make_detection_matrix(hyst_array, h, w):
@@ -117,6 +116,7 @@ def kinect_to_pc(width, height, dimension):
     kinect = PyKinectRuntime.PyKinectRuntime(PyKinectV2.FrameSourceTypes_Color)
     if printing:
         print("connected to kinect")
+
     noPicture = True
 
     color_flipped = None  # give them a default value
@@ -131,7 +131,7 @@ def kinect_to_pc(width, height, dimension):
             color_frame = cv2.cvtColor(color_frame, cv2.COLOR_BGRA2BGR)
             color_flipped = cv2.flip(color_frame, 1)
 
-            cv2.imwrite("../input_images/KinectPicture.png", color_flipped)  # Save
+            cv2.imwrite(currentDir + "KinectColorPicture.png", color_flipped)  # Save
 
     depth_image_size = (424, 512)
 
@@ -147,12 +147,14 @@ def kinect_to_pc(width, height, dimension):
             depth_frame = depth_frame * (256.0 / np.amax(depth_frame))
             colorized_frame = cv2.applyColorMap(np.uint8(depth_frame), cv2.COLORMAP_JET)
         #cv2.imshow('depth', colorized_frame)
-            cv2.imwrite("../input_images/kinectDepthPicture.png", colorized_frame)  # Save
+            cv2.imwrite(currentDir + "KinectDepthPicture.png", colorized_frame)  # Save
+
     if printing:
         print("pictures taken")
     if timed:
         t1 = time.time()
         print("kinect_to_pc", t1-t0)
+
     return color_flipped, colorized_frame
 
 
@@ -160,32 +162,39 @@ def kinect_to_pc(width, height, dimension):
 def grayscale(image):
     if timed:
         t0 = time.time()
-    Image = (0.3 * image[:, :, 0] + 0.59 * image[:, :, 1] + 0.11 * image[:, :, 2]).astype(np.uint8)
+
+    gray_image = (0.3 * image[:, :, 0] + 0.59 * image[:, :, 1] + 0.11 * image[:, :, 2]).astype(np.uint8)
+
     if timed:
         t1 = time.time()
         global time_grayscale
         time_grayscale = t1 - t0
-    return Image
+
+    return gray_image
 
 
-def gaussian_blur(image):
+def gaussian_blur(image, reps):
     if timed:
         t0 = time.time()
-    h, w = image.shape
-    GaussianKernel = np.array([[1 / 16, 1 / 8, 1 / 16], [1 / 8, 1 / 4, 1 / 8], [1 / 16, 1 / 8, 1 / 16]])
-    newImg = ndimage.convolve(image, GaussianKernel)
+
+    if reps != 0:
+        GaussianKernel = np.array([[1 / 16, 1 / 8, 1 / 16], [1 / 8, 1 / 4, 1 / 8], [1 / 16, 1 / 8, 1 / 16]])
+        for i in range(reps):
+            image = ndimage.convolve(image, GaussianKernel)
+
     if timed:
         t1 = time.time()
         global time_Gaussian
         time_Gaussian = t1 - t0
-    return newImg
+
+    return image
 
 
 def sobel(image):
     if timed:
         t0 = time.time()
-    # get dimensions
-    h, w = image.shape
+
+    image = image.astype(np.int32)  # heel belangrijk, anders doet convolve vreemde dingen
     # define filters
     horizontal = np.array([[-1, 0, 1], [-2, 0, 2], [-1, 0, 1]])  # s2
     vertical = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])  # s1
@@ -195,18 +204,28 @@ def sobel(image):
     newVerticalImage = ndimage.convolve(image, vertical)
     newVerticalImage = np.square(newVerticalImage)
     newHorizontalImage = np.square(newHorizontalImage)
-    newSum = newHorizontalImage + newVerticalImage
-    newSum = np.sqrt(newSum)
+
+    gradient = newHorizontalImage + newVerticalImage
+    gradient = np.sqrt(gradient)
+
+    max_grads = list(map(max, gradient))
+    max_grad = max(max_grads)
+    print(f"max grad is {max_grad}")
+    # gradient *= 255/max_grad
+
+    gradient = gradient.astype(np.uint8)  # reconvert range to (0, 255)
+
     if timed:
         t1 = time.time()
         global time_sobel
         time_sobel = t1 - t0
-    return newSum
+
+    # get the max value of gradient, just for testing
+
+    return gradient
 
 
-def hysteresis(sobel_image, th_lo, th_hi, initial = False):
-    if timed:
-        t0 = time.time()
+def hysteresis(sobel_image, th_lo, th_hi, initial=False):
     """
     x : Numpy Array
         Series to apply hysteresis to.
@@ -215,6 +234,8 @@ def hysteresis(sobel_image, th_lo, th_hi, initial = False):
     th_hi : float or int
         Above this threshold the value of hyst will be True (1).
     """
+    if timed:
+        t0 = time.time()
 
     # convert the image to an array
     # x = np.array(gem_kleur_van_pixels(sobel_image))  # enkel als ge het met een opgeslagen afbeelding moet doen
@@ -239,6 +260,7 @@ def hysteresis(sobel_image, th_lo, th_hi, initial = False):
 
     if rev:
         x_hyst = x_hyst[::-1]
+
     if timed:
         t1 = time.time()
         global time_Hysteris
@@ -252,153 +274,83 @@ def process_image(image):
         t0 = time.time()
     if printing:
         print("start image processing")
+
     # if the image doesn't come straight from the Kinect, but is a selected picture, open the selected picture
-    if isinstance(image, str):
-        name_image = image  # 'image' is a string
-        image_path = currentDir + "\\testImages\\" + image
-        image = np.array(Image.open(image_path))  # .astype(np.uint8)
+    if isinstance(image, str):  # 'image' is an absolute path
+        name_image = ntpath.basename(image)
+        image = np.array(Image.open(image))  # .astype(np.uint8)
     else:
-        name_image = "KinectPicture"
-    global gauss_repetitions, gauss_save, grayscale_save, sobel_save, hysteresis_save
-    # constants
-    low_threshold, high_threshold = 10, 27  # the thresholds for hysteresis
+        name_image = "KinectColorPicture"
+
+    global gauss_repetitions, low_threshold, high_threshold, gauss_save, grayscale_save, sobel_save, hysteresis_save, \
+        detetion_matrix_save, currentDir
+
     h, w, d = image.shape  # the height, width and depth of the image
     if printing:
-        print(h,w)
+        print("image.shape = ", h, w)
 
     # image processing/filtering process
-    gray_image = grayscale(image)                                               #153
+    gray_image = grayscale(image)                                               #162
     if grayscale_save:
         plt.imsave(currentDir + 'Gray.jpg', gray_image, cmap='gray', format='jpg')
-    for i in range(gauss_repetitions):
-        blurred_image = gaussian_blur(gray_image)                               #163
+    blurred_image = gaussian_blur(gray_image, gauss_repetitions)                #176
     if gauss_save:
         plt.imsave(currentDir + 'Gauss.jpg', blurred_image, cmap='gray', format='jpg')
-    sobel_image = sobel(blurred_image)                                          #176
+    sobel_image = sobel(blurred_image)                                          #193
     if sobel_save:
         plt.imsave(currentDir + 'Sobel.jpg', sobel_image, cmap='gray', format='jpg')
-    hyst_image = hysteresis(sobel_image, low_threshold, high_threshold)         #200
-    reconvert_to_img(hyst_image, h, w, name_image)                              #050 , if you want to save the image (as e.g. a .png)
+    hyst_array = hysteresis(sobel_image, low_threshold, high_threshold)         #228
+    hyst_image = reconvert_to_img(hyst_array, h, w, name_image)                 #076
     if hysteresis_save:
-        plt.imsave(currentDir + 'Hyst.jpg', hyst_image, cmap='RGB', format='jpg')
-    tbReturned = make_detection_matrix(hyst_image, h, w)                        #081
+        plt.imsave(currentDir + 'Hyst.jpg', hyst_image, cmap='gray', format='jpg')
+    detection_matrix = make_detection_matrix(hyst_array, h, w)                        #094
+    # detection_matrix = ndimage.binary_fill_holes(detection_matrix)  # gaten vullen, mocht je willen
+    if detection_matrix_save:
+        pickle.dump(detection_matrix, open(currentDir + "DetectionMatrix.pkl", "wb"))
     if timed:
         t1 = time.time()
         global time_processing
         time_processing = t1 - t0
-    return tbReturned
+    return detection_matrix
 
 
 ####### DETECTING OBJECTS #######
-# TODO: find a better way to substract the colliding pixels from the same objects from the total count
+def matrix_to_coordinates(matrix):
+    nb_rows, nb_columns = matrix.shape
+    d = []
+    for row in range(nb_rows):
+        for column in range(nb_columns):
+            if matrix[row][column] == 1:
+                d.extend(np.array([[row, column]]))
 
-def get_label(matrix, row, column):
-    """
-    :return: the value of the element located at the given row and given column.
-    """
-    return matrix[row][column]
-
-
-def get_label_left(matrix, row, column):
-    """
-    :return: the value of the element left of the element located at the given row and the given column.
-    """
-    return matrix[row][column - 1]
+    return d
 
 
-def get_label_above(matrix, row, column):
-    """
-    :return: the value of the element above of the element located at the given row and the given column.
-    """
-    return matrix[row - 1][column]
-
-
-def label_is_one(matrix, row, column):
-    """
-    :return: true if the element at the given row and given column has a value of 1.
-    """
-    return matrix[row][column] == 1
-
-
-def is_labeled(matrix, row, column):
-    """
-    :return: true if the element at the given row and given column has a value different from 0.
-            Meaning the element is a pixel as part of an object.
-    """
-    return matrix[row][column] != 0
-
-
-def is_connected(matrix, row, column):
-    """
-    :return: true if the element at the given row and the given column is next to or under
-                an element that is not zero
-    """
-    if row == 0 and column == 0:
-        return False
-    if column == 0:
-        return is_labeled(matrix, row - 1, column)
-    if row == 0:
-        return is_labeled(matrix, row, column - 1)
-    else:
-        return (is_labeled(matrix, row, column-1)) or (is_labeled(matrix, row-1, column))
-
-
-def solve_collision_detection(matrix, lowest_label, highest_label):
-    """
-    :param lowest_label:
-    :param highest_label:
-    :return: a matrix where the elements with a value equal to the given highest_label are replaced by
-            elements with a value equal to the given lowest_label
-    """
-    nb_rows = len(matrix)
-    for i in range(nb_rows):
-        for (e, element) in enumerate(matrix[i]):
-            if element == highest_label:
-                matrix[i][e] = lowest_label
-                # print(matrix[i])
-
-
-# TODO: Divide this function into two !!!
-def get_lowest_adjacent_label(matrix, row, column, nb_object_collision):
-    """
-    :return: the lowest value of the adjacent labels.
-    """
-    label_left = get_label_left(matrix, row, column)
-    label_above = get_label_above(matrix, row, column)
-    if row == 0 or label_above == 0:
-        return label_left
-    if column == 0 or label_left == 0:
-        return label_above
-    if label_above != label_left:
-        solve_collision_detection(matrix, min(label_left, label_above), max(label_left, label_above))
-        nb_object_collision.append(1)
-    return min(label_left, label_above)
+def plot_image(d, matrix, db):
+    for i in range(len(d)):
+        row = d[i][0]
+        column = d[i][1]
+        matrix[row][column] = db.labels_[i]
+    plt.imshow(matrix)
+    plt.show()
 
 
 # start the object detection loop
 def detect_objects(matrix):
     t0 = time.time()
-    # print("object detecting started")
-    nb_rows, nb_columns = len(matrix), len(matrix[0])
-    nb_object_collision = []
-    if printing:
-        print("nb_rows, nb_columns =", nb_rows, nb_columns)
-    counter = 0
-    for row in range(nb_rows):
-        for column in range(nb_columns):
-            if matrix[row][column]:
-                if is_connected(matrix, row, column):
-                    matrix[row][column] = get_lowest_adjacent_label(matrix, row, column, nb_object_collision)
-                else:
-                    matrix[row][column] = counter + 1
-                    counter += 1
-    counter2 = 0
-    print("Counter:     ", counter)
-    flattened_matrix = flatten_matrix(matrix)
-    print("Max found:   ", max(flattened_matrix))
+
+    image = Image.fromarray(matrix)
+    image = image.resize(size=(int(len(matrix) / 2), int(len(matrix[0]) / 2)))
+    matrix = np.array(image)
+
+    d = matrix_to_coordinates(matrix)
+    db = DBSCAN(eps=3, min_samples=5).fit(d)
+
     t1 = time.time()
+
+    # plot_image(d, matrix, db)
     if printing:
-        print("Number of objects: ", counter - len(nb_object_collision))
+        print("NUMBER OF OBJECTS:", max(db.labels_))
         print("Detect Objects:      ", t1-t0)
 
 
@@ -409,14 +361,14 @@ def main():
     if kinectFreeTesting:
         color_image = "1_rechthoeken.png"
     else:
-        color_image, depth_image = kinect_to_pc(1080, 1920, 4)
+        color_image, depth_image = kinect_to_pc(1080, 1920, 4)  #110
     # 2) start the image processing
-    matrix = process_image(color_image) #241
+    matrix = process_image(color_image)  #272
 
     t1 = time.time()
     # 3) start looking for objects
     if detect:
-        detect_objects(matrix)
+        detect_objects(matrix)  #339
     t2 = time.time()
     if timed:
         print("PROCESSING:              ", time_processing)
