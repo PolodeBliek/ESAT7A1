@@ -1,0 +1,71 @@
+PWD C:/Users/Polo/Documents/GitHub/ESAT7A1
+INPUT C:/Users/Polo/AppData/Local/MiKTeX/2.9/miktex/data/le/pdftex/pdflatex.fmt
+INPUT convolution.tex
+OUTPUT convolution.log
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/article.cls
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/article.cls
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/size10.clo
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/base/size10.clo
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsmath.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsmath.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amstext.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amstext.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsgen.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsgen.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsbsy.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsbsy.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsopn.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/amsmath/amsopn.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/soul/soul.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/soul/soul.sty
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/jknappen/ec/ectt1000.tfm
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/graphics.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/graphics.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/trig.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/trig.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics-cfg/graphics.cfg
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics-cfg/graphics.cfg
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics-def/pdftex.def
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics-def/pdftex.def
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/infwarerr.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/infwarerr.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/ltxcmds.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/ltxcmds.sty
+INPUT convolution.aux
+INPUT convolution.aux
+OUTPUT convolution.aux
+INPUT C:/Program Files/MiKTeX 2.9/tex/context/base/supp-pdf.mkii
+INPUT C:/Program Files/MiKTeX 2.9/tex/context/base/supp-pdf.mkii
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/pdftexcmds.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/pdftexcmds.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/ifluatex.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/ifluatex.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/ifpdf.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/ifpdf.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/oberdiek/epstopdf-base.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/oberdiek/epstopdf-base.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/oberdiek/grfext.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/oberdiek/grfext.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/kvdefinekeys.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/kvdefinekeys.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/oberdiek/kvoptions.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/oberdiek/kvoptions.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/keyval.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/latex/graphics/keyval.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/kvsetkeys.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/kvsetkeys.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/etexcmds.sty
+INPUT C:/Program Files/MiKTeX 2.9/tex/generic/oberdiek/etexcmds.sty
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT C:/Program Files/MiKTeX 2.9/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+OUTPUT convolution.pdf
+INPUT C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map
+INPUT convolution.aux
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb
+INPUT C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr7.pfb

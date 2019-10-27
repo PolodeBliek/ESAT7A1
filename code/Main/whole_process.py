@@ -11,7 +11,7 @@ from scipy import ndimage
 import time
 
 #Test Variables
-timed               = True
+timed               = False
 kinectFreeTesting   = True
 printing            = False
 show                = False
@@ -20,7 +20,8 @@ grayscale_save      = False
 gauss_save          = False
 sobel_save          = False
 hysteresis_save     = False
-detect              = False
+detect              = True
+currentDir          = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "")
 
 
 if timed:
@@ -254,7 +255,8 @@ def process_image(image):
     # if the image doesn't come straight from the Kinect, but is a selected picture, open the selected picture
     if isinstance(image, str):
         name_image = image  # 'image' is a string
-        image = np.array(Image.open("C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\testImages\\" + image))  # .astype(np.uint8)
+        image_path = currentDir + "\\testImages\\" + image
+        image = np.array(Image.open(image_path))  # .astype(np.uint8)
     else:
         name_image = "KinectPicture"
     global gauss_repetitions, gauss_save, grayscale_save, sobel_save, hysteresis_save
@@ -267,18 +269,18 @@ def process_image(image):
     # image processing/filtering process
     gray_image = grayscale(image)                                               #153
     if grayscale_save:
-        plt.imsave('C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\Gray.jpg', gray_image, cmap='gray', format='jpg')
+        plt.imsave(currentDir + 'Gray.jpg', gray_image, cmap='gray', format='jpg')
     for i in range(gauss_repetitions):
         blurred_image = gaussian_blur(gray_image)                               #163
     if gauss_save:
-        plt.imsave('C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\Gauss.jpg', blurred_image, cmap='gray', format='jpg')
+        plt.imsave(currentDir + 'Gauss.jpg', blurred_image, cmap='gray', format='jpg')
     sobel_image = sobel(blurred_image)                                          #176
     if sobel_save:
-        plt.imsave('C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\Sobel.jpg', sobel_image, cmap='gray', format='jpg')
+        plt.imsave(currentDir + 'Sobel.jpg', sobel_image, cmap='gray', format='jpg')
     hyst_image = hysteresis(sobel_image, low_threshold, high_threshold)         #200
     reconvert_to_img(hyst_image, h, w, name_image)                              #050 , if you want to save the image (as e.g. a .png)
     if hysteresis_save:
-        plt.imsave('C:\\Users\\Polo\\Documents\\GitHub\\ESAT7A1\\Hyst.jpg', hyst_image, cmap='RGB', format='jpg')
+        plt.imsave(currentDir + 'Hyst.jpg', hyst_image, cmap='RGB', format='jpg')
     tbReturned = make_detection_matrix(hyst_image, h, w)                        #081
     if timed:
         t1 = time.time()
@@ -315,7 +317,7 @@ def label_is_one(matrix, row, column):
     """
     :return: true if the element at the given row and given column has a value of 1.
     """
-    return get_label(matrix, row, column) == 1
+    return matrix[row][column] == 1
 
 
 def is_labeled(matrix, row, column):
@@ -323,7 +325,7 @@ def is_labeled(matrix, row, column):
     :return: true if the element at the given row and given column has a value different from 0.
             Meaning the element is a pixel as part of an object.
     """
-    return get_label(matrix, row, column) != 0
+    return matrix[row][column] != 0
 
 
 def is_connected(matrix, row, column):
@@ -384,12 +386,16 @@ def detect_objects(matrix):
     counter = 0
     for row in range(nb_rows):
         for column in range(nb_columns):
-            if label_is_one(matrix, row, column):
+            if matrix[row][column]:
                 if is_connected(matrix, row, column):
                     matrix[row][column] = get_lowest_adjacent_label(matrix, row, column, nb_object_collision)
                 else:
                     matrix[row][column] = counter + 1
                     counter += 1
+    counter2 = 0
+    print("Counter:     ", counter)
+    flattened_matrix = flatten_matrix(matrix)
+    print("Max found:   ", max(flattened_matrix))
     t1 = time.time()
     if printing:
         print("Number of objects: ", counter - len(nb_object_collision))
@@ -401,7 +407,7 @@ def main():
     t0 = time.time()
     # 1) take a picture
     if kinectFreeTesting:
-        color_image = "HighRes.jpg"
+        color_image = "1_rechthoeken.png"
     else:
         color_image, depth_image = kinect_to_pc(1080, 1920, 4)
     # 2) start the image processing
