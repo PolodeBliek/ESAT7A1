@@ -171,8 +171,8 @@ class ScanScreen(tk.Frame):
         detect_objects(matrix)
 
     def run_on_new_picture(self):
-        picture = kinect_to_pc(1080, 1920, 4)
-        matrix = process_image(picture)
+        colorPicture, depthPicture = kinect_to_pc(1080, 1920, 4)
+        matrix = process_image(colorPicture)
         detect_objects(matrix)
 
 
