@@ -5,14 +5,14 @@ from tkinter import messagebox
 from tkinter import filedialog
 import ntpath
 
-import os
-currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\GUI", "")
+from Main.whole_process import process_image
+from Main.whole_process import detect_objects
+from Main.whole_process import kinect_to_pc
 
-# current procedure for importing 'random' file (whole_process in this case)
-import importlib.util
-spec = importlib.util.spec_from_file_location("module.name", currentDir + "code\\Main\\whole_process.py")
-whole_process = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(whole_process)
+# import os
+# currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\GUI", "")
+# print(currentDir)
+
 
 LARGE_FONT, LARGER_FONT = ("Verdana", 12), ("Verdana", 18)
 
@@ -117,7 +117,7 @@ class ScanScreen(tk.Frame):
         scan_button = tk.Button(self, text="Take new picture", relief="groove", borderwidth=2, font=LARGER_FONT)
                                 # command=lambda: messagebox.showinfo(None, "Coming soon..."))
         scan_button.grid(row=1, column=0, sticky="news", padx=20)
-        scan_button.bind("<Button-1>", lambda e: whole_process.main())
+        scan_button.bind("<Button-1>", lambda e: self.run_on_new_picture())
 
         # existing picture button
         selected_img_button = tk.Button(self, text="Select existing picture", font=LARGER_FONT, relief="groove", borderwidth=2)
@@ -167,8 +167,13 @@ class ScanScreen(tk.Frame):
     def run_on_selected_img(self):
         img_path = self.get_filepath()
         # img_name = ntpath.basename(img_path)
-        matrix = whole_process.process_image(img_path)
-        whole_process.detect_objects(matrix)
+        matrix = process_image(img_path)
+        detect_objects(matrix)
+
+    def run_on_new_picture(self):
+        picture = kinect_to_pc(1080, 1920, 4)
+        matrix = process_image(picture)
+        detect_objects(matrix)
 
 
 class CreditsScreen(tk.Frame):
