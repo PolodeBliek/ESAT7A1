@@ -1,3 +1,5 @@
+# checkboxes not activated yet
+
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import filedialog
@@ -6,7 +8,7 @@ import ntpath
 import os
 currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\GUI", "")
 
-# current procedure for importing 'random' file (whole_process in this instant)
+# current procedure for importing 'random' file (whole_process in this case)
 import importlib.util
 spec = importlib.util.spec_from_file_location("module.name", currentDir + "code\\Main\\whole_process.py")
 whole_process = importlib.util.module_from_spec(spec)
@@ -19,7 +21,7 @@ class GUIVision(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)  # does the same as 'tk.Tk.__init__(self, *args, **kwargs)'
-        self.title("ESAT7A1 - Automatic counting of objects in an image")
+        self.title("BROPAS")
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         self.geometry("500x300")  # start dimensions
