@@ -1,6 +1,3 @@
-import matplotlib
-from matplotlib.pyplot import text
-
 """
 binnnekrijgten:
 
@@ -9,10 +6,19 @@ binnnekrijgten:
 
 - meest linkse pixel(coo)
 """
+
+from PIL import Image, ImageDraw, ImageFont
+from math import *
+
+im = Image.open("kinectfoto.png")
+draw = ImageDraw.Draw(im)
+
+pixel1 = (377,277)
+pixel2 = (610,160)
+
 def distance_between_pixels_in_pixels(pixel1,pixel2):
     x_distance = abs(pixel2[0]-pixel1[0])
     y_distance = abs(pixel2[1]-pixel1[1])
-
 
     direct_distance = sqrt(x_distance^2 + y_distance^2)
     return direct_distance
@@ -20,11 +26,7 @@ def distance_between_pixels_in_pixels(pixel1,pixel2):
 def pixel_length_to_real_length(pixellenght):
 #1 cm int echt is 100?? pixels op de foto(!! op 1,5m hoog)
 
-    return format(pixellenght/100 ,"12.1f") #afronding van echte
-
-
-def line_between_outer_points(outer_point1,outer_point2):
-    return plt.plot(outer_point1, outer_point2, 'ro-')
+    return format(pixellenght/15.5 ,"12.1f") #afronding van echte
 
 def midden_lijn(pixel1,pixel2):
     x_midden = (pixel1[0]+pixel2[0])/2
@@ -32,19 +34,13 @@ def midden_lijn(pixel1,pixel2):
 
     return x_midden,y_midden
 
-def afstand_aan_lijn_plaatsen(pixel1,pixel2):
-    text(midden_lijn(pixel1,pixel2)[0],midden_lijn(pixel1,pixel2)[1], str(pixel_length_to_real_length(direct_distance)), rotation=0, verticalalignment='center')
+fnt = ImageFont.truetype("arial.ttf", 30)
 
-from PIL import Image, ImageDraw
-im = Image.open("grid.png")
-d = Image.Draw.Draw(im)
+draw.line([pixel1,pixel2], fill = (0,0,225),width = 5)
 
-top = (150,50)
-left = (100,125)
-right = (200,125)
+draw.text((midden_lijn(pixel1,pixel2)[0],midden_lijn(pixel1,pixel2)[1]),
+          str(pixel_length_to_real_length(distance_between_pixels_in_pixels(pixel1,pixel2))),
+          font =  fnt,fill = (0,0,0))
 
-line_color = (0,0,225)
+im.show()
 
-d.line([top,left,right,top], fill = line_color,width = 2)
-
-im.save("drawn_grid.png")
