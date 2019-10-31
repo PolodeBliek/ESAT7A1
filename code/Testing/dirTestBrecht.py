@@ -1,5 +1,5 @@
 """
-binnnekrijgten:
+binnnekrijgen:
 
 - bovenpixel met (x-coo, y-coo)
 - onderpixel '''
