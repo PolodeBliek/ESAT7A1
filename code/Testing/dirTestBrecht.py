@@ -2,7 +2,7 @@ import matplotlib
 from matplotlib.pyplot import text
 
 """
-binnnekrijgten:
+binnnekrijgen:
 
 - bovenpixel met (x-coo, y-coo)
 - onderpixel '''
