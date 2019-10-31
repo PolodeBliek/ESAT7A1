@@ -1,16 +1,11 @@
-"""
-binnnekrijgen:
-
-- bovenpixel met (x-coo, y-coo)
-- onderpixel '''
-
-- meest linkse pixel(coo)
-"""
+import os
 
 from PIL import Image, ImageDraw, ImageFont
 from math import *
 
-im = Image.open("kinectfoto.png")
+currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "")
+im = Image.open(currentDir + "testImages\\kinectfoto.png")
+
 draw = ImageDraw.Draw(im)
 
 pixel1 = (377,277)
