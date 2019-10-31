@@ -44,6 +44,10 @@ if timed:
 
 
 ###### HULPFUNCTIES #######
+def get_globals():
+    return globals()
+
+
 def gem_kleur_van_pixels(picture):
     if timed:
         t0 = time.time()

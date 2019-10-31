@@ -1,4 +1,4 @@
-# checkboxes not activated yet
+# not new layout, just to test nb_gauss
 
 import tkinter as tk
 from tkinter import messagebox
@@ -9,6 +9,7 @@ from Main.whole_process import process_image
 from Main.whole_process import detect_objects
 from Main.whole_process import kinect_to_pc
 from Main.whole_process import get_globals
+import Main.whole_process as wp
 
 # import os
 # currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\GUI", "")
@@ -90,7 +91,9 @@ class ScanScreen(tk.Frame):
 
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.columnconfigure(0, weight=1)
+        self.columnconfigure(0, weight=2)
+        self.columnconfigure(1, weight=1)
+        self.columnconfigure(2, weight=1)
 
         self.constants = self.get_constants()
 
@@ -101,7 +104,7 @@ class ScanScreen(tk.Frame):
 
         # menuFrame is the frame that contains the title and 'back' button
         menuFrame = tk.Frame(self)
-        menuFrame.grid(padx=10, pady=10, row=0, column=0, sticky="new")
+        menuFrame.grid(padx=10, pady=10, row=0, column=0, sticky="new", columnspan=3)
         menuFrame.columnconfigure(0, weight=1)
 
         # title label:
@@ -119,31 +122,40 @@ class ScanScreen(tk.Frame):
         # new picture button:
         scan_button = tk.Button(self, text="Take new picture", relief="groove", borderwidth=2, font=LARGER_FONT,
                                 command=lambda: self.run_on_new_picture())
-        scan_button.grid(row=1, column=0, sticky="news", padx=20)
+        scan_button.grid(row=1, column=0, sticky="news", rowspan=2, padx=10)
 
         # existing picture button
         selected_img_button = tk.Button(self, text="Select existing picture", font=LARGER_FONT, relief="groove",
                                         borderwidth=2, command=lambda: self.run_on_selected_img())
-        selected_img_button.grid(row=2, column=0, sticky="news", padx=20, pady=5)
-
-        # checkboxes for showing results:
-        checkboxFrame = tk.Frame(self)
-        checkboxFrame.grid(row=3, column=0, sticky="news", padx=60, pady=5)
-        checkboxFrame.columnconfigure(0, weight=1)
-        checkboxFrame.columnconfigure(1, weight=1)
+        selected_img_button.grid(row=3, column=0, sticky="news", rowspan=2, padx=10)
 
         # checkbox for 'show steps'
         self.show_steps_bool = tk.IntVar()
-        checkbox = tk.Checkbutton(checkboxFrame, variable=self.show_steps_bool, text="Show steps", font=LARGE_FONT,
+        checkbox = tk.Checkbutton(self, variable=self.show_steps_bool, text="Show steps", font=LARGE_FONT,
                                   relief="groove", borderwidth=2, command=lambda: self.show_steps())
         checkbox.select()  # set 'selected' as default state
-        checkbox.grid(row=0, column=0, sticky="news")
+        checkbox.grid(row=1, column=2, sticky="news", padx=10)
 
+        # checkbox for 'show result'
         self.show_results_bool = tk.IntVar()
-        checkbox = tk.Checkbutton(checkboxFrame, variable=self.show_results_bool, text="Show results", font=LARGE_FONT,
+        checkbox = tk.Checkbutton(self, variable=self.show_results_bool, text="Show results", font=LARGE_FONT,
                                   relief="groove", borderwidth=2, command=lambda: self.show_results())
         checkbox.select()  # set 'selected' as default state
-        checkbox.grid(row=0, column=1, sticky="news")
+        checkbox.grid(row=2, column=2, sticky="news", padx=10)
+
+        # selection menu for gauss_reps
+        gaussFrame = tk.Frame(self)
+        gaussFrame.grid(row=3, column=2, sticky="news", padx=10)
+        gaussFrame.columnconfigure(0, weight=1)
+
+        gauss_label = tk.Label(gaussFrame, text="Gauss reps:")
+        gauss_label.grid(row=0, column=0)
+
+        self.gauss_reps = tk.IntVar(self)
+        self.gauss_reps.set(1)  # default value
+        self.gauss_reps.trace("w", self.change_gauss_reps)
+        gauss_selection = tk.OptionMenu(gaussFrame, self.gauss_reps, *list(range(11)))
+        gauss_selection.grid(row=0, column=1, sticky="news")
 
     def get_constants(self):
         constants = get_globals()
@@ -181,6 +193,10 @@ class ScanScreen(tk.Frame):
         else:
             print("show results deactivated")
             # whole_process.show_results = False
+
+    def change_gauss_reps(self, *args):
+        print("gauss_reps =", self.gauss_reps.get())
+        self.constants["gauss_repetitions"] = self.gauss_reps.get()
 
 
 class CreditsScreen(tk.Frame):
