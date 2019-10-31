@@ -13,8 +13,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/Main/whole_process.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="137" column="77" selection-start-line="137" selection-start-column="12" selection-end-line="137" selection-end-column="77" />
+            <state relative-caret-position="204">
+              <caret line="146" column="56" selection-start-line="146" selection-start-column="56" selection-end-line="146" selection-end-column="56" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <element signature="e#855#1066#0" />
@@ -30,7 +30,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/GUI/GUI.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-84">
+            <state relative-caret-position="-1003">
               <caret line="4" column="30" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
               <folding>
                 <element signature="e#647#1653#0" />
@@ -58,16 +58,28 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/GUI/Take_pictures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="-34">
+              <caret line="22" column="27" lean-forward="true" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
               <folding>
-                <element signature="e#0#20#0" expanded="true" />
-                <element signature="e#300#963#0" />
-                <element signature="e#1210#1344#0" />
-                <element signature="e#1412#1963#0" />
+                <element signature="e#195#215#0" expanded="true" />
               </folding>
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testImages/kinectColorKinectColorPicture4.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testImages/kinectDepthKinectDepthPicture10.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/testImages/kinectDepthKinectDepthPicture12.png">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
     </leaf>
@@ -92,10 +104,10 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/code/Main/__init__.py" />
-        <option value="$PROJECT_DIR$/code/Main/whole_process.py" />
         <option value="$PROJECT_DIR$/code/GUI/GUI.py" />
-        <option value="$PROJECT_DIR$/code/GUI/Take_pictures.py" />
         <option value="$PROJECT_DIR$/code/GUI/GUI2.py" />
+        <option value="$PROJECT_DIR$/code/Main/whole_process.py" />
+        <option value="$PROJECT_DIR$/code/GUI/Take_pictures.py" />
       </list>
     </option>
   </component>
@@ -121,13 +133,7 @@
             <path>
               <item name="ESAT7A1" type="b2602c69:ProjectViewProjectNode" />
               <item name="ESAT7A1" type="462c0819:PsiDirectoryNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ESAT7A1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ESAT7A1" type="462c0819:PsiDirectoryNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
+              <item name="testImages" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -294,21 +300,6 @@
     <entry file="file://$PROJECT_DIR$/Gauss.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/Main/whole_process.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="137" column="77" selection-start-line="137" selection-start-column="12" selection-end-line="137" selection-end-column="77" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#855#1066#0" />
-            <element signature="e#1136#1612#0" />
-            <element signature="e#1647#1852#0" />
-            <element signature="e#1920#2442#0" />
-            <element signature="e#2494#2829#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -321,9 +312,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Downloads/Python/Python37-32/Lib/tkinter/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="1704" selection-start-line="1704" selection-end-line="1704" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/GUI/GUI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-84">
+        <state relative-caret-position="-1003">
           <caret line="4" column="30" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
           <folding>
             <element signature="e#647#1653#0" />
@@ -333,15 +331,39 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/code/Main/whole_process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="146" column="56" selection-start-line="146" selection-start-column="56" selection-end-line="146" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#855#1066#0" />
+            <element signature="e#1136#1612#0" />
+            <element signature="e#1647#1852#0" />
+            <element signature="e#1920#2442#0" />
+            <element signature="e#2494#2829#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testImages/kinectDepthKinectDepthPicture12.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testImages/kinectDepthKinectDepthPicture11.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testImages/kinectDepthKinectDepthPicture10.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testImages/kinectColorKinectColorPicture4.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/GUI/Take_pictures.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="-34">
+          <caret line="22" column="27" lean-forward="true" selection-start-line="22" selection-start-column="27" selection-end-line="22" selection-end-column="27" />
           <folding>
-            <element signature="e#0#20#0" expanded="true" />
-            <element signature="e#300#963#0" />
-            <element signature="e#1210#1344#0" />
-            <element signature="e#1412#1963#0" />
+            <element signature="e#195#215#0" expanded="true" />
           </folding>
         </state>
       </provider>
