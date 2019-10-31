@@ -1,6 +1,6 @@
-import cv2
-from pykinect2 import PyKinectV2
-from pykinect2 import PyKinectRuntime
+#import cv2
+#from pykinect2 import PyKinectV2
+#from pykinect2 import PyKinectRuntime
 
 import numpy as np
 from statistics import mean
