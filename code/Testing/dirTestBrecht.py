@@ -34,3 +34,17 @@ def midden_lijn(pixel1,pixel2):
 
 def afstand_aan_lijn_plaatsen(pixel1,pixel2):
     text(midden_lijn(pixel1,pixel2)[0],midden_lijn(pixel1,pixel2)[1], str(pixel_length_to_real_length(direct_distance)), rotation=0, verticalalignment='center')
+
+from PIL import Image, ImageDraw
+im = Image.open("grid.png")
+d = Image.Draw.Draw(im)
+
+top = (150,50)
+left = (100,125)
+right = (200,125)
+
+line_color = (0,0,225)
+
+d.line([top,left,right,top], fill = line_color,width = 2)
+
+im.save("drawn_grid.png")
