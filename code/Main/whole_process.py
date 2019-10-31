@@ -44,6 +44,10 @@ if timed:
 
 
 ###### HULPFUNCTIES #######
+def get_globals():
+    return globals()
+
+
 def gem_kleur_van_pixels(picture):
     if timed:
         t0 = time.time()
@@ -146,8 +150,9 @@ def kinect_to_pc(width, height, dimension):
             depth_frame = depth_frame.reshape(depth_image_size)
             depth_frame = depth_frame * (256.0 / np.amax(depth_frame))
             colorized_frame = cv2.applyColorMap(np.uint8(depth_frame), cv2.COLORMAP_JET)
+            flipped = cv2.flip(colorized_frame, 1)
         #cv2.imshow('depth', colorized_frame)
-            cv2.imwrite(currentDir + "KinectDepthPicture.png", colorized_frame)  # Save
+            cv2.imwrite(currentDir + "KinectDepthPicture.png", flipped)  # Save
 
     if printing:
         print("pictures taken")
