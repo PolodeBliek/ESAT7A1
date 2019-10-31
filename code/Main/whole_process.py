@@ -29,7 +29,7 @@ hysteresis_save        = True
 detection_matrix_save   = True
 detect                 = False
 currentDir             = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "")
-print(currentDir)
+# print(currentDir)
 
 if timed:
     time_gem_kleur  = 0
