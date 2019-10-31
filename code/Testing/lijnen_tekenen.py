@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 from math import *
 
 currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "")
-im = Image.open(currentDir + "testImages\\kinectfoto.png")
+im = Image.open(currentDir + "testImages\\kinectColor\\kinectfoto.png")
 
 draw = ImageDraw.Draw(im)
 
@@ -15,13 +15,12 @@ def distance_between_pixels_in_pixels(pixel1,pixel2):
     x_distance = abs(pixel2[0]-pixel1[0])
     y_distance = abs(pixel2[1]-pixel1[1])
 
-    direct_distance = sqrt(x_distance^2 + y_distance^2)
+    direct_distance = sqrt(x_distance**2 + y_distance**2)
+
     return direct_distance
 
 def pixel_length_to_real_length(pixellenght):
-#1 cm int echt is 100?? pixels op de foto(!! op 1,5m hoog)
-
-    return format(pixellenght/15.5 ,"12.1f") #afronding van echte
+    return format(pixellenght/21,"12.1f") #afronding van echte
 
 def midden_lijn(pixel1,pixel2):
     x_midden = (pixel1[0]+pixel2[0])/2
