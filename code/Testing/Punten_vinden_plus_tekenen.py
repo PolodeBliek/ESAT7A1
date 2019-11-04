@@ -66,20 +66,21 @@ def draw_line(pixel1,pixel2):
 ######################
 #originele foto om afstanden op aan te duiden
 currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "")
-im = Image.open(currentDir + "testImages\\kinectColor\\kinectfoto.png")
+im = Image.open(currentDir + "testImages\\kinectColor\\fotoannelies.png")
 
 draw = ImageDraw.Draw(im)
 
 
 #matrix van annelies na bewerkingen
 matrix_anneloes = pickle.load(open("matrix_robin_olivia.pkl","rb"))
-hoekpunten_vinden(matrix_anneloes)
+coord = hoekpunten_vinden(matrix_anneloes)
 
-for i in range(0,len(matrix_anneloes)):     #elke i is een object
-    pixel_coo_boven = matrix_anneloes[i][0]
-    pixel_coo_links = matrix_anneloes[i][1]
-    pixel_coo_rechts = matrix_anneloes[i][2]
-    #pixel_onder = matrix_anneloes[i][3]
+for i in range(0,len(coord)):
+    #elke i is een object
+    pixel_coo_boven = coord[i][0]
+    pixel_coo_links = coord[i][1]
+    pixel_coo_rechts = coord[i][2]
+    #pixel_onder = coord[i][3]
     draw_line(pixel_coo_boven,pixel_coo_links)
     draw_line(pixel_coo_boven,pixel_coo_rechts)
 
