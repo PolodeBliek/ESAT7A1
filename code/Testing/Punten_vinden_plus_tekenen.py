@@ -12,7 +12,6 @@ import matplotlib
  onder = coord[i][3]
 """
 
-print("There you go Olivia")
 
 def hoekpunten_vinden(matrix_anneloes):
 
