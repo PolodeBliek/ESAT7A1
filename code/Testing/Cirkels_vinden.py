@@ -71,10 +71,6 @@ def is_het_een_cirkel_V2(matrix_anneloes):
         middelpunt = (rechts[0]+links[0])/2, (boven[1]+onder[1])/2
 
 
-
-
-
-
     return 'pass'
 
 def distance_between_pixels_in_pixels(pixel1, pixel2):
