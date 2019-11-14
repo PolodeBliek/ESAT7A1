@@ -5,14 +5,21 @@ from PIL import Image, ImageDraw, ImageFont
 from math import *
 import matplotlib
 import numpy
+import platform
+
+#Check wich platform it is
+isWin = True if platform.system() == 'Windows' else False
+
 
 """
  boven = coord[i][0]
  links = coord[i][1]
  rechts = coord[i][2]
- onder = coord[i][3] 
+ onder = coord[i][3]
 
 """
+
+
 
 
 def hoekpunten_vinden(matrix_anneloes):
@@ -107,8 +114,8 @@ def draw_line(pixel1, pixel2):
 
 ######################
 # originele foto om afstanden op aan te duiden
-currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "")
-im = Image.open(currentDir + "testImages\\kinectColor\\kinectfoto.png")
+currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "") if isWin else os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "").replace("\\", "/")
+im = Image.open(currentDir + "testImages\\kinectColor\\kinectfoto.png") if isWin else Image.open(currentDir + "testImages/kinectColor/kinectfoto.png")
 
 draw = ImageDraw.Draw(im)
 
