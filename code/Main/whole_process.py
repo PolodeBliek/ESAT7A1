@@ -11,8 +11,14 @@ from scipy import ndimage
 import time
 import pickle
 from sklearn.cluster import DBSCAN
+import platform
 
 import ntpath
+
+#Check wich platform it is
+isWin = True if platform.system() == 'Windows' else False
+
+
 
 #Test Variables
 timed                  = True
@@ -28,7 +34,7 @@ sobel_save             = True
 hysteresis_save        = True
 detection_matrix_save   = True
 detect                 = False
-currentDir             = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "")
+currentDir             = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "") if isWin else os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "").replace("\\","/")
 # print(currentDir)
 
 if timed:
