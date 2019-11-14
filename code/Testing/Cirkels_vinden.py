@@ -4,6 +4,7 @@ import pickle
 from PIL import Image, ImageDraw, ImageFont
 from math import *
 import matplotlib
+import numpy
 
 """
  boven = coord[i][0]
@@ -38,11 +39,13 @@ def hoekpunten_vinden(matrix_anneloes):
                         coord[i - 1][3] = (rij, kolom)
     return coord
 
-
+"""
 def is_het_een_cirkel(matrix_anneloes):
     aantal_pixels_van_object = []
     for i in range(1, matrix_anneloes.max() + 1):
-        aantal_pixels_van_object.append(matrix_anneloes.count(i))
+        nieuwe_matrix_anneloes = matrix_anneloes.flatten()
+
+        aantal_pixels_van_object.append(nieuwe_matrix_anneloes.count(i))
 
     objecten_die_cirkels_zijn = []
     for i in range(0, len(aantal_pixels_van_object)):
@@ -56,7 +59,23 @@ def is_het_een_cirkel(matrix_anneloes):
             objecten_die_cirkels_zijn.append(True)
 
     return objecten_die_cirkels_zijn
+"""
 
+def is_het_een_cirkel_V2(matrix_anneloes):
+    for i in range(1, matrix_anneloes.max() + 1):
+        boven = hoekpunten_vinden(matrix_anneloes)[i][0]
+        links = hoekpunten_vinden(matrix_anneloes)[i][1]
+        rechts = hoekpunten_vinden(matrix_anneloes)[i][2]
+        onder = hoekpunten_vinden(matrix_anneloes)[i][3]
+
+        middelpunt = (rechts[0]+links[0])/2, (boven[1]+onder[1])/2
+
+
+
+
+
+
+    return 'pass'
 
 def distance_between_pixels_in_pixels(pixel1, pixel2):
     x_distance = abs(pixel2[0] - pixel1[0])
