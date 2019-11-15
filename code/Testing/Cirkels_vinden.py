@@ -19,9 +19,6 @@ isWin = True if platform.system() == 'Windows' else False
 
 """
 
-
-
-
 def hoekpunten_vinden(matrix_anneloes):
     number_of_elements = matrix_anneloes.max()
 
@@ -57,15 +54,11 @@ def middelpunt_voorwerp(matrix_anneloes):
         onder = hoekpunten_vinden(matrix_anneloes)[i][3]
 
         middelpunt = (rechts[0]+links[0])/2, (boven[1]+onder[1])/2
-<<<<<<< HEAD
+
         middelpunten_voorwerpen.append(middelpunt)
-    print(middelpunten_voorwerpen)
+
     return middelpunten_voorwerpen
-=======
 
-
-    return 'pass'
->>>>>>> cff5966804d3796489cb6fdb695d1b18cc70c418
 
 def distance_between_pixels_in_pixels(pixel1, pixel2):
     x_distance = abs(pixel2[0] - pixel1[0])
@@ -108,9 +101,9 @@ matrix_anneloes = pickle.load(open("Dag_lieve_schat.pkl", "rb"))
 coord = hoekpunten_vinden(matrix_anneloes)
 
 for i in range(0, len(coord)):
-        midden = middelpunt_voorwerp(matrix_anneloes)[i]
+        middelpunt = middelpunt_voorwerp(matrix_anneloes)[i]
         midden_lijn = midden_lijn((coord[i][0][1], coord[i][0][0]),(coord[i][1][1], coord[i][1][0]))
-        drawn_line(midden_lijn,midden_voorwerp)
+        drawn_line(midden_lijn,middelpunt)
 
          # pixel_coo_boven = (coord[i][0][1], coord[i][0][0])
          # pixel_coo_links = (coord[i][1][1], coord[i][1][0])
