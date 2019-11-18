@@ -4,7 +4,7 @@ import pickle
 from PIL import Image, ImageDraw, ImageFont
 from math import *
 import matplotlib
-import numpy
+import numpy as np
 import platform
 
 #Check wich platform it is
@@ -17,30 +17,25 @@ isWin = True if platform.system() == 'Windows' else False
  onder = coord[i][3]
 
 """
+
 def hoekpunten_vinden(matrix_anneloes):
     number_of_elements = matrix_anneloes.max()
+    allcoord = []
+    for index in range(1, number_of_elements + 1):
+        coord = np.where(matrix_anneloes == index)
+        minx = min(coord[0])
+        maxx = max(coord[0])
+        miny = min(coord[1])
+        maxy = max(coord[1])
 
-    coord = [[0, ] * 4 for k in range(0, number_of_elements)]
+        listCoord = list(zip(coord[0], coord[1]))
+        Links = [x for x in listCoord if x[0] == minx]
+        Rechts = [x for x in listCoord if x[0] == maxx]
+        Boven = [x for x in listCoord if x[1] == miny]
+        Onder = [x for x in listCoord if x[1] == maxy]
 
-    for i in range(1, number_of_elements + 1):
-
-        for rij in range(len(matrix_anneloes)):
-            for kolom in range(len(matrix_anneloes[0])):
-                if matrix_anneloes[rij][kolom] == i:
-
-                    if coord[i - 1][0] == 0 or (coord[i - 1][0])[0] > rij:
-                        coord[i - 1][0] = (rij, kolom)
-
-                    if coord[i - 1][1] == 0 or (coord[i - 1][1])[1] < kolom:
-                        coord[i - 1][1] = (rij, kolom)
-
-                    if coord[i - 1][2] == 0 or (coord[i - 1][2])[1] > kolom:
-                        coord[i - 1][2] = (rij, kolom)
-
-                    if coord[i - 1][3] == 0 or (coord[i - 1][3])[0] < rij:
-                        coord[i - 1][3] = (rij, kolom)
-    return coord
-
+        allcoord.append([Links[0], Onder[0], Boven[0], Rechts[0]])
+    return allcoord
 ######################
 # originele foto om afstanden op aan te duiden
 currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "") if isWin else os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "").replace("\\", "/")
