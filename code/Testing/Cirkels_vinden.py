@@ -19,9 +19,6 @@ isWin = True if platform.system() == 'Windows' else False
 
 """
 
-
-
-
 def hoekpunten_vinden(matrix_anneloes):
     number_of_elements = matrix_anneloes.max()
 
@@ -46,30 +43,11 @@ def hoekpunten_vinden(matrix_anneloes):
                         coord[i - 1][3] = (rij, kolom)
     return coord
 
-"""
-def is_het_een_cirkel(matrix_anneloes):
-    aantal_pixels_van_object = []
+
+def middelpunt_voorwerp(matrix_anneloes):
+    middelpunten_voorwerpen = []
     for i in range(1, matrix_anneloes.max() + 1):
-        nieuwe_matrix_anneloes = matrix_anneloes.flatten()
 
-        aantal_pixels_van_object.append(nieuwe_matrix_anneloes.count(i))
-
-    objecten_die_cirkels_zijn = []
-    for i in range(0, len(aantal_pixels_van_object)):
-        links = hoekpunten_vinden(matrix_anneloes)[i][1]
-        rechts = hoekpunten_vinden(matrix_anneloes)[i][2]
-
-        if not 0.9 * aantal_pixels_van_object[i] < distance_between_pixels_in_pixels(links, rechts) * pi < 1.1 * \
-               aantal_pixels_van_object[i]:
-            objecten_die_cirkels_zijn.append(False)
-        else:
-            objecten_die_cirkels_zijn.append(True)
-
-    return objecten_die_cirkels_zijn
-"""
-
-def is_het_een_cirkel_V2(matrix_anneloes):
-    for i in range(1, matrix_anneloes.max() + 1):
         boven = hoekpunten_vinden(matrix_anneloes)[i][0]
         links = hoekpunten_vinden(matrix_anneloes)[i][1]
         rechts = hoekpunten_vinden(matrix_anneloes)[i][2]
@@ -77,12 +55,10 @@ def is_het_een_cirkel_V2(matrix_anneloes):
 
         middelpunt = (rechts[0]+links[0])/2, (boven[1]+onder[1])/2
 
+        middelpunten_voorwerpen.append(middelpunt)
 
+    return middelpunten_voorwerpen
 
-
-
-
-    return 'pass'
 
 def distance_between_pixels_in_pixels(pixel1, pixel2):
     x_distance = abs(pixel2[0] - pixel1[0])
@@ -125,19 +101,15 @@ matrix_anneloes = pickle.load(open("Dag_lieve_schat.pkl", "rb"))
 coord = hoekpunten_vinden(matrix_anneloes)
 
 for i in range(0, len(coord)):
-    # elke i is een object
+        middelpunt = middelpunt_voorwerp(matrix_anneloes)[i]
+        midden_lijn = midden_lijn((coord[i][0][1], coord[i][0][0]),(coord[i][1][1], coord[i][1][0]))
+        drawn_line(midden_lijn,middelpunt)
 
-    if is_het_een_cirkel(matrix_anneloes)[i]:  # het is een cirkel
-
-        pass
-
-
-    else:  # het is geen cirkel
-        pixel_coo_boven = (coord[i][0][1], coord[i][0][0])
-        pixel_coo_links = (coord[i][1][1], coord[i][1][0])
-        pixel_coo_rechts = (coord[i][2][1], coord[i][2][0])
-        # pixel_onder = coord[i][3]
-        draw_line(pixel_coo_boven, pixel_coo_links)
-        draw_line(pixel_coo_boven, pixel_coo_rechts)
+         # pixel_coo_boven = (coord[i][0][1], coord[i][0][0])
+         # pixel_coo_links = (coord[i][1][1], coord[i][1][0])
+         # pixel_coo_rechts = (coord[i][2][1], coord[i][2][0])
+         # pixel_onder = coord[i][3]
+         # draw_line(pixel_coo_boven, pixel_coo_links)
+         # draw_line(pixel_coo_boven, pixel_coo_rechts)
 
 im.show()
