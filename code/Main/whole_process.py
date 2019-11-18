@@ -11,14 +11,8 @@ from scipy import ndimage
 import time
 import pickle
 from sklearn.cluster import DBSCAN
-import platform
 
 import ntpath
-
-#Check wich platform it is
-isWin = True if platform.system() == 'Windows' else False
-
-
 
 #Test Variables
 timed                  = True
@@ -27,14 +21,14 @@ printing               = True
 show                   = False
 gauss_repetitions      = 1
 low_threshold          = 40  # hysteresis
-high_threshold         = 60  # hysteresis
+high_threshold         = 120  # hysteresis
 grayscale_save         = True
 gauss_save             = True
 sobel_save             = True
 hysteresis_save        = True
 detection_matrix_save   = True
 detect                 = False
-currentDir             = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "") if isWin else os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "").replace("\\","/")
+currentDir             = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "")
 # print(currentDir)
 
 if timed:
@@ -51,69 +45,8 @@ if timed:
 
 ###### HULPFUNCTIES #######
 def get_globals():
+    # for the GUI
     return globals()
-
-
-def gem_kleur_van_pixels(picture):
-    if timed:
-        t0 = time.time()
-    image = np.array(picture).astype(np.uint8)
-
-    gem_kleur_van_pixel = []
-    for eachRow in image:
-        for eachPix in eachRow:
-            avgColor = mean(eachPix[:3])  # eerste 3 getallen vd array die de kleur geven
-            gem_kleur_van_pixel.append(avgColor)
-    if timed:
-        t1 = time.time()
-        global time_gem_kleur
-        time_gem_kleur = t1 - t0
-        print("IMPORTANT:", t1-t0)
-    return gem_kleur_van_pixel
-
-
-def flatten_matrix(matrix):
-    if timed:
-        t0 = time.time()
-    image = np.array(matrix).astype(np.uint8)
-    if timed:
-        t1 = time.time()
-        global time_flatten
-        time_flatten = t1 - t0
-    return image.flatten()
-
-
-def reconvert_to_img(hyst_array, height, width, name_image):
-    if timed:
-        t0 = time.time()
-    """
-    :return: a saveable reconstructed image of the array that comes out of hysteresis
-    """
-    arary_Bool2Num = 255*hyst_array.astype(np.uint8)
-    # reconstruct the (h,w,3)-matrix
-    reconverted_array = np.reshape(arary_Bool2Num, (height, width))
-    reconverted_image = reconverted_array.astype(np.uint8)  # the values need to be uint8 types
-
-    if timed:
-        t1 = time.time()
-        global time_reconvert
-        time_reconvert = t1 - t0
-    return reconverted_image
-
-
-def make_detection_matrix(hyst_array, h, w):
-    if timed:
-        t0 = time.time()
-    """
-    :return: a matrix consisting of 0's and 1's for the object detection
-    """
-    array_Bool2Bin = hyst_array.astype(int)
-    matrix = np.reshape(array_Bool2Bin, (h, w))
-    if timed:
-        t1 = time.time()
-        global time_detection
-        time_detection = t1 - t0
-    return matrix
 
 
 ####### TAKING PICTURES #######
@@ -236,47 +169,30 @@ def sobel(image):
     return gradient
 
 
-def hysteresis(sobel_image, th_lo, th_hi, initial=False):
+def hysteresis(image, low, high):
     """
-    x : Numpy Array
-        Series to apply hysteresis to.
-    th_lo : float or int
-        Below this threshold the value of hyst will be False (0).
-    th_hi : float or int
-        Above this threshold the value of hyst will be True (1).
+    returns a matrix of 0s and 1s indicating the edges after thresholding
     """
     if timed:
         t0 = time.time()
 
-    # convert the image to an array
-    # x = np.array(gem_kleur_van_pixels(sobel_image))  # enkel als ge het met een opgeslagen afbeelding moet doen
-    x = np.array(flatten_matrix(sobel_image))  # sobel returns a 2D matrix now instead of an image
-
-    if th_lo > th_hi: # If thresholds are reversed, x must be reversed as well
-        x = x[::-1]
-        th_lo, th_hi = th_hi, th_lo
-        rev = True
-    else:
-        rev = False
-
-    hi = x >= th_hi
-    lo_or_hi = (x <= th_lo) | hi
-
-    ind = np.nonzero(lo_or_hi)[0]  # Index für alle darunter oder darüber
-    if not ind.size:  # prevent index error if ind is empty
-        x_hyst = np.zeros_like(x, dtype=bool) | initial
-    else:
-        cnt = np.cumsum(lo_or_hi)  # from 0 to len(x)
-        x_hyst = np.where(cnt, hi[ind[cnt-1]], initial)
-
-    if rev:
-        x_hyst = x_hyst[::-1]
+    low = np.clip(low, a_min=None, a_max=high)  # ensure low always below high
+    mask_low = image > low
+    mask_high = image >= high
+    # Connected components of mask_low
+    labels_low, num_labels = ndimage.label(mask_low)
+    # Check which connected components contain pixels from mask_high
+    sums = ndimage.sum(mask_high, labels_low, np.arange(num_labels + 1))
+    connected_to_high = sums > 0
+    thresholded = connected_to_high[labels_low]  # .astype(np.uint8)
+    # transform from True/False to 1/0
+    thresholded = thresholded.astype(np.uint8)
 
     if timed:
         t1 = time.time()
         global time_Hysteris
         time_Hysteris = t1 - t0
-    return x_hyst
+    return thresholded
 
 
 # start the processing/filtering loop
@@ -310,19 +226,18 @@ def process_image(image):
     sobel_image = sobel(blurred_image)                                          #193
     if sobel_save:
         plt.imsave(currentDir + 'Sobel.jpg', sobel_image, cmap='gray', format='jpg')
-    hyst_array = hysteresis(sobel_image, low_threshold, high_threshold)         #228
-    hyst_image = reconvert_to_img(hyst_array, h, w, name_image)                 #076
+    hyst_matrix = hysteresis(sobel_image, low_threshold, high_threshold)         #228
+    hyst_image = hyst_matrix*255                 #076
     if hysteresis_save:
         plt.imsave(currentDir + 'Hyst.jpg', hyst_image, cmap='gray', format='jpg')
-    detection_matrix = make_detection_matrix(hyst_array, h, w)                        #094
-    # detection_matrix = ndimage.binary_fill_holes(detection_matrix)  # gaten vullen, mocht je willen
+    # detection_matrix = ndimage.binary_fill_holes(hyst_matrix)  # gaten vullen, mocht je willen
     if detection_matrix_save:
-        pickle.dump(detection_matrix, open(currentDir + "DetectionMatrix.pkl", "wb"))
+        pickle.dump(hyst_matrix, open(currentDir + "DetectionMatrix.pkl", "wb"))
     if timed:
         t1 = time.time()
         global time_processing
         time_processing = t1 - t0
-    return detection_matrix
+    return hyst_matrix
 
 
 ####### DETECTING OBJECTS #######
