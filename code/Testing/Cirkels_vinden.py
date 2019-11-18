@@ -115,7 +115,7 @@ def draw_line(pixel1, pixel2):
 ######################
 # originele foto om afstanden op aan te duiden
 currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "") if isWin else os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "").replace("\\", "/")
-im = Image.open(currentDir + "testImages\\kinectColor\\kinectfoto.png") if isWin else Image.open(currentDir + "testImages/kinectColor/kinectfoto.png")
+im = Image.open(currentDir + "testImages\\kinectColor\\kinectfoto.png") if isWin else Image.open(currentDir + "/testImages/kinectColor/kinectfoto.png")
 
 draw = ImageDraw.Draw(im)
 
