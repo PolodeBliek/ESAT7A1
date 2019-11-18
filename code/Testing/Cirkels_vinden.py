@@ -2,14 +2,15 @@ import os
 import _osx_support
 import pickle
 from PIL import Image, ImageDraw, ImageFont
+import matplotlib.pyplot as plt
 from math import *
 import matplotlib
-import numpy
+import numpy as np
 import platform
 
-#Check wich platform it is
-isWin = True if platform.system() == 'Windows' else False
 
+# Check wich platform it is
+isWin = True if platform.system() == 'Windows' else False
 
 """
  boven = coord[i][0]
@@ -19,79 +20,35 @@ isWin = True if platform.system() == 'Windows' else False
 
 """
 
+
 def hoekpunten_vinden(matrix_anneloes):
     number_of_elements = matrix_anneloes.max()
+    allcoord = []
 
-    coord = [[0, ] * 4 for k in range(0, number_of_elements)]
+    for index in range(1, number_of_elements + 1):
+        coord = np.where(matrix_anneloes == index)
+        minx = min(coord[0])
+        maxx = max(coord[0])
+        miny = min(coord[1])
+        maxy = max(coord[1])
 
-    for i in range(1, number_of_elements + 1):
+        listCoord = list(zip(coord[0], coord[1]))
+        Links = [x for x in listCoord if x[0] == minx]
+        Rechts = [x for x in listCoord if x[0] == maxx]
+        Boven = [x for x in listCoord if x[1] == miny]
+        Onder = [x for x in listCoord if x[1] == maxy]
 
-        for rij in range(len(matrix_anneloes)):
-            for kolom in range(len(matrix_anneloes[0])):
-                if matrix_anneloes[rij][kolom] == i:
+        allcoord.append([Links[0], Onder[0], Boven[0], Rechts[0]])
 
-                    if coord[i - 1][0] == 0 or (coord[i - 1][0])[0] > rij:
-                        coord[i - 1][0] = (rij, kolom)
-
-                    if coord[i - 1][1] == 0 or (coord[i - 1][1])[1] < kolom:
-                        coord[i - 1][1] = (rij, kolom)
-
-                    if coord[i - 1][2] == 0 or (coord[i - 1][2])[1] > kolom:
-                        coord[i - 1][2] = (rij, kolom)
-
-                    if coord[i - 1][3] == 0 or (coord[i - 1][3])[0] < rij:
-                        coord[i - 1][3] = (rij, kolom)
-    return coord
-
-
-def middelpunt_voorwerp(matrix_anneloes):
-    middelpunten_voorwerpen = []
-    for i in range(1, matrix_anneloes.max() + 1):
-
-        boven = hoekpunten_vinden(matrix_anneloes)[i][0]
-        links = hoekpunten_vinden(matrix_anneloes)[i][1]
-        rechts = hoekpunten_vinden(matrix_anneloes)[i][2]
-        onder = hoekpunten_vinden(matrix_anneloes)[i][3]
-
-        middelpunt = (rechts[0]+links[0])/2, (boven[1]+onder[1])/2
-
-        middelpunten_voorwerpen.append(middelpunt)
-
-    return middelpunten_voorwerpen
-
-
-def distance_between_pixels_in_pixels(pixel1, pixel2):
-    x_distance = abs(pixel2[0] - pixel1[0])
-    y_distance = abs(pixel2[1] - pixel1[1])
-
-    direct_distance = sqrt(x_distance ** 2 + y_distance ** 2)
-
-    return direct_distance
-
-
-def pixel_length_to_real_length(pixellenght):
-    return ("%.1f" % (pixellenght / 21.0))  # afronding van echte
-
-
-def midden_lijn(pixel1, pixel2):
-    x_midden = (pixel1[0] + pixel2[0]) / 2
-    y_midden = (pixel1[1] + pixel2[1]) / 2
-
-    return x_midden, y_midden
-
-
-def draw_line(pixel1, pixel2):
-    fnt = ImageFont.truetype("arial.ttf", 30)
-    draw.line([pixel1, pixel2], fill=(0, 0, 225), width=5)
-    draw.text((midden_lijn(pixel1, pixel2)[0], midden_lijn(pixel1, pixel2)[1]),
-              str(pixel_length_to_real_length(distance_between_pixels_in_pixels(pixel1, pixel2))),
-              font=fnt, fill=(0, 0, 0))
+    return allcoord
 
 
 ######################
 # originele foto om afstanden op aan te duiden
-currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "") if isWin else os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "").replace("\\", "/")
-im = Image.open(currentDir + "testImages\\kinectColor\\kinectfoto.png") if isWin else Image.open(currentDir + "/testImages/kinectColor/kinectfoto.png")
+currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "") if isWin else os.path.dirname(
+    os.path.abspath(__file__)).replace("code\\Testing", "").replace("\\", "/")
+im = Image.open(currentDir + "testImages\\kinectColor\\kinectfoto.png") if isWin else Image.open(
+    currentDir + "testImages/kinectColor/kinectfoto.png")
 
 draw = ImageDraw.Draw(im)
 
@@ -100,16 +57,24 @@ matrix_anneloes = pickle.load(open("Dag_lieve_schat.pkl", "rb"))
 
 coord = hoekpunten_vinden(matrix_anneloes)
 
-for i in range(0, len(coord)):
-        middelpunt = middelpunt_voorwerp(matrix_anneloes)[i]
-        midden_lijn = midden_lijn((coord[i][0][1], coord[i][0][0]),(coord[i][1][1], coord[i][1][0]))
-        drawn_line(midden_lijn,middelpunt)
+lijst = [0,1,9,11]
 
-         # pixel_coo_boven = (coord[i][0][1], coord[i][0][0])
-         # pixel_coo_links = (coord[i][1][1], coord[i][1][0])
-         # pixel_coo_rechts = (coord[i][2][1], coord[i][2][0])
-         # pixel_onder = coord[i][3]
-         # draw_line(pixel_coo_boven, pixel_coo_links)
-         # draw_line(pixel_coo_boven, pixel_coo_rechts)
+for i in lijst:
+    rechts_boven = (coord[i][1][1], coord[i][0][0])
+    links_boven = (coord[i][2][1], coord[i][0][0])
+    rechts_onder = (coord[i][1][1], coord[i][3][0])
+    links_onder = (coord[i][2][1], coord[i][3][0])
 
-im.show()
+    draw.line([rechts_boven, links_boven, links_onder, rechts_onder, rechts_boven], fill=(0, 0, 225), width=5)
+
+rechts_boven = (coord[8][1][1], coord[7][0][0])
+links_boven = (coord[8][2][1], coord[7][0][0])
+rechts_onder = (coord[8][1][1], coord[8][3][0])
+links_onder = (coord[8][2][1], coord[8][3][0])
+
+draw.line([rechts_boven, links_boven, links_onder, rechts_onder, rechts_boven], fill=(0, 0, 225), width=5)
+im = np.array(im)
+plt.imsave("C:/Users/olivi/untitled/image_boxes.png", im, cmap='gray', format = 'png')
+#im.show()
+
+

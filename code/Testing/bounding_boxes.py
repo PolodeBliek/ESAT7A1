@@ -21,6 +21,7 @@ isWin = True if platform.system() == 'Windows' else False
 def hoekpunten_vinden(matrix_anneloes):
     number_of_elements = matrix_anneloes.max()
     allcoord = []
+
     for index in range(1, number_of_elements + 1):
         coord = np.where(matrix_anneloes == index)
         minx = min(coord[0])
@@ -35,7 +36,9 @@ def hoekpunten_vinden(matrix_anneloes):
         Onder = [x for x in listCoord if x[1] == maxy]
 
         allcoord.append([Links[0], Onder[0], Boven[0], Rechts[0]])
+
     return allcoord
+
 ######################
 # originele foto om afstanden op aan te duiden
 currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "") if isWin else os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "").replace("\\", "/")
