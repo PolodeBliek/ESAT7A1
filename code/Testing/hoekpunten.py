@@ -45,10 +45,6 @@ def hoekpunten_vinden_V2(matrix_anneloes):
         maxx = max(coord[0])
         miny = min(coord[1])
         maxy = max(coord[1])
-        LB   = (minx, miny)
-        RB   = (maxx, miny)
-        LO   = (minx, maxy)
-        RO   = (maxx, maxy)
         listCoord = list(zip(coord[0], coord[1]))
         Links = [x for x in listCoord if x[0] == minx]
         Rechts = [x for x in listCoord if x[0] == maxx]
