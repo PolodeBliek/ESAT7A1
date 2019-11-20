@@ -1,26 +1,40 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 import skimage.data as data
 import skimage.segmentation as seg
 import skimage.filters as filters
 import skimage.draw as draw
 import skimage.color as color
+from PIL import Image
+import os
+import _osx_support
+import pickle
+from PIL import Image, ImageDraw, ImageFont
+from math import *
+import matplotlib
+import numpy as np
+import platform
 
+
+isWin = True if platform.system() == 'Windows' else False
 #https://towardsdatascience.com/image-segmentation-using-pythons-scikit-image-module-533a61ecc980
 
 from skimage import io
-image = Image.open('C:\Users\olivi\untitled\kinectfoto.png')
-plt.imshow(image);
-
-def image_show(image, nrows=1, ncols=1, cmap='gray'):
-    fig, ax = plt.subplots(nrows=nrows, ncols=ncols, figsize=(14, 14))
-    ax.imshow(image, cmap='gray')
-    ax.axis('off')
-    return fig, ax
+currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "") if isWin else os.path.dirname(os.path.abspath(__file__)).replace("code\\Testing", "").replace("\\", "/")
+image = mpimg.imread(currentDir + "testImages\\kinectColor\\kinectfoto.png") if isWin else Image.open(currentDir + "testImages/kinectColor/kinectfoto.png")
 
 
-image_gray = color.rgb2gray(image)
-image_show(image_gray);
+def rgb2gray(rgb):
+    return np.dot(rgb[...,:3], [0.299, 0.587, 0.144])
+
+#img = mpimg.imread("Kinectfoto.png")
+
+gray = rgb2gray(image)
+
+plt.imshow(gray, cmap = plt.get_cmap('gray'))
+
+plt.show()
 
 
 def circle_points(resolution, center, radius):
@@ -37,9 +51,14 @@ def circle_points(resolution, center, radius):
 # Exclude last point because a closed path should not have duplicate points
 points = circle_points(200, [80, 250], 80)[:-1]
 
+def image_show(image, nrows=1, ncols=1, cmap='gray'):
+    fig, ax = plt.subplots(nrows=nrows, ncols=ncols, figsize=(14, 14))
+    ax.imshow(image, cmap='gray')
+    ax.axis('off')
+    return fig, ax
+
 fig, ax = image_show(image)
 ax.plot(points[:, 0], points[:, 1], '--r', lw=3)
-
 
 snake = seg.active_contour(image_gray, points)
 fig, ax = image_show(image)
