@@ -57,6 +57,7 @@ def kinect_to_pc(width, height, dimension):
     if printing:
         print("connecting with kinect...")
     kinect = PyKinectRuntime.PyKinectRuntime(PyKinectV2.FrameSourceTypes_Color)
+
     if printing:
         print("connected to kinect")
 
@@ -152,12 +153,8 @@ def sobel(image):
     gradient = newHorizontalImage + newVerticalImage
     gradient = np.sqrt(gradient)
 
-    max_grads = list(map(max, gradient))
-    max_grad = max(max_grads)
-    print(f"max grad is {max_grad}")
-    # gradient *= 255/max_grad
-
-    gradient = gradient.astype(np.uint8)  # reconvert range to (0, 255)
+    gradient = np.interp(gradient, (gradient.min(), gradient.max()), (0, 255))  # rescale to (0, 255)
+    gradient = gradient.astype(np.uint8)  # reconvert floats between 0 and 255 to uint8's
 
     if timed:
         t1 = time.time()
