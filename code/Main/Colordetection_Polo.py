@@ -15,8 +15,8 @@ processing             = True
 currentDir             = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "")
 
 
-#img = Image.open(currentDir + "Fill.jpg") # Use image
-img = pickle.load(open(currentDir + "/FilledMatrix.pkl", "rb"))
+img = Image.open(currentDir + "Fill.jpg") # Use image
+#img = pickle.load(open(currentDir + "/FilledMatrix.pkl", "rb"))
 ## CONSTANTS ##
 counter = 0
 filter_level = 130

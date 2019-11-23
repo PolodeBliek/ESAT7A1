@@ -1,18 +1,22 @@
-import cv2
+print("IMPORTING")
+import time
+t0 = time.time()
 from pykinect2 import PyKinectV2
 from pykinect2 import PyKinectRuntime
-
+t1 = time.time()
 import numpy as np
 from statistics import mean
-from PIL import Image
+t2 = time.time()
 import os
-import matplotlib.pyplot as plt
-from scipy import ndimage
-import time
 import pickle
-from sklearn.cluster import DBSCAN
-
+t3 = time.time()
+import matplotlib.pyplot as plt
+import cv2 #Moeten we dit echt allemaal importen?
+from scipy import ndimage
+#from sklearn.cluster import DBSCAN
+from PIL import Image
 import ntpath
+t4 = time.time()
 
 #Test Variables
 timed                  = True
@@ -22,16 +26,17 @@ show                   = False
 gauss_repetitions      = 1
 low_threshold          = 10  # hysteresis
 high_threshold         = 120  # hysteresis
-grayscale_save         = True
-gauss_save             = True
-sobel_save             = True
-hysteresis_save        = True
-detection_matrix_save  = True
+grayscale_save         = False
+gauss_save             = False
+sobel_save             = False
+hysteresis_save        = False
+detection_matrix_save  = False
 detect                 = False
 currentDir             = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "")
 
 
 if timed:
+    time_import     = t1 - t0
     time_gem_kleur  = 0
     time_flatten    = 0
     time_reconvert  = 0
@@ -41,6 +46,16 @@ if timed:
     time_Gaussian   = 0
     time_Hysteris   = 0
     time_processing = 0
+    time_save_gray  = 0
+    time_save_hyst  = 0
+    time_save_detec = 0
+    time_save_gauss = 0
+    time_save_sobel = 0
+    time_fill       = 0
+    time_kinect_imp = t1-t0
+    time_math_imp   = t2-t1
+    time_misc_imp   = t3-t2
+    time_img_imp    = t4-t3
 
 
 ###### HULPFUNCTIES #######
@@ -197,11 +212,12 @@ def process_image(image):
     if timed:
         t0 = time.time()
     if printing:
-        print("start image processing")
+        print("START IMAGE PROCESSING")
 
     # if the image doesn't come straight from the Kinect, but is a selected picture, open the selected picture
     global gauss_repetitions, low_threshold, high_threshold, gauss_save, grayscale_save, sobel_save, hysteresis_save, \
     detetion_matrix_save
+    global time_save_gray, time_save_hyst, time_save_detec, time_save_gauss, time_save_sobel, time_fill
     if isinstance(image, str):  # 'image' is an absolute path
         name_image = ntpath.basename(image)
         image = np.array(Image.open(currentDir + "testImages\\"  + image))  # .astype(np.uint8)
@@ -213,21 +229,42 @@ def process_image(image):
 
     # image processing/filtering process
     gray_image = grayscale(image)                                               #162
+    t_a = time.time()
     if grayscale_save:
         plt.imsave(currentDir + 'Gray.jpg', gray_image, cmap='gray', format='jpg')
+    t_b = time.time()
+    time_save_gray = t_b - t_a
     blurred_image = gaussian_blur(gray_image, gauss_repetitions)                #176
+    t_a = time.time()
     if gauss_save:
         plt.imsave(currentDir + 'Gauss.jpg', blurred_image, cmap='gray', format='jpg')
+    t_b = time.time()
+    time_save_gauss = t_b - t_a
     sobel_image = sobel(blurred_image)                                          #193
+    t_a = time.time()
     if sobel_save:
         plt.imsave(currentDir + 'Sobel.jpg', sobel_image, cmap='gray', format='jpg')
+    t_b = time.time()
+    time_save_sobel = t_b - t_a
     hyst_matrix = hysteresis(sobel_image, low_threshold, high_threshold)         #228
     hyst_image = hyst_matrix*255                 #076
+    t_a = time.time()
     if hysteresis_save:
         plt.imsave(currentDir + 'Hyst.jpg', hyst_image, cmap='gray', format='jpg')
+    t_b = time.time()
+    time_save_hyst = t_b - t_a
     # detection_matrix = ndimage.binary_fill_holes(hyst_matrix)  # gaten vullen, mocht je willen
     if detection_matrix_save:
+        t_a = time.time()
         pickle.dump(hyst_matrix, open(currentDir + "DetectionMatrix.pkl", "wb"))
+        t_b = time.time()
+        time_save_detec = t_b - t_a
+    t3 = time.time()
+    matrix = ndimage.morphology.binary_fill_holes(hyst_matrix)
+    #pickle.dump(matrix, open(currentDir + "/FilledMatrix.pkl", "wb"))
+    plt.imsave(currentDir + "Fill.jpg", matrix, cmap = 'gray', format = 'jpg')
+    t4 = time.time()
+    time_fill = t4 - t3
     if timed:
         t1 = time.time()
         global time_processing
@@ -279,17 +316,19 @@ def detect_objects(matrix):
 
 ####### MAIN #######
 def main():
+    if printing:
+        print("START MAIN")
     t0 = time.time()
     # 1) take a picture
     if kinectFreeTesting:
-        color_image = "kinectColor\\KinectColorPicture25.png"
+        color_image = "kinectColor\\KinectColorPicture3.png"
     else:
         color_image, depth_image = kinect_to_pc(1080, 1920, 4)  #110
     # 2) start the image processing
     matrix = process_image(color_image)  #272
-    matrix = ndimage.morphology.binary_fill_holes(matrix)
-    pickle.dump(matrix, open(currentDir + "/FilledMatrix.pkl", "wb"))
-    plt.imsave(currentDir + "Fill.jpg", matrix, cmap = 'gray', format = 'jpg')
+    #times = pickle.load(open(currentDir + "/Times.pkl", "rb"))
+    #times = [times[0] + time_processing, times[1] + time_grayscale, times[2] + time_Gaussian, times[3] + time_sobel, times[4] + time_Hysteris, times[5] + time_flatten, times[6] + time_reconvert, times[7] + time_detection]
+    #pickle.dump(times, open(currentDir + "/Times.pkl", "wb"))
 
 
     t1 = time.time()
@@ -298,18 +337,33 @@ def main():
         detect_objects(matrix)  #339
     t2 = time.time()
     if timed:
+        print("\n")
+        print("IMPORTING:               ", time_import)
+        print("|-> Kinect   Modules:    ", time_kinect_imp)
+        print("|-> Math     Modules:    ", time_math_imp)
+        print("|-> Misc     Modules:    ", time_misc_imp)
+        print("|-> Image    Modules:    ", time_img_imp)
         print("PROCESSING:              ", time_processing)
         print("|-> Grayscale:           ", time_grayscale)
+        print("    |-> Grayscale Save:  ", time_save_gray if grayscale_save else "TURNED OFF")
         print("|-> Gaussian :           ", time_Gaussian)
+        print("    |-> Gaussian Save:   ", time_save_gauss if gauss_save else "TURNED OFF")
         print("|-> Sobel    :           ", time_sobel)
+        print("    |-> Sobel Save:      ", time_save_sobel if sobel_save else "TURNED OFF")
         print("|-> Hysteris :           ", time_Hysteris)
-        print("    |-> Flatten Matrix:  ", time_flatten)
-        print("|-> Reconvert:           ", time_reconvert)
-        print("|-> Make Detection :     ", time_detection)
-        print("DETECTION OBJECTS:       ", t2-t1)
+        print("    |-> Hysteris Save:   ", time_save_hyst if hysteresis_save else "TURNED OFF")
+        print("    |-> Matrix Save :    ", time_save_detec if detection_matrix_save else "TURNED OFF")
+        print("|-> Fill & Save :        ", time_fill)
+        print("DETECTION OBJECTS:       ", t2-t1 if detect else "TURNED OFF")
         print("==========================================")
-        print("TOTAL:                   ", t2-t0)
-
+        print("TOTAL:                   ", t2-t0 + time_import)
+        time_list = (time_grayscale, time_Gaussian, time_sobel, time_Hysteris, time_flatten, time_reconvert, time_detection, time_fill, time_save_gray, time_save_hyst, time_save_detec, time_save_gauss, time_save_sobel)
+        if (sum(time_list) - time_processing) > 0.1:
+            print("ERROR! SOME PROCESSES SEEM TO HAVE GONE UNDETECTED BY THE TIMER")
+            print("Difference:  ", abs(sum(time_list) -time_processing))
+    if printing:
+        print("\n")
+        print("FINISHED")
 
 if __name__ == '__main__':
 
