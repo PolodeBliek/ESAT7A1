@@ -26,13 +26,18 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="206" column="107" selection-start-line="206" selection-start-column="107" selection-end-line="206" selection-end-column="107" />
+            <state relative-caret-position="199">
+              <caret line="139" column="24" selection-start-line="139" selection-start-column="24" selection-end-line="139" selection-end-column="24" />
               <folding>
                 <element signature="e#26#32#0" expanded="true" />
                 <element signature="e#459#1544#0" />
                 <element signature="e#504#1453#0" />
-                <element signature="e#1626#2601#0" />
+                <element signature="e#1578#2601#0" />
+                <element signature="e#6974#7037#0" />
+                <element signature="e#7210#7600#0" />
+                <element signature="e#7675#8417#0" />
+                <element signature="e#7614#9478#0" />
+                <element signature="e#9612#9616#0" />
                 <element signature="e#9352#10611#0" />
               </folding>
             </state>
@@ -256,13 +261,13 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24983476" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24983476" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -394,13 +399,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="206" column="107" selection-start-line="206" selection-start-column="107" selection-end-line="206" selection-end-column="107" />
+        <state relative-caret-position="199">
+          <caret line="139" column="24" selection-start-line="139" selection-start-column="24" selection-end-line="139" selection-end-column="24" />
           <folding>
             <element signature="e#26#32#0" expanded="true" />
             <element signature="e#459#1544#0" />
             <element signature="e#504#1453#0" />
-            <element signature="e#1626#2601#0" />
+            <element signature="e#1578#2601#0" />
+            <element signature="e#6974#7037#0" />
+            <element signature="e#7210#7600#0" />
+            <element signature="e#7675#8417#0" />
+            <element signature="e#7614#9478#0" />
+            <element signature="e#9612#9616#0" />
             <element signature="e#9352#10611#0" />
           </folding>
         </state>

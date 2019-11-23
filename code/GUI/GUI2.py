@@ -136,7 +136,7 @@ class ScanScreen(tk.Frame):
         self.save_bool = tk.IntVar()
         save_cb = tk.Checkbutton(self, variable=self.save_bool, text="save images", font=LARGE_FONT,
                                   relief="groove", borderwidth=2)
-        save_cb.select()  # set 'selected' state as default state
+        # save_cb.select()  # set 'selected' state as default state
         save_cb.grid(row=2, column=1, sticky="ew", columnspan=2, padx=20)
 
         # gaussian blur checkbox:
