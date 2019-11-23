@@ -10,67 +10,35 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/Main/whole_process2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="80" column="21" lean-forward="true" selection-start-line="80" selection-start-column="21" selection-end-line="80" selection-end-column="21" />
+              <folding>
+                <element signature="e#964#1516#0" />
+                <element signature="e#4196#4515#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/code/Main/whole_process.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="203">
-              <caret line="156" column="89" selection-start-line="156" selection-start-column="89" selection-end-line="156" selection-end-column="89" />
-              <folding>
-                <element signature="e#0#10#0" expanded="true" />
-                <element signature="e#1123#1157#0" />
-                <element signature="e#3048#3314#0" />
-                <element signature="e#3353#3724#0" />
-                <element signature="e#4799#5606#0" />
-                <element signature="e#9983#10207#0" />
-                <element signature="e#10245#10397#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/code/GUI/GUI.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3438">
-              <caret line="219" column="18" selection-start-line="219" selection-start-column="18" selection-end-line="219" selection-end-column="18" />
-              <folding>
-                <element signature="e#32#52#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Hyst.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Sobel.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Gauss.jpg">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/code/GUI/Take_pictures.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-85">
-              <caret line="29" column="73" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="73" />
+            <state relative-caret-position="199">
+              <caret line="139" column="24" selection-start-line="139" selection-start-column="24" selection-end-line="139" selection-end-column="24" />
               <folding>
-                <element signature="e#195#215#0" expanded="true" />
+                <element signature="e#26#32#0" expanded="true" />
+                <element signature="e#459#1544#0" />
+                <element signature="e#504#1453#0" />
+                <element signature="e#1578#2601#0" />
+                <element signature="e#6974#7037#0" />
+                <element signature="e#7210#7600#0" />
+                <element signature="e#7675#8417#0" />
+                <element signature="e#7614#9478#0" />
+                <element signature="e#9612#9616#0" />
+                <element signature="e#9352#10611#0" />
               </folding>
             </state>
           </provider>
@@ -91,6 +59,8 @@
       <find>filedia</find>
       <find>print</find>
       <find>run_on_n</find>
+      <find>nb_gauss</find>
+      <find>messa</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -101,9 +71,10 @@
       <list>
         <option value="$PROJECT_DIR$/code/Main/__init__.py" />
         <option value="$PROJECT_DIR$/code/GUI/GUI.py" />
-        <option value="$PROJECT_DIR$/code/GUI/GUI2.py" />
-        <option value="$PROJECT_DIR$/code/GUI/Take_pictures.py" />
         <option value="$PROJECT_DIR$/code/Main/whole_process.py" />
+        <option value="$PROJECT_DIR$/code/GUI/Take_pictures.py" />
+        <option value="$PROJECT_DIR$/code/Main/whole_process2.py" />
+        <option value="$PROJECT_DIR$/code/GUI/GUI2.py" />
       </list>
     </option>
   </component>
@@ -129,6 +100,11 @@
               <item name="ESAT7A1" type="462c0819:PsiDirectoryNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ESAT7A1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ESAT7A1" type="462c0819:PsiDirectoryNode" />
+              <item name="Images" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -137,7 +113,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../zomer_2019/python_projects/Examenpracticum_2" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -152,7 +128,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Take_pictures">
+  <component name="RunManager" selected="Python.GUI2">
     <configuration name="GUI" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ESAT7A1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -260,11 +236,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Take_pictures" />
         <item itemvalue="Python.GUI2" />
         <item itemvalue="Python.GUI" />
-        <item itemvalue="Python.PathTest" />
         <item itemvalue="Python.whole_process" />
+        <item itemvalue="Python.Take_pictures" />
+        <item itemvalue="Python.PathTest" />
       </list>
     </recent_temporary>
   </component>
@@ -291,7 +267,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -338,29 +314,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/GUI/GUI.py">
+    <entry file="file://$PROJECT_DIR$/Sobel.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Gauss.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/object images/DetectedObjects_12.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/GUI/Take_pictures.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3438">
-          <caret line="219" column="18" selection-start-line="219" selection-start-column="18" selection-end-line="219" selection-end-column="18" />
+        <state relative-caret-position="170">
+          <caret line="28" column="78" selection-start-line="28" selection-start-column="78" selection-end-line="28" selection-end-column="78" />
           <folding>
-            <element signature="e#32#52#0" expanded="true" />
+            <element signature="e#195#215#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
+    <entry file="file://$PROJECT_DIR$/code/Main/whole_process.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/GUI/Take_pictures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="29" column="73" selection-start-line="29" selection-start-column="73" selection-end-line="29" selection-end-column="73" />
+        <state relative-caret-position="136">
+          <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
           <folding>
-            <element signature="e#195#215#0" expanded="true" />
+            <element signature="e#1123#1157#0" />
+            <element signature="e#3048#3314#0" />
+            <element signature="e#3353#3724#0" />
+            <element signature="e#4799#5606#0" />
+            <element signature="e#9983#10207#0" />
+            <element signature="e#10245#10397#0" />
           </folding>
         </state>
       </provider>
@@ -368,24 +351,67 @@
     <entry file="file://$PROJECT_DIR$/Hyst.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Sobel.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Gauss.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/Main/whole_process.py">
+    <entry file="file://$PROJECT_DIR$/code/GUI/GUI.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="156" column="89" selection-start-line="156" selection-start-column="89" selection-end-line="156" selection-end-column="89" />
+        <state relative-caret-position="1073">
+          <caret line="200" selection-start-line="200" selection-end-line="200" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <element signature="e#1123#1157#0" />
-            <element signature="e#3048#3314#0" />
-            <element signature="e#3353#3724#0" />
-            <element signature="e#4799#5606#0" />
-            <element signature="e#9983#10207#0" />
-            <element signature="e#10245#10397#0" />
+            <element signature="e#32#52#0" expanded="true" />
+            <element signature="e#3242#7387#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/input images/Selected Image_1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/grayscaled images/Gray_1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/blurred images/Gauss_1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/sobel images/Sobel_1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/hysteresis images/Hyst_1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/filled images/Filled_1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/object images/DetectedObjects_1.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Main/whole_process2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="80" column="21" lean-forward="true" selection-start-line="80" selection-start-column="21" selection-end-line="80" selection-end-column="21" />
+          <folding>
+            <element signature="e#964#1516#0" />
+            <element signature="e#4196#4515#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/blurred images/Gauss_2.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="139" column="24" selection-start-line="139" selection-start-column="24" selection-end-line="139" selection-end-column="24" />
+          <folding>
+            <element signature="e#26#32#0" expanded="true" />
+            <element signature="e#459#1544#0" />
+            <element signature="e#504#1453#0" />
+            <element signature="e#1578#2601#0" />
+            <element signature="e#6974#7037#0" />
+            <element signature="e#7210#7600#0" />
+            <element signature="e#7675#8417#0" />
+            <element signature="e#7614#9478#0" />
+            <element signature="e#9612#9616#0" />
+            <element signature="e#9352#10611#0" />
           </folding>
         </state>
       </provider>
