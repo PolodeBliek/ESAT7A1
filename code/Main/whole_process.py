@@ -16,20 +16,20 @@ import ntpath
 
 #Test Variables
 timed                  = True
-kinectFreeTesting      = False
+kinectFreeTesting      = True
 printing               = True
 show                   = False
 gauss_repetitions      = 1
-low_threshold          = 40  # hysteresis
+low_threshold          = 10  # hysteresis
 high_threshold         = 120  # hysteresis
 grayscale_save         = True
 gauss_save             = True
 sobel_save             = True
 hysteresis_save        = True
-detection_matrix_save   = True
+detection_matrix_save  = True
 detect                 = False
 currentDir             = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "")
-# print(currentDir)
+
 
 if timed:
     time_gem_kleur  = 0
@@ -200,18 +200,16 @@ def process_image(image):
         print("start image processing")
 
     # if the image doesn't come straight from the Kinect, but is a selected picture, open the selected picture
+    global gauss_repetitions, low_threshold, high_threshold, gauss_save, grayscale_save, sobel_save, hysteresis_save, \
+    detetion_matrix_save
     if isinstance(image, str):  # 'image' is an absolute path
         name_image = ntpath.basename(image)
-        image = np.array(Image.open(image))  # .astype(np.uint8)
+        image = np.array(Image.open(currentDir + "testImages\\"  + image))  # .astype(np.uint8)
     else:
         name_image = "KinectColorPicture"
 
-    global gauss_repetitions, low_threshold, high_threshold, gauss_save, grayscale_save, sobel_save, hysteresis_save, \
-        detetion_matrix_save, currentDir
 
     h, w, d = image.shape  # the height, width and depth of the image
-    if printing:
-        print("image.shape = ", h, w)
 
     # image processing/filtering process
     gray_image = grayscale(image)                                               #162
@@ -261,20 +259,22 @@ def plot_image(d, matrix, db):
 # start the object detection loop
 def detect_objects(matrix):
     t0 = time.time()
-
-    image = Image.fromarray(matrix)
-    image = image.resize(size=(int(len(matrix) / 2), int(len(matrix[0]) / 2)))
-    matrix = np.array(image)
-
-    d = matrix_to_coordinates(matrix)
-    db = DBSCAN(eps=3, min_samples=5).fit(d)
-
+    matrix = ndimage.morphology.binary_fill_holes(matrix)
     t1 = time.time()
+    plt.imshow(matrix)
+    plt.show()
+    plt.imsave(currentDir + "Fill.jpg", matrix, cmap = 'gray', format = 'jpg')
+    #image = Image.fromarray(matrix)
+    #image = image.resize(size=(int(len(matrix) / 2), int(len(matrix[0]) / 2)))
+    #matrix = np.array(image)
+
+    #d = matrix_to_coordinates(matrix)
+    #db = DBSCAN(eps=3, min_samples=5).fit(d)
 
     # plot_image(d, matrix, db)
     if printing:
-        print("NUMBER OF OBJECTS:", max(db.labels_))
-        print("Detect Objects:      ", t1-t0)
+        pass
+        #print("NUMBER OF OBJECTS:", max(db.labels_))
 
 
 ####### MAIN #######
@@ -282,11 +282,15 @@ def main():
     t0 = time.time()
     # 1) take a picture
     if kinectFreeTesting:
-        color_image = "1_rechthoeken.png"
+        color_image = "kinectColor\\KinectColorPicture25.png"
     else:
         color_image, depth_image = kinect_to_pc(1080, 1920, 4)  #110
     # 2) start the image processing
     matrix = process_image(color_image)  #272
+    matrix = ndimage.morphology.binary_fill_holes(matrix)
+    pickle.dump(matrix, open(currentDir + "/FilledMatrix.pkl", "wb"))
+    plt.imsave(currentDir + "Fill.jpg", matrix, cmap = 'gray', format = 'jpg')
+
 
     t1 = time.time()
     # 3) start looking for objects
