@@ -14,7 +14,7 @@ m = 1*np.array(pickle.load(open("C:/Users/Administrator/PycharmProjects/ESAT7A1/
 ## CONSTANTS ##
 counter = 0
 filter_level = 120
-min_nb_pixels = 10
+min_nb_pixels = 30
 resizeValue = 3
 resizeImage = False
 
@@ -106,14 +106,17 @@ def are_part_of_same_object(pixels, matrix, counter):
                         cluster.append(pixel2)
                         pixels.remove(pixel2)
                         found_next_pixel = True
-                        (c_row, c_column) = pixel2
-                        matrix[c_row][c_column] = 40 * (counter + 2)  # Make spotted pixels visible in end result
+
             verified.add(pixel1)
             cluster.remove(pixel1)
         if found_next_pixel is False:
             end = True
             if len(verified) > 10:
                 print("OBJECT NR.", counter + 1, " : ", verified)
+                for element in verified:
+                    (c_row, c_column) = element
+                    matrix[c_row][c_column] = 40 * (counter + 2)  # Make spotted pixels visible in end result
+
         for element in verified:
             (c_row, c_column) = element
             matrix[c_row][c_column] = 40*(counter + 2)  # Make spotted pixels visible in end result
@@ -127,7 +130,7 @@ def main(counter, matrix):
     start_time = time.time()
     objects = is_part_of_an_object(n_rows, n_columns, matrix)
 
-    while len(objects) > 10:
+    while len(objects) > min_nb_pixels:
         objects, len_object = are_part_of_same_object(objects, matrix, counter)
         if len_object > min_nb_pixels:
             counter += 1
