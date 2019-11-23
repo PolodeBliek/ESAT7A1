@@ -82,7 +82,7 @@ class ScanScreen(tk.Frame):
 
         # via camera button:
         cb = tk.Button(self, text="Via camera", relief="groove", borderwidth=2, font=LARGER_FONT, bg="green", height=2,
-                       command=lambda: wp.main())
+                       command=lambda: self.run_with_kinect())
         cb.grid(row=0, column=0, sticky="ew", padx=20, columnspan=2)
 
         # via existing picture button
@@ -185,8 +185,26 @@ class ScanScreen(tk.Frame):
             return
         image = np.array(Image.open(img_path))
         show_dict = {"Selected Image": (image, 'gray')}
-        save_dict = {"Selected Image": (image, f'{ESAT7A1}/Images/input images/')}
-        # perform the pipeline and stuff
+        save_dict = {"SelectedImage": (image, f'{ESAT7A1}/Images/input images/')}
+        self.color_pipeline(image, show_dict, save_dict)
+
+    def run_with_kinect(self):
+        if not wp.is_connected():
+            messagebox.showerror("CONNECTION ERROR!",
+                                 "You are currently not connected to the kinect.\nPlease connect and try again.")
+            return
+        color_image, depth_image = wp.kinect_to_pc(1080, 1920, 4)
+
+        color_show_dict = {"Color Image": (color_image, 'gray')}
+        color_save_dict = {"ColorImage": (color_image, f'{ESAT7A1}/Images/input images/')}
+        self.color_pipeline(color_image, color_show_dict, color_save_dict)
+
+        depth_show_dict = {"Color Image": (depth_image, 'gray')}
+        depth_save_dict = {"ColorImage": (depth_image, f'{ESAT7A1}/Images/input images/')}
+        self.depth_pipeline(depth_image, depth_show_dict, depth_save_dict)
+
+    def color_pipeline(self, image, show_dict, save_dict):
+        # maybe multiprocessing when showing images, otherwise you might have to wait to run depth_pipeline
         gray = wp.grayscale(image)  # grayscaling is necessary to the process
         show_dict.update({"Grayscaled": (gray, 'gray')})
         save_dict.update({"Gray": (gray, f'{ESAT7A1}/Images/grayscaled images/')})  # gray is the reference, don't change it
@@ -223,6 +241,9 @@ class ScanScreen(tk.Frame):
             wp.show_images(show_dict)
         if self.save_bool.get():
             wp.save_images(save_dict)
+
+    def depth_pipeline(self, depth_image, show_dict, save_dict):
+        pass
 
 
 class CreditsScreen(tk.Frame):

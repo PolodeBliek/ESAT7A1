@@ -77,12 +77,21 @@ def save_images(d: dict):
                 for name, vals in zip(d.keys(), d.values()):
                     img, path = vals
                     plt.imsave(path + name + f"_{i}.jpg", img, cmap='gray', format='jpg')
-            break
+                print(f"saved as _{i}")
+                break
     else:
         print("ERROR:\n'Gray' not found in the save dictionary keys, \nnone of the images have been saved.")
 
 
 ####### TAKING PICTURES #######
+def is_connected():
+    """
+    check whether you are connected to the kinect
+    """
+    cap = cv2.VideoCapture(1)
+    return cap.isOpened()
+
+
 def kinect_to_pc(width, height, dimension):
     # https://github.com/daan/calibrating-with-python-opencv/blob/02c90e4291adfb2426072f8f0837033754fc3a55/kinect-v2/color.py
     color_flipped = None  # give them a default value
