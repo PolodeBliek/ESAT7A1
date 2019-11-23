@@ -211,7 +211,7 @@ class ScanScreen(tk.Frame):
         if self.fill_bool.get():
             hyst_filled = ndimage.binary_fill_holes(hyst_matrix)
             show_dict.update({"Filled": (hyst_filled, 'gray')})
-            save_dict.update({"Filled": (gray, f'{ESAT7A1}/Images/filled images/')})
+            save_dict.update({"Filled": (hyst_filled, f'{ESAT7A1}/Images/filled images/')})
         else:
             hyst_filled = hyst_matrix
         if self.count_bool.get():

@@ -125,9 +125,6 @@ def grayscale(image):
     """
     :return: a grayscaled version of the input image
     """
-    if isinstance(image, str):  # 'image' is an absolute path
-        image = np.array(Image.open(image))  # .astype(np.uint8)
-
     gray_image = (0.3 * image[:, :, 0] + 0.59 * image[:, :, 1] + 0.11 * image[:, :, 2]).astype(np.uint8)
     return gray_image
 
