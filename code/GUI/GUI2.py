@@ -139,6 +139,13 @@ class ScanScreen(tk.Frame):
         # save_cb.select()  # set 'selected' state as default state
         save_cb.grid(row=2, column=1, sticky="ew", columnspan=2, padx=20)
 
+        # hold on selected image button
+        self.keep_path = tk.StringVar()
+        self.keep_bool = tk.IntVar()
+        hold_cb = tk.Checkbutton(self, variable=self.keep_bool, text="hold selected image", font=LARGE_FONT,
+                                 relief='groove', borderwidth=2)
+        hold_cb.grid(row = 3, column=1, sticky="ew", columnspan=2, padx=20)
+
         # gaussian blur checkbox:
         self.gauss_bool = tk.IntVar()
         gauss_cb = tk.Checkbutton(self, variable=self.gauss_bool, text="gaussian blur")
@@ -179,11 +186,15 @@ class ScanScreen(tk.Frame):
 
     def run_on_selected_img(self):
         # get the image
-        img_path = self.get_filepath()
+        if self.keep_bool.get() and not self.keep_path.get() == "":
+            img_path = self.keep_path.get()
+        else:
+            img_path = self.get_filepath()
         if img_path == "":  # if no picture selected, return
             print("no picture selected")
             return
-        image = np.array(Image.open(img_path))
+        self.keep_path.set(img_path)  # keep updating the selected image path
+        image = np.array(Image.open(img_path))  # convert to workable array
         show_dict = {"Selected Image": (image, 'gray')}
         save_dict = {"SelectedImage": (image, f'{ESAT7A1}/Images/input images/')}
         self.color_pipeline(image, show_dict, save_dict)
