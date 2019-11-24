@@ -14,7 +14,7 @@
         <entry file="file://$PROJECT_DIR$/code/Main/whole_process2.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="140" column="31" lean-forward="true" selection-start-line="140" selection-start-column="31" selection-end-line="140" selection-end-column="31" />
+              <caret line="140" column="31" selection-start-line="140" selection-start-column="31" selection-end-line="140" selection-end-column="31" />
               <folding>
                 <element signature="e#964#1516#0" />
                 <element signature="e#4196#4515#0" />
@@ -26,16 +26,15 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="196" column="75" selection-start-line="196" selection-start-column="75" selection-end-line="196" selection-end-column="75" />
+            <state relative-caret-position="187">
+              <caret line="252" column="63" selection-start-line="252" selection-start-column="63" selection-end-line="252" selection-end-column="63" />
               <folding>
-                <element signature="e#26#32#0" expanded="true" />
+                <element signature="e#26#58#0" expanded="true" />
                 <element signature="e#459#1544#0" />
                 <element signature="e#504#1453#0" />
                 <element signature="e#1578#2601#0" />
                 <element signature="e#6974#7037#0" />
                 <element signature="e#7675#8417#0" />
-                <element signature="e#7614#9478#0" />
                 <element signature="e#9612#9616#0" />
                 <element signature="e#9352#10611#0" />
               </folding>
@@ -46,8 +45,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/GUI/Take_pictures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" column="78" selection-start-line="28" selection-start-column="78" selection-end-line="28" selection-end-column="78" />
+            <state relative-caret-position="289">
+              <caret line="38" column="16" lean-forward="true" selection-start-line="36" selection-start-column="8" selection-end-line="38" selection-end-column="16" />
               <folding>
                 <element signature="e#195#215#0" expanded="true" />
               </folding>
@@ -414,20 +413,10 @@
     <entry file="file://$PROJECT_DIR$/code/Main/whole_process2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
-          <caret line="140" column="31" lean-forward="true" selection-start-line="140" selection-start-column="31" selection-end-line="140" selection-end-column="31" />
+          <caret line="140" column="31" selection-start-line="140" selection-start-column="31" selection-end-line="140" selection-end-column="31" />
           <folding>
             <element signature="e#964#1516#0" />
             <element signature="e#4196#4515#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/GUI/Take_pictures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="78" selection-start-line="28" selection-start-column="78" selection-end-line="28" selection-end-column="78" />
-          <folding>
-            <element signature="e#195#215#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -447,18 +436,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/code/GUI/Take_pictures.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="38" column="16" lean-forward="true" selection-start-line="36" selection-start-column="8" selection-end-line="38" selection-end-column="16" />
+          <folding>
+            <element signature="e#195#215#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="196" column="75" selection-start-line="196" selection-start-column="75" selection-end-line="196" selection-end-column="75" />
+        <state relative-caret-position="187">
+          <caret line="252" column="63" selection-start-line="252" selection-start-column="63" selection-end-line="252" selection-end-column="63" />
           <folding>
-            <element signature="e#26#32#0" expanded="true" />
+            <element signature="e#26#58#0" expanded="true" />
             <element signature="e#459#1544#0" />
             <element signature="e#504#1453#0" />
             <element signature="e#1578#2601#0" />
             <element signature="e#6974#7037#0" />
             <element signature="e#7675#8417#0" />
-            <element signature="e#7614#9478#0" />
             <element signature="e#9612#9616#0" />
             <element signature="e#9352#10611#0" />
           </folding>

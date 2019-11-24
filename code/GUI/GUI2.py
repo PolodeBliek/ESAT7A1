@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from scipy import ndimage
 from PIL import Image
 import os
+from multiprocessing import Process
 
 LARGE_FONT, LARGER_FONT = ("Verdana", 12), ("Verdana", 18)
 ESAT7A1 = os.path.dirname(os.path.abspath(__file__)).replace("code\\GUI", "")
@@ -249,7 +250,10 @@ class ScanScreen(tk.Frame):
             save_dict.update({"DetectedObjects": (db, f'{ESAT7A1}/Images/object images/')})
         # save and show
         if self.show_bool.get():
-            wp.show_images(show_dict)
+            p = Process(target=wp.show_images, args=(show_dict,))
+            p.start()
+            # p.join()
+            # wp.show_images(show_dict)
         if self.save_bool.get():
             wp.save_images(save_dict)
 
