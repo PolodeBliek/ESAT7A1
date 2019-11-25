@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import tkinter as tk
 from PIL import Image
 from tkinter import filedialog
-from Main.whole_process2 import grayscale, gaussian_blur
+from Main.whole_process2 import grayscale, gaussian_blur, detect_objects
 import time
 
 timed = True
@@ -55,7 +55,7 @@ def thin_edges(magnitude, angle, low):
     cond1 = magnitude >= ndimage.maximum_filter(magnitude, footprint=f1, mode='constant', cval=-np.inf)  # True/False matrix
     cond2 = magnitude >= ndimage.maximum_filter(magnitude, footprint=f2, mode='constant', cval=-np.inf)  # True/False matrix
     cond3 = magnitude >= ndimage.maximum_filter(magnitude, footprint=f3, mode='constant', cval=-np.inf)  # True/False matrix
-    cond4 = magnitude >= ndimage.maximum_filter(magnitude, footprint=f4, mode='constant', cval=-np.inf)  # True/False matrix
+    cond4 = magnitude >= ndimage.maximum_filter(magnitude, footprint=f4, mode='constant', cval=-np.inf)  # True/False matrixcond1 = magnitude >= ndimage.maximum_filter(magnitude, footprint=f1, mode='constant', cval=-np.inf)  # True/False matrix
     t3 = time.time()
     pos_ang = np.where(angle < 0, angle + 180, angle)  # make the negative angles positive, works for this application
     t4 = time.time()
@@ -81,6 +81,26 @@ def thin_edges(magnitude, angle, low):
         print(f"TOTAL TIME:               {t7-t1}s\n")
 
     return remasked
+
+
+def hysteresis(image, low, high):
+    """
+    :return: a matrix consisting of 0s and 1s indicating the edges after thresholding
+    """
+    structure = np.array([[1, 1, 1], [1, 1, 1], [1, 1, 1]])
+    low = np.clip(low, a_min=None, a_max=high)  # ensure low always below high
+    mask_low = image > low  # seperate 'weak/strong' values (mask_low[*,*]==True) from 'noise' values (=False)
+    mask_high = image >= high  # seperate 'strong' values (=True) from 'weak/noise' values (=False)
+    # Connected components of mask_low
+    labels_low, num_labels = ndimage.label(mask_low, structure)  # detecting and naming islands, and also returns nb of islands (making a map of the islands)
+    # Check which connected components contain pixels from mask_high
+    sums = ndimage.sum(mask_high, labels_low, np.arange(num_labels + 1))  # list of how many high's each island has
+    connected_to_high = sums > 0  # seperate islands with at least one 'high' (=True) from islands without highs(=False)
+    thresholded = connected_to_high[labels_low]  # special np thing, projecs the values of 'connected_to_high' onto the island of which the name (1,2,3...) is the same as the index of 'connected to high'
+    # transform from True/False to 1/0
+    thresholded = thresholded.astype(np.uint8)
+
+    return thresholded
 
 
 # def thin_edgess(magnitude, angle, low):
@@ -182,14 +202,51 @@ def sobel_en_thin():
     image = gaussian_blur(image, 1)
     m, t = sobel(image)
     thin = thin_edges(m, t, th_low)
+    t0 = time.time()
+    hyst1 = hysteresis(m, 10, 80)
+    t1 = time.time()
+    hyst_thin = hysteresis(thin, 10, 80)
+    t2 = time.time()
+    filled1 = ndimage.binary_fill_holes(hyst1)
+    t3 = time.time()
+    filled_thin = ndimage.binary_fill_holes(hyst_thin)
+    t4 = time.time()
+    obj = detect_objects(filled1)
+    t5 = time.time()
+    obj_thin = detect_objects(filled_thin)
+    t6 = time.time()
+    print(f"hyst:           {t1-t0}")
+    print(f"hyst_thinned:   {t2-t1}")
+    print(f"filled:         {t3-t2}")
+    print(f"filled_thinned: {t4-t3}")
+    print(f"db:             {t5-t4}")
+    print(f"db_thinned:     {t6-t5}")
     f = plt.figure()
     f.suptitle("zoom in als ge de lijnen wilt zien")
-    f.add_subplot(1,2,1)
+    f.add_subplot(2,4,1)
     plt.imshow(m, cmap='gray')
     plt.title('sobel')
-    f.add_subplot(1,2,2)
+    f.add_subplot(2,4,5)
     plt.imshow(thin, cmap='gray')
     plt.title('thinned edges')
+    f.add_subplot(2,4,2)
+    plt.imshow(hyst1, cmap='gray')
+    plt.title('hysteresis')
+    f.add_subplot(2,4,6)
+    plt.imshow(hyst_thin, cmap='gray')
+    plt.title('hysteresis (thinned)')
+    f.add_subplot(2,4,3)
+    plt.imshow(filled1, cmap='gray')
+    plt.title('filled')
+    f.add_subplot(2,4,7)
+    plt.imshow(filled_thin, cmap='gray')
+    plt.title('filled (thinned)')
+    f.add_subplot(2,4,4)
+    plt.imshow(obj, cmap='gray')
+    plt.title('db')
+    f.add_subplot(2,4,8)
+    plt.imshow(obj_thin, cmap='gray')
+    plt.title('db (thinned)')
     plt.show()
 
 

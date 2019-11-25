@@ -233,21 +233,29 @@ class ScanScreen(tk.Frame):
         else:
             sobel = gauss
         if self.hyst_bool.get():
-            hyst_matrix = wp.hysteresis(sobel, self.low_th.get(), self.high_th.get())
-            show_dict.update({"Hysteresis": (hyst_matrix, 'gray')})
-            save_dict.update({"Hyst": (hyst_matrix, f'{ESAT7A1}/Images/hysteresis images/')})
+            hyst = wp.hysteresis(sobel, self.low_th.get(), self.high_th.get())
+            show_dict.update({"Hysteresis": (hyst, 'gray')})
+            save_dict.update({"Hyst": (hyst, f'{ESAT7A1}/Images/hysteresis images/')})
         else:
-            hyst_matrix = sobel
+            hyst = sobel
         if self.fill_bool.get():
-            hyst_filled = ndimage.binary_fill_holes(hyst_matrix)
-            show_dict.update({"Filled": (hyst_filled, 'gray')})
-            save_dict.update({"Filled": (hyst_filled, f'{ESAT7A1}/Images/filled images/')})
+            filled = ndimage.binary_fill_holes(hyst)
+            show_dict.update({"Filled": (filled, 'gray')})
+            save_dict.update({"Filled": (filled, f'{ESAT7A1}/Images/filled images/')})
         else:
-            hyst_filled = hyst_matrix
+            filled = hyst
+        if self.sobel_bool.get():
+            sobel2 = wp.sobel(gauss)
+            show_dict.update({"Tweede Sobel": (sobel, 'gray')})
+            save_dict.update({"Sobel2": (sobel, f'{ESAT7A1}/Images/sobel images/')})
+        else:
+            sobel2 = filled
+
         if self.count_bool.get():
-            db = wp.detect_objects(hyst_filled)
+            db = wp.detect_objects(filled)
             show_dict.update({"DBSCAN": (db, 'viridis')})
             save_dict.update({"DetectedObjects": (db, f'{ESAT7A1}/Images/object images/')})
+
         # save and show
         if self.show_bool.get():
             p = Process(target=wp.show_images, args=(show_dict,))
