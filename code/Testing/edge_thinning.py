@@ -196,6 +196,11 @@ def hysteresis(image, low, high):
 
 def sobel_en_thin():
     global th_low
+    structure = np.array([[1, 1, 1, 1, 1],
+                          [1, 1, 1, 1, 1],
+                          [1, 1, 1, 1, 1],
+                          [1, 1, 1, 1, 1],
+                          [1, 1, 1, 1, 1]])
     filepath = filedialog.askopenfilename()
     image = np.array(Image.open(filepath))
     image = grayscale(image)

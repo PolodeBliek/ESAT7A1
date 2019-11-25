@@ -23,7 +23,7 @@ class BROPAS(tk.Tk):
         self.title("BROPAS - Broad Range Object Processing and Analyzing Software")  # Object Counting Software
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
-        self.geometry("500x300")  # start dimensions
+        self.geometry("525x300")  # start dimensions
 
         # set up the container of all the screens/frames/menus
         container = tk.Frame(self, bg="black")
@@ -82,12 +82,12 @@ class ScanScreen(tk.Frame):
         self.rowconfigure(0, weight=1)
 
         # via camera button:
-        cb = tk.Button(self, text="Via camera", relief="groove", borderwidth=2, font=LARGER_FONT, bg="green", height=2,
+        cb = tk.Button(self, text="Via Camera", relief="groove", borderwidth=2, font=LARGER_FONT, bg="green", height=2, width=14,
                        command=lambda: self.run_with_kinect())
         cb.grid(row=0, column=0, sticky="ew", padx=20, columnspan=2)
 
         # via existing picture button
-        pb = tk.Button(self, text="Bestaande foto", font=LARGER_FONT, relief="groove", bg="green", borderwidth=2, height=2,
+        pb = tk.Button(self, text="Select Image", font=LARGER_FONT, relief="groove", bg="green", borderwidth=2, height=2, width=14,
                        command=lambda: self.run_on_selected_img())
         pb.grid(row=0, column=2, sticky="ew", padx=20, columnspan=2)
 
@@ -171,15 +171,21 @@ class ScanScreen(tk.Frame):
         fill_cb.select()
         fill_cb.grid(row=4, column=3, sticky="w")
 
+        # sobel2 checkbox:
+        self.sobel2_bool = tk.IntVar()
+        sobel2_cb = tk.Checkbutton(self, variable=self.sobel2_bool, text="2nd sobel")
+        sobel2_cb.select()
+        sobel2_cb.grid(row=5, column=3, sticky="w")
+
         # count checkbox:
         self.count_bool = tk.IntVar()
         count_cb = tk.Checkbutton(self, variable=self.count_bool, text="count objects")
         count_cb.select()
-        count_cb.grid(row=5, column=3, sticky="w")
+        count_cb.grid(row=6, column=3, sticky="w")
 
         # back button
         bb = tk.Button(self, text="back to menu", command=lambda: controller.show_frame(MainMenu))
-        bb.grid(row=6, column=3, sticky="e")
+        bb.grid(row=7, column=3, sticky="e")
 
     def get_filepath(self):
         filepath = filedialog.askopenfilename()
@@ -244,15 +250,16 @@ class ScanScreen(tk.Frame):
             save_dict.update({"Filled": (filled, f'{ESAT7A1}/Images/filled images/')})
         else:
             filled = hyst
-        if self.sobel_bool.get():
-            sobel2 = wp.sobel(gauss)
-            show_dict.update({"Tweede Sobel": (sobel, 'gray')})
-            save_dict.update({"Sobel2": (sobel, f'{ESAT7A1}/Images/sobel images/')})
+        if self.sobel2_bool.get():
+            sobel2 = wp.sobel(filled)
+            show_dict.update({"2nd Sobel": (sobel2, 'gray')})
+            save_dict.update({"Sobel2": (sobel2, f'{ESAT7A1}/Images/sobel images/')})
         else:
             sobel2 = filled
 
         if self.count_bool.get():
-            db = wp.detect_objects(filled)
+            # hier dan sennes algoritme in steken
+            db = wp.detect_objects(sobel2)
             show_dict.update({"DBSCAN": (db, 'viridis')})
             save_dict.update({"DetectedObjects": (db, f'{ESAT7A1}/Images/object images/')})
 

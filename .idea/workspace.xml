@@ -13,8 +13,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/Main/whole_process2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="195" column="22" lean-forward="true" selection-start-line="179" selection-end-line="195" selection-end-column="22" />
+            <state relative-caret-position="55">
+              <caret line="178" lean-forward="true" selection-start-line="178" selection-end-line="178" />
               <folding>
                 <element signature="e#50#60#0" expanded="true" />
                 <element signature="e#4196#4515#0" />
@@ -23,17 +23,15 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="242" column="58" lean-forward="true" selection-start-line="242" selection-start-column="58" selection-end-line="242" selection-end-column="58" />
+            <state relative-caret-position="129">
+              <caret line="85" column="62" lean-forward="true" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
               <folding>
                 <element signature="e#26#58#0" expanded="true" />
                 <element signature="e#459#1544#0" />
-                <element signature="e#504#1453#0" />
                 <element signature="e#1578#2601#0" />
-                <element signature="e#2685#6936#0" />
                 <element signature="e#6974#7037#0" />
                 <element signature="e#7210#7600#0" />
                 <element signature="e#7675#8417#0" />
@@ -44,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/Testing/edge_thinning.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="50" column="34" lean-forward="true" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
+            <state relative-caret-position="-886">
+              <caret line="41" column="38" lean-forward="true" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
                 <element signature="e#282#1272#0" />
@@ -56,6 +54,18 @@
                 <element signature="e#3730#4923#0" />
                 <element signature="e#3683#3724#0" />
                 <element signature="e#3683#3724#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/Testing/ndi_binaryFillHoles.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -91,16 +101,17 @@
         <option value="$PROJECT_DIR$/code/Main/whole_process.py" />
         <option value="$PROJECT_DIR$/code/GUI/Take_pictures.py" />
         <option value="$PROJECT_DIR$/code/Main/whole_process2.py" />
-        <option value="$PROJECT_DIR$/code/Testing/edge_thinning.py" />
         <option value="$PROJECT_DIR$/code/GUI/GUI2.py" />
+        <option value="$PROJECT_DIR$/code/Testing/edge_thinning.py" />
+        <option value="$PROJECT_DIR$/code/Testing/ndi_binaryFillHoles.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="978" />
-    <option name="height" value="1048" />
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="979" />
+    <option name="height" value="1049" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -123,13 +134,7 @@
               <item name="ESAT7A1" type="b2602c69:ProjectViewProjectNode" />
               <item name="ESAT7A1" type="462c0819:PsiDirectoryNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="GUI" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ESAT7A1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ESAT7A1" type="462c0819:PsiDirectoryNode" />
-              <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="Main" type="462c0819:PsiDirectoryNode" />
+              <item name="Testing" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -139,7 +144,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../zomer_2019/python_projects/Examenpracticum_2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../2019-2020/P&amp;03/code/P&amp;O3_code" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -218,7 +223,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="whole_process" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ndi_binaryFillHoles" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ESAT7A1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -226,11 +231,11 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/Main" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/Testing" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/Main/whole_process.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/Testing/ndi_binaryFillHoles.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -263,10 +268,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.edge_thinning" />
+        <item itemvalue="Python.ndi_binaryFillHoles" />
         <item itemvalue="Python.GUI2" />
         <item itemvalue="Python.whole_process2" />
         <item itemvalue="Python.GUI" />
-        <item itemvalue="Python.whole_process" />
       </list>
     </recent_temporary>
   </component>
@@ -402,17 +407,6 @@
     <entry file="file://$PROJECT_DIR$/Images/blurred images/Gauss_2.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/Main/whole_process2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="195" column="22" lean-forward="true" selection-start-line="179" selection-end-line="195" selection-end-column="22" />
-          <folding>
-            <element signature="e#50#60#0" expanded="true" />
-            <element signature="e#4196#4515#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/GUI/Take_pictures.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -423,10 +417,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="85" column="62" lean-forward="true" selection-start-line="85" selection-start-column="62" selection-end-line="85" selection-end-column="62" />
+          <folding>
+            <element signature="e#26#58#0" expanded="true" />
+            <element signature="e#459#1544#0" />
+            <element signature="e#1578#2601#0" />
+            <element signature="e#6974#7037#0" />
+            <element signature="e#7210#7600#0" />
+            <element signature="e#7675#8417#0" />
+            <element signature="e#9612#9616#0" />
+            <element signature="e#9352#10611#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Main/whole_process2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="178" lean-forward="true" selection-start-line="178" selection-end-line="178" />
+          <folding>
+            <element signature="e#50#60#0" expanded="true" />
+            <element signature="e#4196#4515#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Testing/ndi_binaryFillHoles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/Testing/edge_thinning.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="50" column="34" lean-forward="true" selection-start-line="50" selection-start-column="34" selection-end-line="50" selection-end-column="34" />
+        <state relative-caret-position="-886">
+          <caret line="41" column="38" lean-forward="true" selection-start-line="41" selection-start-column="38" selection-end-line="41" selection-end-column="38" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
             <element signature="e#282#1272#0" />
@@ -434,25 +466,6 @@
             <element signature="e#3730#4923#0" />
             <element signature="e#3683#3724#0" />
             <element signature="e#3683#3724#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="242" column="58" lean-forward="true" selection-start-line="242" selection-start-column="58" selection-end-line="242" selection-end-column="58" />
-          <folding>
-            <element signature="e#26#58#0" expanded="true" />
-            <element signature="e#459#1544#0" />
-            <element signature="e#504#1453#0" />
-            <element signature="e#1578#2601#0" />
-            <element signature="e#2685#6936#0" />
-            <element signature="e#6974#7037#0" />
-            <element signature="e#7210#7600#0" />
-            <element signature="e#7675#8417#0" />
-            <element signature="e#9612#9616#0" />
-            <element signature="e#9352#10611#0" />
           </folding>
         </state>
       </provider>
