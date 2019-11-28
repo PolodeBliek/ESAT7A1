@@ -28,9 +28,9 @@ low_threshold          = 10  # hysteresis
 high_threshold         = 120  # hysteresis
 grayscale_save         = False
 gauss_save             = False
-sobel_save             = False
-hysteresis_save        = False
-detection_matrix_save  = False
+sobel_save             = True
+hysteresis_save        = True
+detection_matrix_save  = True
 detect                 = False
 currentDir             = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "")
 
@@ -221,6 +221,7 @@ def process_image(image):
     if isinstance(image, str):  # 'image' is an absolute path
         name_image = ntpath.basename(image)
         image = np.array(Image.open(currentDir + "testImages\\"  + image))  # .astype(np.uint8)
+
     else:
         name_image = "KinectColorPicture"
 
@@ -261,7 +262,10 @@ def process_image(image):
         time_save_detec = t_b - t_a
     t3 = time.time()
     matrix = ndimage.morphology.binary_fill_holes(hyst_matrix)
-    #pickle.dump(matrix, open(currentDir + "/FilledMatrix.pkl", "wb"))
+    matrix = np.where(matrix, 1, 0)
+    plt.imsave(currentDir + "Filled.png", matrix, cmap = "gray", format = "png")
+    matrix = sobel(matrix)
+    pickle.dump(matrix, open(currentDir + "FilledMatrix.pkl", "wb"))
     plt.imsave(currentDir + "Fill.jpg", matrix, cmap = 'gray', format = 'jpg')
     t4 = time.time()
     time_fill = t4 - t3
@@ -321,7 +325,7 @@ def main():
     t0 = time.time()
     # 1) take a picture
     if kinectFreeTesting:
-        color_image = "kinectColor\\KinectColorPicture3.png"
+        color_image = "kinectColor\\KinectColorPicture27.png"
     else:
         color_image, depth_image = kinect_to_pc(1080, 1920, 4)  #110
     # 2) start the image processing
@@ -358,7 +362,7 @@ def main():
         print("==========================================")
         print("TOTAL:                   ", t2-t0 + time_import)
         time_list = (time_grayscale, time_Gaussian, time_sobel, time_Hysteris, time_flatten, time_reconvert, time_detection, time_fill, time_save_gray, time_save_hyst, time_save_detec, time_save_gauss, time_save_sobel)
-        if (sum(time_list) - time_processing) > 0.1:
+        if abs(sum(time_list) - time_processing) > 0.1:
             print("ERROR! SOME PROCESSES SEEM TO HAVE GONE UNDETECTED BY THE TIMER")
             print("Difference:  ", abs(sum(time_list) -time_processing))
     if printing:
