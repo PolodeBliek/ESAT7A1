@@ -109,7 +109,7 @@ class ScanScreen(tk.Frame):
         highlbl = tk.Label(high_fr, text='high threshold:')
         highlbl.grid(row=0, column=0)
         # high threshold
-        self.high_th = tk.IntVar(self); self.high_th.set(200)
+        self.high_th = tk.IntVar(self); self.high_th.set(100)
         highent = tk.Entry(high_fr, textvariable=self.high_th, width=3)
         highent.grid(row=0, column=1)
 
@@ -122,7 +122,7 @@ class ScanScreen(tk.Frame):
         gauss_label.grid(row=0, column=0)
         # selection menu
         self.gauss_reps = tk.IntVar(self)
-        self.gauss_reps.set(1)  # default value
+        self.gauss_reps.set(4)  # default value
         gauss_selection = tk.OptionMenu(gaussFrame, self.gauss_reps, *list(range(11)))
         gauss_selection.grid(row=0, column=1)
 
@@ -174,7 +174,7 @@ class ScanScreen(tk.Frame):
         # sobel2 checkbox:
         self.sobel2_bool = tk.IntVar()
         sobel2_cb = tk.Checkbutton(self, variable=self.sobel2_bool, text="2nd sobel")
-        sobel2_cb.select()
+        #sobel2_cb.select()
         sobel2_cb.grid(row=5, column=3, sticky="w")
 
         # count checkbox:
@@ -183,9 +183,15 @@ class ScanScreen(tk.Frame):
         count_cb.select()
         count_cb.grid(row=6, column=3, sticky="w")
 
+        # count checkbox:
+        self.box_bool = tk.IntVar()
+        box_cb = tk.Checkbutton(self, variable=self.box_bool, text="draw boxes")
+        box_cb.select()
+        box_cb.grid(row=7, column=3, sticky="w")
+
         # back button
         bb = tk.Button(self, text="back to menu", command=lambda: controller.show_frame(MainMenu))
-        bb.grid(row=7, column=3, sticky="e")
+        bb.grid(row=8, column=3, sticky="e")
 
     def get_filepath(self):
         filepath = filedialog.askopenfilename()
@@ -259,13 +265,20 @@ class ScanScreen(tk.Frame):
 
         if self.count_bool.get():
             # hier dan sennes algoritme in steken
-            db = wp.detect_objects(sobel2)
+            db, nb_objects = wp.detect_objects(sobel2)
             show_dict.update({"DBSCAN": (db, 'viridis')})
             save_dict.update({"DetectedObjects": (db, f'{ESAT7A1}/Images/object images/')})
+        else:
+            db = sobel2
+            nb_objects = None
+        if self.box_bool.get():
+            boxes = wp.draw_boxes(image, db)
+            show_dict.update({"boxes": (boxes, 'gray')})
+            save_dict.update({"Boxes": (boxes, f'{ESAT7A1}/Images/draw boxes/')})
 
         # save and show
         if self.show_bool.get():
-            p = Process(target=wp.show_images, args=(show_dict,))
+            p = Process(target=wp.show_images, args=(show_dict, nb_objects))
             p.start()
             # p.join()
             # wp.show_images(show_dict)
