@@ -223,7 +223,7 @@ def process_image(image):
 def detect_objects(matrix):
     matrix = matrix[::2, ::2].copy().astype(np.int32)  # new matrix with every other element of the rows and cols
     d = np.transpose(np.nonzero(matrix))  # get the indices of the ones
-    db = DBSCAN(eps=3, min_samples=5).fit(d)  # DBSCAN
+    db = DBSCAN(eps=6, min_samples=78,n_jobs=-1).fit(d)  # DBSCAN
     nb_objects = max(db.labels_) +1
     np.place(matrix, matrix, (db.labels_+1).astype(np.int32))  # map/place the labels of db_scan over matrix (where matrix==1)
 
