@@ -11,7 +11,7 @@ m = np.array(pickle.load(open("C:/Users/Polo/Documents/GitHub/ESAT7A1/" + pkl, "
 
 ## CONSTANTS ##
 counter         = 0
-min_nb_pixels   = 300
+min_nb_pixels   = 100
 show            = True
 save            = True
 timed           = True

@@ -325,7 +325,7 @@ def main():
     t0 = time.time()
     # 1) take a picture
     if kinectFreeTesting:
-        color_image = "kinectColor\\KinectColorPicture27.png"
+        color_image = "kinectColor\\Gauss_3.jpg"
     else:
         color_image, depth_image = kinect_to_pc(1080, 1920, 4)  #110
     # 2) start the image processing
