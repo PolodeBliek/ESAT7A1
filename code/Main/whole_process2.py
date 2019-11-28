@@ -1,11 +1,11 @@
-# DON'T FORGET TO MAKE A DIRECTORY FOR THE IMAGES
+# OS.JOIN !!!!!!!!!!!!!!!
 import cv2
 from pykinect2 import PyKinectV2
 from pykinect2 import PyKinectRuntime
 
 import numpy as np
 from statistics import mean
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 import os
 import matplotlib.pyplot as plt
 import matplotlib.gridspec as gridspec
@@ -39,14 +39,14 @@ def get_globals():
     return globals()
 
 
-def show_images(d: dict):
+def show_images(d: dict, nb):
     """
     plot all the images,
     expects a dictionary where the key is the title and the value is a tuple of the img and the mapping colors
     """
     n = len(d)
     k = int(math.sqrt(n)) + 1
-    f = plt.figure(constrained_layout=True, num='Results')
+    f = plt.figure(constrained_layout=True, num=f'Results: ({nb} objects detected)')
     spec = gridspec.GridSpec(ncols=k, nrows=n//k+1, figure=f)
     for i, key, vals in zip(range(n), d.keys(), d.values()):
         img, map_ = vals
@@ -224,9 +224,48 @@ def detect_objects(matrix):
     matrix = matrix[::2, ::2].copy().astype(np.int32)  # new matrix with every other element of the rows and cols
     d = np.transpose(np.nonzero(matrix))  # get the indices of the ones
     db = DBSCAN(eps=3, min_samples=5).fit(d)  # DBSCAN
-    np.place(matrix, matrix, db.labels_+1)  # map/place the labels of db_scan over matrix (where matrix==1)
+    nb_objects = max(db.labels_) +1
+    np.place(matrix, matrix, (db.labels_+1).astype(np.int32))  # map/place the labels of db_scan over matrix (where matrix==1)
 
-    return matrix
+    return matrix, nb_objects
+
+
+# DRAW BOXES
+def draw_boxes(og_image, obj_image):
+    image = Image.fromarray(og_image)
+    coord = hoekpunten_vinden(obj_image)
+    draw = ImageDraw.Draw(image)
+
+    for i in range(0, len(coord)):
+        rechts_boven = (coord[i][1][1]*2, coord[i][0][0]*2)
+        links_boven = (coord[i][2][1]*2, coord[i][0][0]*2)
+        rechts_onder = (coord[i][1][1]*2, coord[i][3][0]*2)
+        links_onder = (coord[i][2][1]*2, coord[i][3][0]*2)
+
+        draw.line([rechts_boven, links_boven, links_onder, rechts_onder, rechts_boven], fill=(0, 0, 225), width=5)
+
+    return image
+
+
+def hoekpunten_vinden(matrix_anneloes):
+    number_of_elements = matrix_anneloes.max()
+    allcoord = []
+
+    for index in range(1, number_of_elements + 1):
+        coord = np.where(matrix_anneloes == index)
+        minx = min(coord[0])
+        maxx = max(coord[0])
+        miny = min(coord[1])
+        maxy = max(coord[1])
+        listCoord = list(zip(coord[0], coord[1]))
+        Links = [x for x in listCoord if x[0] == minx]
+        Rechts = [x for x in listCoord if x[0] == maxx]
+        Boven = [x for x in listCoord if x[1] == miny]
+        Onder = [x for x in listCoord if x[1] == maxy]
+
+        allcoord.append([Links[0], Onder[0], Boven[0], Rechts[0]])
+
+    return allcoord
 
 
 ####### MAIN #######
