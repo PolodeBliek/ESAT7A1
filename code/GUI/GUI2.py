@@ -258,18 +258,19 @@ class ScanScreen(tk.Frame):
             filled = hyst
         if self.sobel2_bool.get():
             sobel2 = wp.sobel(filled)
-            show_dict.update({"2nd Sobel": (sobel2, 'gray')})
-            save_dict.update({"Sobel2": (sobel2, f'{ESAT7A1}/Images/sobel images/')})
+            senne_obj, nb_obj = wp.detect_objects_senne(0, sobel2, 100)
+            show_dict.update({f"senne: {nb_obj} objects": (senne_obj, 'gray')})
+            save_dict.update({"Sobel2": (senne_obj, f'{ESAT7A1}/Images/sobel images/')})
         else:
             sobel2 = filled
 
         if self.count_bool.get():
             # hier dan sennes algoritme in steken
-            db, nb_objects = wp.detect_objects(sobel2)
+            db, nb_objects = wp.detect_objects(filled)
             show_dict.update({"DBSCAN": (db, 'viridis')})
             save_dict.update({"DetectedObjects": (db, f'{ESAT7A1}/Images/object images/')})
         else:
-            db = sobel2
+            db = filled
             nb_objects = None
         if self.box_bool.get():
             boxes = wp.draw_boxes(image, db)
