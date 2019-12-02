@@ -13,8 +13,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/Main/whole_process2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="307" column="41" selection-start-line="307" selection-start-column="41" selection-end-line="307" selection-end-column="41" />
+            <state relative-caret-position="224">
+              <caret line="224" column="71" lean-forward="true" selection-start-line="224" selection-start-column="4" selection-end-line="224" selection-end-column="71" />
               <folding>
                 <element signature="e#50#60#0" expanded="true" />
                 <element signature="e#4196#4515#0" />
@@ -26,17 +26,49 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/code/Testing/coordinatelist_islands.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-221">
+              <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_try.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+              <folding>
+                <element signature="e#12#78#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="77">
-              <caret line="262" column="88" lean-forward="true" selection-start-line="262" selection-start-column="88" selection-end-line="262" selection-end-column="88" />
+            <state relative-caret-position="235">
+              <caret line="209" column="75" selection-start-line="209" selection-start-column="75" selection-end-line="209" selection-end-column="75" />
               <folding>
                 <element signature="e#26#58#0" expanded="true" />
                 <element signature="e#459#1544#0" />
                 <element signature="e#1578#2601#0" />
                 <element signature="e#2685#6936#0" />
                 <element signature="e#6974#7037#0" />
-                <element signature="e#7210#7600#0" />
                 <element signature="e#7675#8417#0" />
                 <element signature="e#9612#9616#0" />
                 <element signature="e#9352#10611#0" />
@@ -105,12 +137,13 @@
         <option value="$PROJECT_DIR$/code/Testing/edge_thinning.py" />
         <option value="$PROJECT_DIR$/code/Testing/ndi_binaryFillHoles.py" />
         <option value="$PROJECT_DIR$/code/Main/whole_process2.py" />
-        <option value="$PROJECT_DIR$/code/GUI/GUI2.py" />
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/styling.py" />
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes.py" />
-        <option value="$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_try.py" />
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_try.spec" />
         <option value="$PROJECT_DIR$/code/Testing/depth_overlap.py" />
+        <option value="$PROJECT_DIR$/code/GUI/GUI2.py" />
+        <option value="$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_try.py" />
+        <option value="$PROJECT_DIR$/code/Testing/coordinatelist_islands.py" />
       </list>
     </option>
   </component>
@@ -143,6 +176,13 @@
               <item name="code" type="462c0819:PsiDirectoryNode" />
               <item name="Testing" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="ESAT7A1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ESAT7A1" type="462c0819:PsiDirectoryNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+              <item name="Testing" type="462c0819:PsiDirectoryNode" />
+              <item name="GUI_tests" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -166,7 +206,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.GUI2">
+  <component name="RunManager" selected="Python.coordinatelist_islands">
     <configuration name="GUI2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ESAT7A1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -180,6 +220,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/GUI/GUI2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="coordinatelist_islands" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="ESAT7A1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/Testing" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/Testing/coordinatelist_islands.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -209,7 +270,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="styling" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="ttkthemes_" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ESAT7A1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -221,28 +282,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="C:\Users\Robin\Documents\GitHub\ESAT7A1\code\Testing\GUI_tests\ttk.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="ttkthemes" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="ESAT7A1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/Testing/GUI_tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -274,11 +314,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.coordinatelist_islands" />
+        <item itemvalue="Python.ttkthemes_try" />
+        <item itemvalue="Python.ttkthemes_" />
         <item itemvalue="Python.GUI2" />
         <item itemvalue="Python.depth_overlap" />
-        <item itemvalue="Python.ttkthemes_try" />
-        <item itemvalue="Python.ttkthemes" />
-        <item itemvalue="Python.styling" />
       </list>
     </recent_temporary>
   </component>
@@ -431,19 +471,6 @@
         <state relative-caret-position="-16881" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/Main/whole_process2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="307" column="41" selection-start-line="307" selection-start-column="41" selection-end-line="307" selection-end-column="41" />
-          <folding>
-            <element signature="e#50#60#0" expanded="true" />
-            <element signature="e#4196#4515#0" />
-            <element signature="e#9128#9444#0" />
-            <element signature="e#9828#11516#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttk.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -456,31 +483,6 @@
             <element signature="e#8780#9522#0" />
             <element signature="e#9591#12283#0" />
             <element signature="e#12358#12362#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
-          <folding>
-            <element signature="e#7396#7459#0" />
-            <element signature="e#7504#8158#0" />
-            <element signature="e#8199#8941#0" />
-            <element signature="e#9010#11701#0" />
-            <element signature="e#11776#11780#0" />
-            <element signature="e#11819#12460#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_try.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#2#68#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -520,6 +522,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="209" column="75" selection-start-line="209" selection-start-column="75" selection-end-line="209" selection-end-column="75" />
+          <folding>
+            <element signature="e#26#58#0" expanded="true" />
+            <element signature="e#459#1544#0" />
+            <element signature="e#1578#2601#0" />
+            <element signature="e#2685#6936#0" />
+            <element signature="e#6974#7037#0" />
+            <element signature="e#7675#8417#0" />
+            <element signature="e#9612#9616#0" />
+            <element signature="e#9352#10611#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Main/whole_process2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="224" column="71" lean-forward="true" selection-start-line="224" selection-start-column="4" selection-end-line="224" selection-end-column="71" />
+          <folding>
+            <element signature="e#50#60#0" expanded="true" />
+            <element signature="e#4196#4515#0" />
+            <element signature="e#9128#9444#0" />
+            <element signature="e#9828#11516#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-221">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_try.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#12#78#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/Testing/depth_overlap.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
@@ -531,20 +580,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
+    <entry file="file://$PROJECT_DIR$/code/Testing/coordinatelist_islands.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="77">
-          <caret line="262" column="88" lean-forward="true" selection-start-line="262" selection-start-column="88" selection-end-line="262" selection-end-column="88" />
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
           <folding>
-            <element signature="e#26#58#0" expanded="true" />
-            <element signature="e#459#1544#0" />
-            <element signature="e#1578#2601#0" />
-            <element signature="e#2685#6936#0" />
-            <element signature="e#6974#7037#0" />
-            <element signature="e#7210#7600#0" />
-            <element signature="e#7675#8417#0" />
-            <element signature="e#9612#9616#0" />
-            <element signature="e#9352#10611#0" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
