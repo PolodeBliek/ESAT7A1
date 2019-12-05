@@ -4,6 +4,8 @@ import Main.whole_process2 as wp
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import filedialog
+from tkinter import ttk
+import ctypes
 # other imports:
 import numpy as np
 import matplotlib.pyplot as plt
@@ -51,24 +53,51 @@ class MainMenu(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.columnconfigure(0, weight=1)
-        self.rowconfigure(1, weight=1)
+        self.rowconfigure(1, weight=1, minsize=100)
         self.rowconfigure(2, weight=1)
 
+        self.keybd_event = ctypes.windll.user32.keybd_event
+        self.alt_key = 0x12
+        self.key_up = 0x0002
+
+        self.makemenubar(controller)
+
         # info button
-        ib = tk.Button(self, text="info", width=8, relief="groove", borderwidth=2, command=lambda: messagebox.showinfo(None, "Coming soon..."))
+        ib = ttk.Button(self, text="info", width=8, command=lambda: messagebox.showinfo(None, "Coming soon..."))
         ib.grid(row=0, column=0, sticky="w", padx=10)
         # methode button
-        mb = tk.Button(self, text="De methode", width=16, height=2, relief="groove", borderwidth=2, command=lambda: messagebox.showinfo(None, "Coming soon..."))
+        mb = ttk.Button(self, text="De methode", width=16, command=lambda: messagebox.showinfo(None, "Coming soon..."))
         mb.grid(row=0, column=0, sticky="nes")
 
         # start button
-        start_button = tk.Button(self, text="Start", width=10, height=3, bg="green", relief="groove", borderwidth=2,
-                                 command=lambda: controller.show_frame(ScanScreen), font=LARGER_FONT)
-        start_button.grid(row=1, column=0, sticky="s")
+        start_button = ttk.Button(self, text="Start", width=10,
+                                 command=lambda: controller.show_frame(ScanScreen))
+        start_button.grid(row=1, column=0, sticky="news")
 
         # credits button
-        credits_button = tk.Button(self, text="Credits", command=lambda: controller.show_frame(CreditsScreen))
+        credits_button = ttk.Button(self, text="Credits", command=lambda: controller.show_frame(CreditsScreen))
         credits_button.grid(row=2, column=0, sticky="n")
+
+    def traverse_to_menu(self, key=''):
+        # print("hey")
+        if key:
+            self.ansi_key = ord(key.upper())
+            #   press alt + key
+            self.keybd_event(self.alt_key, 0, 0, 0)
+            self.keybd_event(self.ansi_key, 0, 0, 0)
+
+            #   release alt + key
+            self.keybd_event(self.ansi_key, 0, self.key_up, 0)
+            self.keybd_event(self.alt_key, 0, self.key_up, 0)
+
+    def makemenubar(self, controller):
+        menubar = tk.Menu(controller)
+        controller.config(menu=menubar)
+        menubar.add_command(label="Checker", command=lambda: self.traverse_to_menu('c'))
+
+        subbywubby = tk.Menu(menubar)
+        subbywubby.add_command(label='dhslg', command=lambda: self.traverse_to_menu('w'))
+        menubar.add_cascade(menu=subbywubby, label="wollah")
 
 
 class ScanScreen(tk.Frame):
@@ -76,21 +105,20 @@ class ScanScreen(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.columnconfigure(0, weight=1)
-        self.columnconfigure(1, weight=3)
-        self.columnconfigure(2, weight=3)
+        self.columnconfigure(1, weight=1)
+        self.columnconfigure(2, weight=1)
         self.columnconfigure(3, weight=1)
-        self.rowconfigure(0, weight=1)
+        self.rowconfigure(0, weight=1, minsize=50)
 
         # via camera button:
-        cb = tk.Button(self, text="Via Camera", relief="groove", borderwidth=2, font=LARGER_FONT, bg="green", height=2, width=14,
-                       command=lambda: self.run_with_kinect())
-        cb.grid(row=0, column=0, sticky="ew", padx=20, columnspan=2)
+        cb = ttk.Button(self, text="Via Camera", command=lambda: self.run_with_kinect())
+        cb.grid(row=0, column=0, sticky="news", padx=20, columnspan=2)
 
         # via existing picture button
-        pb = tk.Button(self, text="Select Image", font=LARGER_FONT, relief="groove", bg="green", borderwidth=2, height=2, width=14,
-                       command=lambda: self.run_on_selected_img())
-        pb.grid(row=0, column=2, sticky="ew", padx=20, columnspan=2)
+        pb = ttk.Button(self, text="Select Image", command=lambda: self.run_on_selected_img())
+        pb.grid(row=0, column=2, sticky="news", padx=20, columnspan=2)
 
+        # col1
         # low threshold frame:
         low_fr = tk.Frame(self)
         low_fr.grid(row=1, column=0, sticky="e")
@@ -99,18 +127,18 @@ class ScanScreen(tk.Frame):
         lowlbl.grid(row=0, column=0)
         # low threshold
         self.low_th = tk.IntVar(self); self.low_th.set(10)
-        lowent = tk.Entry(low_fr, textvariable=self.low_th, width=3)
+        lowent = ttk.Entry(low_fr, textvariable=self.low_th, width=3)
         lowent.grid(row=0, column=1)
 
         # high threshold frame:
         high_fr = tk.Frame(self)
         high_fr.grid(row=2, column=0, sticky="e")
         # high label:
-        highlbl = tk.Label(high_fr, text='high threshold:')
+        highlbl = ttk.Label(high_fr, text='high threshold:')
         highlbl.grid(row=0, column=0)
         # high threshold
         self.high_th = tk.IntVar(self); self.high_th.set(100)
-        highent = tk.Entry(high_fr, textvariable=self.high_th, width=3)
+        highent = ttk.Entry(high_fr, textvariable=self.high_th, width=3)
         highent.grid(row=0, column=1)
 
         # selection menu for gauss_reps
@@ -122,71 +150,62 @@ class ScanScreen(tk.Frame):
         gauss_label.grid(row=0, column=0)
         # selection menu
         self.gauss_reps = tk.IntVar(self)
+        gauss_selection = ttk.OptionMenu(gaussFrame, self.gauss_reps, *list(range(-1, 11)))
         self.gauss_reps.set(4)  # default value
-        gauss_selection = tk.OptionMenu(gaussFrame, self.gauss_reps, *list(range(11)))
         gauss_selection.grid(row=0, column=1)
 
+        # col2
         # show images checkbox
-        self.show_bool = tk.IntVar()
-        show_cb = tk.Checkbutton(self, variable=self.show_bool, text="show images", font=LARGE_FONT,
-                                  relief="groove", borderwidth=2)
-        show_cb.select()  # set 'selected' state as default state
-        show_cb.grid(row=1, column=1, sticky="ew", columnspan=2, padx=20)
+        self.show_bool = tk.IntVar(); self.show_bool.set(1)
+        show_cb = ttk.Checkbutton(self, variable=self.show_bool, text="show images")
+        show_cb.grid(row=1, column=1, columnspan=2, padx=20)
 
         # save images checkbox
-        self.save_bool = tk.IntVar()
-        save_cb = tk.Checkbutton(self, variable=self.save_bool, text="save images", font=LARGE_FONT,
-                                  relief="groove", borderwidth=2)
-        # save_cb.select()  # set 'selected' state as default state
-        save_cb.grid(row=2, column=1, sticky="ew", columnspan=2, padx=20)
+        self.save_bool = tk.IntVar(); self.save_bool.set(0)
+        save_cb = ttk.Checkbutton(self, variable=self.save_bool, text="save images")
+        save_cb.grid(row=2, column=1, columnspan=2, padx=20)
 
         # hold on selected image button
         self.keep_path = tk.StringVar()
-        self.keep_bool = tk.IntVar()
-        hold_cb = tk.Checkbutton(self, variable=self.keep_bool, text="hold selected image", font=LARGE_FONT,
-                                 relief='groove', borderwidth=2)
-        hold_cb.grid(row = 3, column=1, sticky="ew", columnspan=2, padx=20)
+        self.keep_bool = tk.IntVar(); self.keep_bool.set(0)
+        hold_cb = ttk.Checkbutton(self, variable=self.keep_bool, text="hold on image")
+        hold_cb.grid(row=3, column=1, columnspan=2, padx=20)
 
+        # col3
         # gaussian blur checkbox:
-        self.gauss_bool = tk.IntVar()
-        gauss_cb = tk.Checkbutton(self, variable=self.gauss_bool, text="gaussian blur")
-        gauss_cb.select()
+        self.gauss_bool = tk.IntVar(); self.gauss_bool.set(1)
+        gauss_cb = ttk.Checkbutton(self, variable=self.gauss_bool, text="gaussian blur")
+        # gauss_cb.select()
         gauss_cb.grid(row=1, column=3, sticky="w")
 
         # sobel checkbox:
-        self.sobel_bool = tk.IntVar()
-        sobel_cb = tk.Checkbutton(self, variable=self.sobel_bool, text="sobel")
-        sobel_cb.select()
+        self.sobel_bool = tk.IntVar(); self.sobel_bool.set(1)
+        sobel_cb = ttk.Checkbutton(self, variable=self.sobel_bool, text="sobel")
         sobel_cb.grid(row=2, column=3, sticky="w")
 
         # hyst checkbox:
-        self.hyst_bool = tk.IntVar()
-        hyst_cb = tk.Checkbutton(self, variable=self.hyst_bool, text="hysteresis")
-        hyst_cb.select()
+        self.hyst_bool = tk.IntVar(); self.hyst_bool.set(1)
+        hyst_cb = ttk.Checkbutton(self, variable=self.hyst_bool, text="hysteresis")
         hyst_cb.grid(row=3, column=3, sticky="w")
 
         # fill checkbox:
-        self.fill_bool = tk.IntVar()
-        fill_cb = tk.Checkbutton(self, variable=self.fill_bool, text="fill")
-        fill_cb.select()
+        self.fill_bool = tk.IntVar(); self.fill_bool.set(1)
+        fill_cb = ttk.Checkbutton(self, variable=self.fill_bool, text="fill")
         fill_cb.grid(row=4, column=3, sticky="w")
 
         # sobel2 checkbox:
-        self.senne_bool = tk.IntVar()
-        sobel2_cb = tk.Checkbutton(self, variable=self.senne_bool, text="senne")
-        #sobel2_cb.select()
-        sobel2_cb.grid(row=5, column=3, sticky="w")
+        self.senne_bool = tk.IntVar(); self.senne_bool.set(1)
+        senne_cb = ttk.Checkbutton(self, variable=self.senne_bool, text="senne count")
+        senne_cb.grid(row=5, column=3, sticky="w")
 
         # count checkbox:
-        self.count_bool = tk.IntVar()
-        count_cb = tk.Checkbutton(self, variable=self.count_bool, text="count objects")
-        count_cb.select()
+        self.count_bool = tk.IntVar(); self.count_bool.set(1)
+        count_cb = ttk.Checkbutton(self, variable=self.count_bool, text="count objects")
         count_cb.grid(row=6, column=3, sticky="w")
 
         # count checkbox:
-        self.box_bool = tk.IntVar()
-        box_cb = tk.Checkbutton(self, variable=self.box_bool, text="draw boxes")
-        box_cb.select()
+        self.box_bool = tk.IntVar(); self.box_bool.set(1)
+        box_cb = ttk.Checkbutton(self, variable=self.box_bool, text="draw boxes")
         box_cb.grid(row=7, column=3, sticky="w")
 
         # back button
@@ -218,7 +237,6 @@ class ScanScreen(tk.Frame):
                                  "You are currently not connected to the kinect.\nPlease connect and try again.")
             return
         color_image, depth_image = wp.kinect_to_pc(1080, 1920, 4)
-        color_image = color_image[90:990, 310:1610]
 
         color_show_dict = {"Color Image": (color_image, 'gray')}
         color_save_dict = {"ColorImage": (color_image, f'{ESAT7A1}/Images/input images/')}
@@ -260,8 +278,8 @@ class ScanScreen(tk.Frame):
         if self.senne_bool.get():
             sobel2 = wp.sobel(filled)
             senne_obj, nb_obj = wp.detect_objects_senne(0, sobel2, 100)
-            show_dict.update({f"BROPAS: {nb_obj} objects": (senne_obj, 'gray')})
-            save_dict.update({"BROPAS": (senne_obj, f'{ESAT7A1}/Images/sobel images/')})
+            show_dict.update({f"senne: {nb_obj} objects": (senne_obj, 'gray')})
+            save_dict.update({"Sobel2": (senne_obj, f'{ESAT7A1}/Images/sobel images/')})
         else:
             sobel2 = filled
 
@@ -294,27 +312,14 @@ class ScanScreen(tk.Frame):
 class CreditsScreen(tk.Frame):
 
     def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent, bg="black")
+        tk.Frame.__init__(self, parent)
         self.rowconfigure(1, weight=1)
         self.columnconfigure(0, weight=1)
 
-        # the menu frame holds the 'back' button and the title
-        menuFrame = tk.Frame(self)
-        menuFrame.grid(padx=10, pady=10, row=0, column=0, sticky="new")
-        menuFrame.columnconfigure(0, weight=1)
-
-        # title
-        label = tk.Label(menuFrame, text="Credits", font=LARGE_FONT)
-        label.grid(row=0, column=0, sticky="new")
-
         # 'back' button:
-        self.image = tk.PhotoImage(file="GUI_images/back_arrow_icon.png")
-        # resize the image to fit on the button
-        self.downscaled_image = self.image.subsample(50, 50)
-        # set the downscaled image on the button
-        back_button = tk.Button(menuFrame, image=self.downscaled_image,
+        back_button = ttk.Button(self, text='back to menu',
                                 command=lambda: controller.show_frame(MainMenu))
-        back_button.place(x=0, y=0, relheight=1, anchor="nw")
+        back_button.grid(row=0, column=0, sticky='w')
 
         # the credits space ('credits' is a built in function, hence the name 'creditss')
         creditss = tk.Text(self, height=2, width=30)
