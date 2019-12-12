@@ -16,11 +16,11 @@ import os
 import pickle
 import copy
 import PIL.ImageOps
-
 from PIL import Image
 from multiprocessing import Process
 from pykinect2 import PyKinectV2
 from pykinect2 import PyKinectRuntime
+import time
 
 ESAT7A1 = os.path.dirname(os.path.abspath(__file__)).replace("code\\GUI", "")
 
@@ -417,22 +417,25 @@ class ScanScreen(tk.Frame):
         else:
             filled = hyst
         if self.senne_applybool.get():
+            time_scratch = time.time()
             filled_img = PIL.Image.fromarray(filled)
             (width, height) = filled_img.size
             filled_img = np.array(filled_img.resize((int(width / 5), int(height / 5))))
             sobel2 = wp.sobel(filled_img)
             senne_obj, nb_obj = wp.object_counting_from_scratch(sobel2, 100)
             if self.senne_showbool.get() or self.show_all_bool.get():
-                show_dict.update({f"BROPAS: {nb_obj} objects": (senne_obj, 'gray')})
+                show_dict.update(
+                    {f"BROPAS: \n{nb_obj} objects, time: {round(time.time() - time_scratch, 2)}s": (senne_obj, 'viridis')})
             save_dict.update({"BROPAS": (senne_obj, f'{ESAT7A1}/Images/sobel images/')})
         else:
             senne_obj = filled
 
         if self.db_applybool.get():
-            # hier dan sennes algoritme in steken
+            time_db = time.time()
             db, nb_objects = wp.db_scan(filled)
             if self.db_showbool.get() or self.show_all_bool.get():
-                show_dict.update({f"DBSCAN: \n{nb_objects} objects detected": (db, 'viridis')})
+                show_dict.update(
+                    {f"DBSCAN: \n{nb_objects} objects, time: {round(time.time() - time_db, 2)}s": (db, 'viridis')})
             save_dict.update({"DetectedObjects": (db, f'{ESAT7A1}/Images/object images/')})
         else:
             db = filled
