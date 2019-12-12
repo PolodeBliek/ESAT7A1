@@ -173,9 +173,10 @@ class ScanScreen(tk.Frame):
         initialize_cb.grid(row=1, column=0, sticky="ew")
 
         # hold on selected image button
-        self.keep_path = tk.StringVar()
-        self.keep_bool = tk.BooleanVar()
-        hold_cb = ttk.Checkbutton(selectedimgFrame, variable=self.keep_bool, text="Hold on selected image                   ", takefocus=False)
+        self.hold_bool = tk.BooleanVar()
+        self.color_hold_path = tk.StringVar()
+        self.depth_hold_path = tk.StringVar()
+        hold_cb = ttk.Checkbutton(selectedimgFrame, variable=self.hold_bool, text="Hold on selected image                   ", takefocus=False)
         hold_cb.grid(row=1, column=0, sticky="ew", columnspan=2)
 
     def traverse_to_menu(self, key=''):
@@ -313,33 +314,42 @@ class ScanScreen(tk.Frame):
     # the actual functions/pipelines
     def run_on_selected_img(self):
         # get the image
-        if self.keep_bool.get() and not self.keep_path.get() == "":
-            img_path = self.keep_path.get()
-            # depth_img_path = ""
+        if self.hold_bool.get() and not self.color_hold_path.get() == "":
+            color_path = self.color_hold_path.get()
         else:
-            img_path = filedialog.askopenfilename()
-            # depth_img_path = filedialog.askopenfilename()
-
-        if img_path == "":  # if no picture selected, return
+            color_path = filedialog.askopenfilename()
+        if color_path == "":  # if no picture selected, return
             print("No picture selected")
             return
+        self.color_hold_path.set(color_path)  # keep updating the selected image path
+        color_image = np.array(Image.open(color_path))  # convert to workable array
 
-        if img_path == "":  # if no picture selected, return
-            print("No picture selected")
-            return
-
-        self.keep_path.set(img_path)  # keep updating the selected image path
-        image = np.array(Image.open(img_path))  # convert to workable array
-        # image = np.array(pickle.load(open(img_path, "rb")))
-        # depth = np.array(pickle.load(open(depth_img_path, "rb")))[50:350, :350]
         show_dict = {}
         if self.colorimg_showbool.get() or self.show_all_bool.get():
-            show_dict.update({"Selected Image": (image, 'gray')})
-        save_dict = {"SelectedImage": (image, f'{ESAT7A1}/Images/input images/')}
-        # if not self.depth_bool.get():
-        self.color_pipeline(image, show_dict, save_dict)
-        # else:
-        #     self.depth_pipeline(depth, image, show_dict, save_dict)
+            show_dict.update({"Selected Color Image": (color_image, 'gray')})
+        save_dict = {"SelectedColorImage": (color_image, f'{ESAT7A1}/Images/input images/')}
+
+        # do the same for depth if depth apply is selected
+        if self.depth_applybool.get():
+            if self.hold_bool.get() and not self.color_hold_path.get() == "":
+                depth_path = self.color_hold_path.get()
+            else:
+                depth_path = filedialog.askopenfilename()
+
+            if depth_path == "":  # if no picture selected, return
+                print("No picture selected")
+                return
+
+            self.depth_hold_path.set(depth_path)
+            depth_image = np.array(Image.open(depth_path))  # convert to workable array
+
+            if self.depthimg_showbool.get() or self.show_all_bool.get():
+                show_dict.update({"Selected Depth Image": (depth_image, 'gray')})
+
+        if not self.depth_applybool.get():
+            self.color_pipeline(color_image, show_dict, save_dict)
+        else:
+            self.depth_pipeline(depth_image, color_image, show_dict, save_dict)
 
     def run_with_kinect(self):
         if not wp.is_connected():

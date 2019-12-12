@@ -44,33 +44,30 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/GUI/GUI3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="71">
-              <caret line="419" lean-forward="true" selection-start-line="419" selection-end-line="419" />
+            <state relative-caret-position="208">
+              <caret line="346" column="21" lean-forward="true" selection-start-line="346" selection-start-column="21" selection-end-line="346" selection-end-column="21" />
               <folding>
                 <element signature="e#838#2150#0" />
                 <element signature="e#883#1861#0" />
                 <element signature="e#1903#2150#0" />
-                <element signature="e#2185#3424#0" />
-                <element signature="e#3500#7199#0" />
                 <element signature="e#7241#7575#0" />
                 <element signature="e#7630#11218#0" />
                 <element signature="e#11415#13995#0" />
-                <element signature="e#8287#9494#0" />
                 <element signature="e#9535#11062#0" />
-                <element signature="e#14548#18280#0" />
+                <element signature="e#11131#14465#0" />
                 <element signature="e#22224#22851#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/Main/Counting_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="891">
+            <state relative-caret-position="88">
               <caret line="326" lean-forward="true" selection-start-line="326" selection-end-line="326" />
               <folding>
                 <element signature="e#40#78#0" expanded="true" />
@@ -89,7 +86,6 @@
                 <element signature="e#9989#10271#0" />
                 <element signature="e#10336#11382#0" />
                 <element signature="e#11419#12107#0" />
-                <element signature="e#12191#13894#0" />
                 <element signature="e#13934#14348#0" />
                 <element signature="e#14417#15896#0" />
                 <element signature="e#15958#16344#0" />
@@ -645,9 +641,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/GUicons2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-353">
+          <caret line="343" column="102" selection-start-line="343" selection-start-column="102" selection-end-line="343" selection-end-column="102" />
+          <folding>
+            <element signature="e#26#58#0" expanded="true" />
+            <element signature="e#8696#8759#0" />
+            <element signature="e#8804#9458#0" />
+            <element signature="e#9499#10241#0" />
+            <element signature="e#10310#13001#0" />
+            <element signature="e#13130#13464#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/GUI/GUI3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="346" column="21" lean-forward="true" selection-start-line="346" selection-start-column="21" selection-end-line="346" selection-end-column="21" />
+          <folding>
+            <element signature="e#838#2150#0" />
+            <element signature="e#883#1861#0" />
+            <element signature="e#1903#2150#0" />
+            <element signature="e#7241#7575#0" />
+            <element signature="e#7630#11218#0" />
+            <element signature="e#11415#13995#0" />
+            <element signature="e#9535#11062#0" />
+            <element signature="e#11131#14465#0" />
+            <element signature="e#22224#22851#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/Main/Counting_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="891">
+        <state relative-caret-position="88">
           <caret line="326" lean-forward="true" selection-start-line="326" selection-end-line="326" />
           <folding>
             <element signature="e#40#78#0" expanded="true" />
@@ -666,46 +695,9 @@
             <element signature="e#9989#10271#0" />
             <element signature="e#10336#11382#0" />
             <element signature="e#11419#12107#0" />
-            <element signature="e#12191#13894#0" />
             <element signature="e#13934#14348#0" />
             <element signature="e#14417#15896#0" />
             <element signature="e#15958#16344#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/GUicons2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-353">
-          <caret line="343" column="102" selection-start-line="343" selection-start-column="102" selection-end-line="343" selection-end-column="102" />
-          <folding>
-            <element signature="e#26#58#0" expanded="true" />
-            <element signature="e#8696#8759#0" />
-            <element signature="e#8804#9458#0" />
-            <element signature="e#9499#10241#0" />
-            <element signature="e#10310#13001#0" />
-            <element signature="e#13130#13464#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/GUI/GUI3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="71">
-          <caret line="419" lean-forward="true" selection-start-line="419" selection-end-line="419" />
-          <folding>
-            <element signature="e#838#2150#0" />
-            <element signature="e#883#1861#0" />
-            <element signature="e#1903#2150#0" />
-            <element signature="e#2185#3424#0" />
-            <element signature="e#3500#7199#0" />
-            <element signature="e#7241#7575#0" />
-            <element signature="e#7630#11218#0" />
-            <element signature="e#11415#13995#0" />
-            <element signature="e#8287#9494#0" />
-            <element signature="e#9535#11062#0" />
-            <element signature="e#14548#18280#0" />
-            <element signature="e#22224#22851#0" />
           </folding>
         </state>
       </provider>
