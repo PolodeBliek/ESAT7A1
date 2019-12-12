@@ -333,7 +333,7 @@ class ScanScreen(tk.Frame):
         # image = np.array(pickle.load(open(img_path, "rb")))
         # depth = np.array(pickle.load(open(depth_img_path, "rb")))[50:350, :350]
         show_dict = {}
-        if self.colorimg_showbool.get():
+        if self.colorimg_showbool.get() or self.show_all_bool.get():
             show_dict.update({"Selected Image": (image, 'gray')})
         save_dict = {"SelectedImage": (image, f'{ESAT7A1}/Images/input images/')}
         # if not self.depth_bool.get():
@@ -357,7 +357,7 @@ class ScanScreen(tk.Frame):
         depth_image = depth_image
 
         color_show_dict = {}
-        if self.colorimg_showbool.get():
+        if self.colorimg_showbool.get() or self.show_all_bool.get():
             color_show_dict.update({"Color Image": (color_image, 'gray')})
         color_save_dict = {"ColorImage": (color_image, f'{ESAT7A1}/Images/input images/')}
 
@@ -375,33 +375,33 @@ class ScanScreen(tk.Frame):
     def color_pipeline(self, image, show_dict, save_dict):
         # maybe multiprocessing when showing images, otherwise you might have to wait to run depth_pipeline
         gray = wp.grayscale(image)  # grayscaling is necessary to the process
-        if self.gray_showbool.get():
+        if self.gray_showbool.get() or self.show_all_bool.get():
             show_dict.update({"Grayscaled": (gray, 'gray')})
         save_dict.update({"Gray": (gray, f'{ESAT7A1}/Images/grayscaled images/')})  # gray is the reference for saving
         if self.gauss_applybool.get():
             gauss = wp.gaussian_blur(gray, self.gauss_reps.get())
-            if self.gauss_showbool.get():
+            if self.gauss_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Gaussian Blur": (gauss, 'gray')})
             save_dict.update({"Gauss": (gauss, f'{ESAT7A1}/Images/blurred images/')})
         else:
             gauss = gray
         if self.sobel_applybool.get():
             sobel = wp.sobel(gauss)
-            if self.sobel_showbool.get():
+            if self.sobel_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Sobel": (sobel, 'gray')})
             save_dict.update({"Sobel": (sobel, f'{ESAT7A1}/Images/sobel images/')})
         else:
             sobel = gauss
         if self.hyst_applybool.get():
             hyst = wp.hysteresis(sobel, self.low_th.get(), self.high_th.get())
-            if self.hyst_showbool.get():
+            if self.hyst_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Hysteresis": (hyst, 'gray')})
             save_dict.update({"Hyst": (hyst, f'{ESAT7A1}/Images/hysteresis images/')})
         else:
             hyst = sobel
         if self.fill_applybool.get():
             filled = ndimage.binary_fill_holes(hyst)
-            if self.fill_showbool.get():
+            if self.fill_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Filled": (filled, 'gray')})
             save_dict.update({"Filled": (filled, f'{ESAT7A1}/Images/filled images/')})
         else:
@@ -412,7 +412,7 @@ class ScanScreen(tk.Frame):
             filled_img = np.array(filled_img.resize((int(width / 5), int(height / 5))))
             sobel2 = wp.sobel(filled_img)
             senne_obj, nb_obj = wp.object_counting_from_scratch(sobel2, 100)
-            if self.senne_showbool.get():
+            if self.senne_showbool.get() or self.show_all_bool.get():
                 show_dict.update({f"BROPAS: {nb_obj} objects": (senne_obj, 'gray')})
             save_dict.update({"BROPAS": (senne_obj, f'{ESAT7A1}/Images/sobel images/')})
         else:
@@ -421,7 +421,7 @@ class ScanScreen(tk.Frame):
         if self.db_applybool.get():
             # hier dan sennes algoritme in steken
             db, nb_objects = wp.db_scan(filled)
-            if self.db_showbool.get():
+            if self.db_showbool.get() or self.show_all_bool.get():
                 show_dict.update({f"DBSCAN: \n{nb_objects} objects detected": (db, 'viridis')})
             save_dict.update({"DetectedObjects": (db, f'{ESAT7A1}/Images/object images/')})
         else:
@@ -429,7 +429,7 @@ class ScanScreen(tk.Frame):
             nb_objects = None
         if self.boxes_applybool.get():
             boxes = wp.draw_boxes(image, db)
-            if self.boxes_showbool.get():
+            if self.boxes_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Boxes": (boxes, 'gray')})
             save_dict.update({"Boxes": (boxes, f'{ESAT7A1}/Images/draw boxes/')})
 
@@ -444,33 +444,33 @@ class ScanScreen(tk.Frame):
 
     def depth_pipeline(self, depth_image, image,  show_dict, save_dict):
         gray = wp.grayscale(image)  # grayscaling is necessary to the process
-        if self.gray_showbool.get():
+        if self.gray_showbool.get() or self.show_all_bool.get():
             show_dict.update({"Grayscaled": (gray, 'gray')})
         save_dict.update({"Gray": (gray, f'{ESAT7A1}/Images/grayscaled images/')})  # gray is the reference for saving
         if self.gauss_applybool.get():
             gauss = wp.gaussian_blur(gray, self.gauss_reps.get())
-            if self.gauss_showbool.get():
+            if self.gauss_showbool.get()or self.show_all_bool.get() :
                 show_dict.update({"Gaussian Blur": (gauss, 'gray')})
             save_dict.update({"Gauss": (gauss, f'{ESAT7A1}/Images/blurred images/')})
         else:
             gauss = gray
         if self.sobel_applybool.get():
             sobel = wp.sobel(gauss)
-            if self.sobel_showbool.get():
+            if self.sobel_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Sobel": (sobel, 'gray')})
             save_dict.update({"Sobel": (sobel, f'{ESAT7A1}/Images/sobel images/')})
         else:
             sobel = gauss
         if self.hyst_applybool.get():
             hyst = wp.hysteresis(sobel, self.low_th.get(), self.high_th.get())
-            if self.hyst_showbool.get():
+            if self.hyst_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Hysteresis": (hyst, 'gray')})
             save_dict.update({"Hyst": (hyst, f'{ESAT7A1}/Images/hysteresis images/')})
         else:
             hyst = sobel
         if self.fill_applybool.get():
             filled = ndimage.binary_fill_holes(hyst)
-            if self.fill_showbool.get():
+            if self.fill_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Filled": (filled, 'gray')})
             save_dict.update({"Filled": (filled, f'{ESAT7A1}/Images/filled images/')})
         else:
@@ -492,7 +492,7 @@ class ScanScreen(tk.Frame):
 
         if self.boxes_applybool.get():
             boxes = wp.draw_boxes(image, db)
-            if self.boxes_showbool.get():
+            if self.boxes_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"boxes": (boxes, 'gray')})
             save_dict.update({"Boxes": (boxes, f'{ESAT7A1}/Images/draw boxes/')})
 

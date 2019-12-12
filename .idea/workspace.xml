@@ -47,21 +47,19 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/GUI/GUI3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="26" column="52" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
+            <state relative-caret-position="71">
+              <caret line="419" lean-forward="true" selection-start-line="419" selection-end-line="419" />
               <folding>
                 <element signature="e#838#2150#0" />
                 <element signature="e#883#1861#0" />
                 <element signature="e#1903#2150#0" />
                 <element signature="e#2185#3424#0" />
-                <element signature="e#3365#23666#0" />
                 <element signature="e#3500#7199#0" />
                 <element signature="e#7241#7575#0" />
                 <element signature="e#7630#11218#0" />
                 <element signature="e#11415#13995#0" />
                 <element signature="e#8287#9494#0" />
                 <element signature="e#9535#11062#0" />
-                <element signature="e#11131#14465#0" />
                 <element signature="e#14548#18280#0" />
                 <element signature="e#22224#22851#0" />
               </folding>
@@ -693,21 +691,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/GUI/GUI3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="26" column="52" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
+        <state relative-caret-position="71">
+          <caret line="419" lean-forward="true" selection-start-line="419" selection-end-line="419" />
           <folding>
             <element signature="e#838#2150#0" />
             <element signature="e#883#1861#0" />
             <element signature="e#1903#2150#0" />
             <element signature="e#2185#3424#0" />
-            <element signature="e#3365#23666#0" />
             <element signature="e#3500#7199#0" />
             <element signature="e#7241#7575#0" />
             <element signature="e#7630#11218#0" />
             <element signature="e#11415#13995#0" />
             <element signature="e#8287#9494#0" />
             <element signature="e#9535#11062#0" />
-            <element signature="e#11131#14465#0" />
             <element signature="e#14548#18280#0" />
             <element signature="e#22224#22851#0" />
           </folding>
