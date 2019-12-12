@@ -13,33 +13,15 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/GUicons.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="79" column="28" selection-start-line="79" selection-start-column="28" selection-end-line="79" selection-end-column="28" />
+            <state relative-caret-position="341">
+              <caret line="372" column="41" selection-start-line="372" selection-start-column="41" selection-end-line="372" selection-end-column="41" />
               <folding>
                 <element signature="e#26#58#0" expanded="true" />
-                <element signature="e#1656#2692#0" />
-                <element signature="e#2994#16532#0" />
-                <element signature="e#2777#7946#0" />
-                <element signature="e#8357#8420#0" />
-                <element signature="e#7843#8497#0" />
-                <element signature="e#8538#9280#0" />
-                <element signature="e#9349#12040#0" />
-                <element signature="e#12115#12119#0" />
-                <element signature="e#12799#13148#0" />
-                <element signature="e#12676#15627#0" />
-                <element signature="e#12159#12786#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/code/Testing/fillholes/binfillholesndi.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="34" lean-forward="true" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#8352#8415#0" />
+                <element signature="e#8460#9114#0" />
+                <element signature="e#9155#9897#0" />
+                <element signature="e#9966#12657#0" />
+                <element signature="e#12786#13181#0" />
               </folding>
             </state>
           </provider>
@@ -48,49 +30,83 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/GUicons2.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="84" column="56" lean-forward="true" selection-start-line="84" selection-start-column="56" selection-end-line="84" selection-end-column="56" />
+            <state relative-caret-position="-353">
+              <caret line="343" column="102" selection-start-line="343" selection-start-column="102" selection-end-line="343" selection-end-column="102" />
               <folding>
                 <element signature="e#26#58#0" expanded="true" />
-                <element signature="e#1646#2879#0" />
-                <element signature="e#8352#8415#0" />
-                <element signature="e#8460#9114#0" />
-                <element signature="e#9155#9897#0" />
-                <element signature="e#9966#12657#0" />
-                <element signature="e#12732#12736#0" />
-                <element signature="e#16967#17594#0" />
+                <element signature="e#8696#8759#0" />
+                <element signature="e#8804#9458#0" />
+                <element signature="e#9499#10241#0" />
+                <element signature="e#10310#13001#0" />
+                <element signature="e#13130#13464#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
+        <entry file="file://$PROJECT_DIR$/code/GUI/GUI3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="145">
-              <caret line="259" column="19" selection-start-line="259" selection-start-column="19" selection-end-line="259" selection-end-column="19" />
+            <state relative-caret-position="85">
+              <caret line="26" column="52" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
               <folding>
-                <element signature="e#26#58#0" expanded="true" />
-                <element signature="e#459#1544#0" />
-                <element signature="e#1578#2601#0" />
-                <element signature="e#2685#6936#0" />
-                <element signature="e#6974#7037#0" />
-                <element signature="e#7210#7600#0" />
-                <element signature="e#9612#9616#0" />
-                <element signature="e#9352#10611#0" />
+                <element signature="e#838#2150#0" />
+                <element signature="e#883#1861#0" />
+                <element signature="e#1903#2150#0" />
+                <element signature="e#2185#3424#0" />
+                <element signature="e#3365#23666#0" />
+                <element signature="e#3500#7199#0" />
+                <element signature="e#7241#7575#0" />
+                <element signature="e#7630#11218#0" />
+                <element signature="e#11415#13995#0" />
+                <element signature="e#8287#9494#0" />
+                <element signature="e#9535#11062#0" />
+                <element signature="e#11131#14465#0" />
+                <element signature="e#14548#18280#0" />
+                <element signature="e#22224#22851#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/code/Testing/depth_overlap.py">
+        <entry file="file://$PROJECT_DIR$/code/Main/Counting_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="74" selection-start-line="74" selection-end-line="74" />
+            <state relative-caret-position="891">
+              <caret line="326" lean-forward="true" selection-start-line="326" selection-end-line="326" />
               <folding>
-                <element signature="e#21#72#0" />
-                <element signature="e#2068#2101#0" />
+                <element signature="e#40#78#0" expanded="true" />
+                <element signature="e#1157#1173#0" />
+                <element signature="e#1206#1749#0" />
+                <element signature="e#1782#2835#0" />
+                <element signature="e#3129#4473#0" />
+                <element signature="e#4534#4672#0" />
+                <element signature="e#4711#5013#0" />
+                <element signature="e#5038#5983#0" />
+                <element signature="e#6024#7171#0" />
+                <element signature="e#7227#7698#0" />
+                <element signature="e#7769#8085#0" />
+                <element signature="e#8126#8340#0" />
+                <element signature="e#8420#9925#0" />
+                <element signature="e#9989#10271#0" />
+                <element signature="e#10336#11382#0" />
+                <element signature="e#11419#12107#0" />
+                <element signature="e#12191#13894#0" />
+                <element signature="e#13934#14348#0" />
+                <element signature="e#14417#15896#0" />
+                <element signature="e#15958#16344#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4267">
+              <caret line="262" column="56" selection-start-line="262" selection-start-column="40" selection-end-line="262" selection-end-column="56" />
+              <folding>
+                <element signature="e#26#58#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -116,8 +132,12 @@
       <find>are_par</find>
       <find>senne</find>
       <find>pad</find>
-      <find>row=</find>
       <find>print</find>
+      <find>imgs/</find>
+      <find>inclu</find>
+      <find>row=</find>
+      <find>include</find>
+      <find>db</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -142,19 +162,20 @@
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/GUthemes.py" />
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_.py" />
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/ttk_.py" />
-        <option value="$PROJECT_DIR$/code/Testing/GUI_tests/GUicons2.py" />
-        <option value="$PROJECT_DIR$/code/Testing/GUI_tests/GUicons.py" />
         <option value="$PROJECT_DIR$/code/Testing/binfillholes.py" />
-        <option value="$PROJECT_DIR$/code/Testing/fillholes/binfillholesndi.py" />
         <option value="$PROJECT_DIR$/code/GUI/GUI2.py" />
+        <option value="$PROJECT_DIR$/code/Testing/fillholes/binfillholesndi.py" />
+        <option value="$PROJECT_DIR$/code/Main/Counting_algorithm.py" />
+        <option value="$PROJECT_DIR$/code/Testing/GUI_tests/GUicons.py" />
+        <option value="$PROJECT_DIR$/code/Testing/GUI_tests/GUicons2.py" />
+        <option value="$PROJECT_DIR$/code/GUI/GUI3.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="979" />
-    <option name="height" value="1049" />
+    <option name="x" value="950" />
+    <option name="width" value="980" />
+    <option name="height" value="1040" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -184,7 +205,15 @@
               <item name="ESAT7A1" type="462c0819:PsiDirectoryNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
               <item name="Testing" type="462c0819:PsiDirectoryNode" />
-              <item name="fillholes" type="462c0819:PsiDirectoryNode" />
+              <item name="GUI_tests" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ESAT7A1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ESAT7A1" type="462c0819:PsiDirectoryNode" />
+              <item name="code" type="462c0819:PsiDirectoryNode" />
+              <item name="Testing" type="462c0819:PsiDirectoryNode" />
+              <item name="GUI_tests" type="462c0819:PsiDirectoryNode" />
+              <item name="imgs" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -209,7 +238,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.GUI2">
+  <component name="RunManager" selected="Python.GUI3">
     <configuration name="GUI2" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ESAT7A1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -223,6 +252,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/GUI/GUI2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="GUI3" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="ESAT7A1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/GUI" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/GUI/GUI3.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -294,34 +344,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="ttk_" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="ESAT7A1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/Testing/GUI_tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/Testing/GUI_tests/ttk_.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.GUI2" />
-        <item itemvalue="Python.binfillholesndi" />
-        <item itemvalue="Python.GUicons" />
+        <item itemvalue="Python.GUI3" />
         <item itemvalue="Python.GUicons2" />
-        <item itemvalue="Python.ttk_" />
+        <item itemvalue="Python.GUicons" />
+        <item itemvalue="Python.binfillholesndi" />
+        <item itemvalue="Python.GUI2" />
       </list>
     </recent_temporary>
   </component>
@@ -342,7 +371,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22405817" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16060807" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -394,9 +423,7 @@
     <entry file="file://$PROJECT_DIR$/Gauss.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Images/object images/DetectedObjects_12.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/object images/DetectedObjects_12.jpg" />
     <entry file="file://$PROJECT_DIR$/Hyst.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -452,21 +479,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_try.spec">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="11" column="30" lean-forward="true" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/build/ttkthemes_try/Analysis-00.toc">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/build/ttkthemes_try/ttkthemes_try.exe">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-16881" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_try.spec" />
+    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/build/ttkthemes_try/Analysis-00.toc" />
+    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/build/ttkthemes_try/ttkthemes_try.exe" />
     <entry file="file://$PROJECT_DIR$/code/Testing/ndi_binaryFillHoles.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -536,9 +551,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttk.spec">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttk.spec" />
     <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_try.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -592,67 +605,111 @@
     <entry file="file://$PROJECT_DIR$/code/Testing/binfillholes.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/GUicons.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="79" column="28" selection-start-line="79" selection-start-column="28" selection-end-line="79" selection-end-column="28" />
-          <folding>
-            <element signature="e#26#58#0" expanded="true" />
-            <element signature="e#1656#2692#0" />
-            <element signature="e#2994#16532#0" />
-            <element signature="e#2777#7946#0" />
-            <element signature="e#8357#8420#0" />
-            <element signature="e#7843#8497#0" />
-            <element signature="e#8538#9280#0" />
-            <element signature="e#9349#12040#0" />
-            <element signature="e#12115#12119#0" />
-            <element signature="e#12799#13148#0" />
-            <element signature="e#12676#15627#0" />
-            <element signature="e#12159#12786#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/GUicons2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="84" column="56" lean-forward="true" selection-start-line="84" selection-start-column="56" selection-end-line="84" selection-end-column="56" />
-          <folding>
-            <element signature="e#26#58#0" expanded="true" />
-            <element signature="e#1646#2879#0" />
-            <element signature="e#8352#8415#0" />
-            <element signature="e#8460#9114#0" />
-            <element signature="e#9155#9897#0" />
-            <element signature="e#9966#12657#0" />
-            <element signature="e#12732#12736#0" />
-            <element signature="e#16967#17594#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/Testing/fillholes/binfillholesndi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="34" lean-forward="true" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
+        <state relative-caret-position="85">
+          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/code/Main/Counting algorithm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102">
+          <caret selection-end-line="450" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/GUI/GUI2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="145">
-          <caret line="259" column="19" selection-start-line="259" selection-start-column="19" selection-end-line="259" selection-end-column="19" />
+        <state relative-caret-position="4267">
+          <caret line="262" column="56" selection-start-line="262" selection-start-column="40" selection-end-line="262" selection-end-column="56" />
           <folding>
             <element signature="e#26#58#0" expanded="true" />
-            <element signature="e#459#1544#0" />
-            <element signature="e#1578#2601#0" />
-            <element signature="e#2685#6936#0" />
-            <element signature="e#6974#7037#0" />
-            <element signature="e#7210#7600#0" />
-            <element signature="e#9612#9616#0" />
-            <element signature="e#9352#10611#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/GUicons.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="341">
+          <caret line="372" column="41" selection-start-line="372" selection-start-column="41" selection-end-line="372" selection-end-column="41" />
+          <folding>
+            <element signature="e#26#58#0" expanded="true" />
+            <element signature="e#8352#8415#0" />
+            <element signature="e#8460#9114#0" />
+            <element signature="e#9155#9897#0" />
+            <element signature="e#9966#12657#0" />
+            <element signature="e#12786#13181#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Main/Counting_algorithm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="891">
+          <caret line="326" lean-forward="true" selection-start-line="326" selection-end-line="326" />
+          <folding>
+            <element signature="e#40#78#0" expanded="true" />
+            <element signature="e#1157#1173#0" />
+            <element signature="e#1206#1749#0" />
+            <element signature="e#1782#2835#0" />
+            <element signature="e#3129#4473#0" />
+            <element signature="e#4534#4672#0" />
+            <element signature="e#4711#5013#0" />
+            <element signature="e#5038#5983#0" />
+            <element signature="e#6024#7171#0" />
+            <element signature="e#7227#7698#0" />
+            <element signature="e#7769#8085#0" />
+            <element signature="e#8126#8340#0" />
+            <element signature="e#8420#9925#0" />
+            <element signature="e#9989#10271#0" />
+            <element signature="e#10336#11382#0" />
+            <element signature="e#11419#12107#0" />
+            <element signature="e#12191#13894#0" />
+            <element signature="e#13934#14348#0" />
+            <element signature="e#14417#15896#0" />
+            <element signature="e#15958#16344#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/GUicons2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-353">
+          <caret line="343" column="102" selection-start-line="343" selection-start-column="102" selection-end-line="343" selection-end-column="102" />
+          <folding>
+            <element signature="e#26#58#0" expanded="true" />
+            <element signature="e#8696#8759#0" />
+            <element signature="e#8804#9458#0" />
+            <element signature="e#9499#10241#0" />
+            <element signature="e#10310#13001#0" />
+            <element signature="e#13130#13464#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/GUI/GUI3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="26" column="52" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
+          <folding>
+            <element signature="e#838#2150#0" />
+            <element signature="e#883#1861#0" />
+            <element signature="e#1903#2150#0" />
+            <element signature="e#2185#3424#0" />
+            <element signature="e#3365#23666#0" />
+            <element signature="e#3500#7199#0" />
+            <element signature="e#7241#7575#0" />
+            <element signature="e#7630#11218#0" />
+            <element signature="e#11415#13995#0" />
+            <element signature="e#8287#9494#0" />
+            <element signature="e#9535#11062#0" />
+            <element signature="e#11131#14465#0" />
+            <element signature="e#14548#18280#0" />
+            <element signature="e#22224#22851#0" />
           </folding>
         </state>
       </provider>

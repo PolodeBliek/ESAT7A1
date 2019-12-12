@@ -326,18 +326,18 @@ class ScanScreen(ttk.Frame):
         boxes_showbool = tk.BooleanVar()
 
         # main menu bar
-        menubar = tk.Frame(self, relief=tk.RAISED, bd=2, bg='#D1D1D1')  # , relief=tk.RAISED, bd=2
+        menubar = tk.Frame(self, relief=tk.RAISED, bd=1, bg='#D1D1D1')  # , relief=tk.RAISED, bd=2
         menubar.grid(row=0, column=0, sticky='ew', columnspan=4)
 
         # variables button
-        variablesbutton = tk.Menubutton(menubar, text='Variables', underline=0)
+        variablesbutton = tk.Menubutton(menubar, text='Variables', underline=0, bg='#D1D1D1', bd=2)
         variablesbutton.grid(row=0, column=0, sticky='w')
         variables = tk.Menu(variablesbutton, tearoff=False)
         variables.add_separator()
         variablesbutton.config(menu=variables)
 
         # apply menu (dropdown)
-        applybutton = tk.Menubutton(menubar, text='Apply', underline=0)
+        applybutton = tk.Menubutton(menubar, text='Apply', underline=0, bg='#D1D1D1', bd=2)
         applybutton.grid(row=0, column=1, sticky="w")
         apply = tk.Menu(applybutton)
         apply.add_checkbutton(label='gaussian blur', variable=gauss_applybool, command=lambda: self.traverse_to_menu('a'))
@@ -349,7 +349,7 @@ class ScanScreen(ttk.Frame):
         applybutton.config(menu=apply)
 
         # show menu (dropdown)
-        showbutton = tk.Menubutton(menubar, text='Show', underline=0)
+        showbutton = tk.Menubutton(menubar, text='Show', underline=0, bg='#D1D1D1', bd=2)
         showbutton.grid(row=0, column=2, sticky="w")
         show = tk.Menu(showbutton)
         show.add_checkbutton(label='original image', variable=og_showbool, command=lambda: self.traverse_to_menu('s'))
@@ -363,11 +363,14 @@ class ScanScreen(ttk.Frame):
         showbutton.config(menu=show)
 
         # help menu
-        helpmn = tk.Menubutton(menubar, text='Help', underline=0)
+        helpmn = tk.Menubutton(menubar, text='Help', underline=0, bg='#D1D1D1', bd=2)
         helpmn.grid(row=0, column=3, sticky='w')
         help = tk.Menu(helpmn)
         help.add_command(label="I'm stupid")
         helpmn.config(menu=help)
+
+        # seperator = tk.Menubutton(menubar, text='\u22EE')
+        # seperator.grid(row=0, column=4)
 
         # submenu = tk.Menu(apply, tearoff=0)
         # submenu.add_command(label='Spam', command=self.quit, underline=0)

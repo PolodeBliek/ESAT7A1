@@ -101,6 +101,9 @@ class ScanScreen(ttk.Frame):
         self.alt_key = 0x12
         self.key_up = 0x0002
 
+        # parametermenu
+        # paramframe = tk.Frame(self)
+
         # via camera button:
         self.kinect = tk.PhotoImage(file="imgs/kinect2.png")
         self.kinectimg = self.kinect.subsample(6, 6)
@@ -157,7 +160,7 @@ class ScanScreen(ttk.Frame):
 
         # save images checkbox
         self.save_bool = tk.IntVar(); self.save_bool.set(0)
-        save_cb = ttk.Checkbutton(self, variable=self.save_bool, text="save images", takefocus=False)
+        save_cb = ttk.Radiobutton(self, variable=self.save_bool, text="save images", takefocus=False)
         save_cb.grid(row=3, column=1, columnspan=2, padx=20)
 
         # hold on selected image button
@@ -334,16 +337,11 @@ class ScanScreen(ttk.Frame):
         boxes_showbool = tk.BooleanVar()
 
         # main menu bar
-        menubar = tk.Menu(controller, background='green', foreground='red',
-               activebackground='green', activeforeground='red')  # , relief=tk.RAISED, bd=2
+        menubar = tk.Menu(controller)  # , relief=tk.RAISED, bd=2
         controller.config(menu=menubar)
 
-        # variables button
-        varmenu = tk.Menu(menubar, tearoff=0, background='white', foreground='black',
-                activebackground='#374140', activeforeground='white')
-        varmenu.add_separator()
-        varmenu.add_command(label="lsdjdfd", command=lambda: self.traverse_to_menu('v'))
-        menubar.add_cascade(menu=varmenu, label="Variables", underline=0)
+        # back button
+        menubar.add_command(label='Back', command=lambda: controller.show_frame(MainMenu), underline=0)
 
         # apply menu (dropdown)
         applymenu = tk.Menu(menubar, tearoff=0)
@@ -355,7 +353,7 @@ class ScanScreen(ttk.Frame):
         applymenu.add_checkbutton(label='dbscan', variable=db_applybool, command=lambda: self.traverse_to_menu('a'))
         applymenu.add_separator()
         applymenu.add_checkbutton(label='boxes', variable=boxes_applybool, command=lambda: self.traverse_to_menu('a'))
-        menubar.add_cascade(menu=applymenu, label="Apply", underline=0)
+        menubar.add_cascade(menu=applymenu, label="Apply", underline=0, hidemargin=0)
 
         # show menu (dropdown)
         showmenu = tk.Menu(menubar, tearoff=0)
@@ -376,6 +374,9 @@ class ScanScreen(ttk.Frame):
         helpmenu = tk.Menu(menubar, tearoff=0)
         helpmenu.add_command(label="HJËLP", command=lambda: print("fuck you"))
         menubar.add_cascade(menu=helpmenu, label="Help", underline=0)
+
+        # menubar.add_command(label="\u22EE",
+        #                     activebackground=menubar.cget("background"))
 
         # submenu = tk.Menu(apply, tearoff=0)
         # submenu.add_command(label='Spam', command=self.quit, underline=0)
