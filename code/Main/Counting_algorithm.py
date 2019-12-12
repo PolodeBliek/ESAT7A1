@@ -15,6 +15,7 @@ import cv2
 import os
 
 
+
 # Used directory (GitHub)
 currentDir = os.path.dirname(os.path.abspath(__file__)).replace("code\\Main", "")
 
@@ -27,19 +28,11 @@ iv                     = 3   # Maximum height difference for same object
 md                     = 15  # Minimum height difference for 2nd object
 nb_overlaps_for_object = 30  # Minimum overlapping points for overlap
 
-# Test Variables
-timed                  = True
-printing               = True
-show_imgs              = True
-save_imgs              = False
-detection_matrix_save  = False
-
 
 ## 1. Auxiliary functions for plotting and GUI ##
 
 def get_globals():
     return globals()
-
 
 def show_images(d: dict):
     """
@@ -47,7 +40,7 @@ def show_images(d: dict):
     """
     n = len(d)
     k = int(math.sqrt(n)) + 1
-    f = plt.figure(constrained_layout=True, num=f'Results:')
+    f = plt.figure(constrained_layout = True, num = f'Results:')
     spec = gridspec.GridSpec(ncols=k, nrows=n//k+1, figure=f)
     for i, key, vals in zip(range(n), d.keys(), d.values()):
         img, map_ = vals
@@ -56,6 +49,7 @@ def show_images(d: dict):
         plt.xticks([])
         plt.yticks([])
         ax.set_xlabel(f"{key}")
+
     mng = plt.get_current_fig_manager()
     mng.full_screen_toggle()
     plt.show()
@@ -203,16 +197,6 @@ def db_scan(matrix):
 
 ## 5. Object counting 2 ##
 
-def return_pixel_neighbours(pixel):
-    """
-        Returns a set of pixels surrounding the given pixel (could be written with for-loop = slower)
-    """
-    (row, col) = pixel
-    return {(row - 1, col - 1), (row - 1, col), (row - 1, col + 1),
-            (row, col - 1), (row, col + 1), (row + 1, col - 1),
-            (row + 1, col), (row + 1, col + 1)}
-
-
 def is_part_of_an_object(matrix):
     """
         Returns a list which contains pixels in the given matrix being a part of an object
@@ -222,55 +206,63 @@ def is_part_of_an_object(matrix):
     return objects
 
 
-def are_part_of_same_object(pixels, matrix, counter, min_nb_pixels=100):
+def are_part_of_same_object(pixels, matrix, counter, min_nb_pixels):
     cluster = [pixels[0]]
     pixels.remove(pixels[0])
-    verified = set()
+    connected_pixels = set()
     end = False
+
     while not end:
         found_next_pixel = False
-        for pixel1 in cluster:
-            (row, col) = pixel1
-            neighbours = {(row - 1, col - 1), (row - 1, col), (row - 1, col + 1),(row, col - 1), (row, col + 1), (row + 1, col - 1),(row + 1, col), (row + 1, col + 1)}
-            if len(neighbours.intersection(pixels)) == 0:
-                pass
-            else:
-                for pixel2 in neighbours:
-                    if (pixel2 not in verified) and (pixel2 in pixels):
-                        cluster.append(pixel2)
-                        pixels.remove(pixel2)
-                        found_next_pixel = True
+        for pixel_c in cluster:
 
-            verified.add(pixel1)
-            cluster.remove(pixel1)
+            (row, col) = pixel_c
+            neighbours = {(row - 1, col - 1), (row - 1, col), (row - 1, col + 1), (row, col - 1),
+                          (row, col + 1), (row + 1, col - 1), (row + 1, col), (row + 1, col + 1)}.intersection(pixels)
+
+            for pixel_n in neighbours:
+                if pixel_n not in connected_pixels:
+                    cluster.append(pixel_n)
+                    pixels.remove(pixel_n)
+                    found_next_pixel = True
+            cluster.remove(pixel_c)
+            connected_pixels.add(pixel_c)
+
         if found_next_pixel is False:
             end = True
-            if len(verified) > min_nb_pixels:
-                for element in verified:
+            if len(connected_pixels) > min_nb_pixels:
+                for element in connected_pixels:
                     (c_row, c_column) = element
-                    matrix[c_row][c_column] = 40 * (counter + 2)  # Make spotted pixels visible in end result
+                    matrix[c_row][c_column] = 40 * (counter + 1)  # Make spotted pixels visible in end result
             else:
-                for element in verified:
+                for element in connected_pixels:
                     (c_row, c_column) = element
                     matrix[c_row][c_column] = 0  # Make spotted pixels visible in end result
 
-        for element in verified:
-            (c_row, c_column) = element
-            matrix[c_row][c_column] = 40*(counter + 2)  # Make spotted pixels visible in end result
-
-    return pixels, len(verified)
+    return pixels, len(connected_pixels), matrix
 
 
 def object_counting_from_scratch(matrix, min_nb_pixels):
     counter = 0
+    start1 = time.time()
     objects = is_part_of_an_object(matrix)
-
-    while len(objects) > min_nb_pixels:
-        objects, len_object = are_part_of_same_object(objects, matrix, counter, min_nb_pixels)
+    matrix = copy.deepcopy(matrix)
+    end = False
+    while not end:
+        objects, len_object, matrix = are_part_of_same_object(objects, matrix, counter, min_nb_pixels)
         if len_object > min_nb_pixels:
             counter += 1
 
+        if len(objects) <= min_nb_pixels:
+            end = True
+            for element in objects:
+                (c_row, c_column) = element
+                matrix[c_row][c_column] = 0  # Make spotted pixels visible in end result
+
+
+    print("FROM SCRATCH: ", - start1 + time.time())
     return matrix, counter
+
 
 
 ## 6. Draw boxes ##
@@ -322,7 +314,6 @@ def find_corners(corner_img):
         allcoord.append([Links[0], Onder[0], Boven[0], Rechts[0]])
 
     return allcoord
-
 
 
 ## 7. Depth counting full algorithm ##
@@ -427,7 +418,7 @@ def depth_counting(objects_c, depth_frame, nb_objects_color):
             colorCounter += 1
             for pixel in area:
                 pixel = tuple(pixel)
-                if peak - 9 <= depth_frame[pixel] <= peak + 9:
+                if peak - md  < depth_frame[pixel] < peak + md:
                     plottedPixels.add(pixel)
                     depth_frameCopy[pixel] = 50*(colorCounter + 1)
                     depth_frame2[pixel] = 0
@@ -438,6 +429,30 @@ def depth_counting(objects_c, depth_frame, nb_objects_color):
     return object_counter, depth_frameCopy, depth_frame2
 
 
+def remaining_objects(all_coords):
+    """
+        Returns groups of connected pixels from depth frame
+    """
+    chained_pixels, nb_chains = ndimage.label(all_coords)
+
+    possible_objects = []
+    for label in range(1, nb_chains + 1):
+        possible_objects.append(np.transpose(np.nonzero(chained_pixels == label)))
+
+    objects = []
+    for area in possible_objects:
+        if len(area) > 100:
+            objects.append(area)
+
+    frame = np.zeros((len(all_coords), len(all_coords[0])))
+    for object in objects:
+        for pixel in object:
+            pixel = tuple(pixel)
+            frame[pixel] = 50
+
+    return objects, frame
+
+
 def depth_general(depth_frame, nb_objects_color):
 
         object_estimate = get_object_list(depth_frame)
@@ -445,8 +460,8 @@ def depth_general(depth_frame, nb_objects_color):
 
         resultFrame2 = cv2.medianBlur(resultFrame2, 3)
 
-        objectsLeft = get_object_list(resultFrame2)
+        objectsLeft, resultFrame2 = remaining_objects(resultFrame2)
         remainingResult = len(objectsLeft)
 
-        return depth_frame, resultFrame, resultFrame2, result + remainingResult
+        return depth_frame, resultFrame, resultFrame2, result,  remainingResult
 
