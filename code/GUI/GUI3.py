@@ -32,7 +32,7 @@ class BROPAS(ThemedTk):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)  # does the same as 'tk.Tk.__init__(self, *args, **kwargs)'
-        self.title("BROPAS")  # Object Counting Software
+        self.title("ESAT7A1")  # Object Counting Software
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         self.geometry("525x300")  # start dimensions
@@ -47,13 +47,13 @@ class BROPAS(ThemedTk):
 
         # 'collect' all the screens/frames/menus that you want to show
         self.frames = {}
-        for F in (MainMenu, CreditsScreen, ScanScreen):
+        for F in (StartScreen, CreditsScreen, ScanScreen):
             frame = F(container, self)
             frame.grid(row=0, column=0, sticky="news")
 
             self.frames[F] = frame
 
-        self.show_frame(MainMenu)  # show the default (start) screen
+        self.show_frame(StartScreen)  # show the default (start) screen
 
     def show_frame(self, cont):
         frame = self.frames[cont]
@@ -66,31 +66,33 @@ class BROPAS(ThemedTk):
             self.configure(menu=self.emptyMenu)
 
 
-class MainMenu(ttk.Frame):
+class StartScreen(ttk.Frame):
 
     def __init__(self, parent, controller):
         ttk.Frame.__init__(self, parent)
-        self.columnconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1, minsize=50)
         self.rowconfigure(1, weight=1, minsize=100)
         self.rowconfigure(2, weight=1)
+        self.columnconfigure(0, weight=1)
+        self.columnconfigure(1, weight=1)
+
+        # padframe:
+        padfr = tk.Frame(self)
+        padfr.grid(row=0, column=0, columnspan=2, sticky='news', pady=20)
 
         # info button
-        infobtn = ttk.Button(self, text="info", command=lambda: messagebox.showinfo(None, "Coming soon..."), takefocus=False)
-        infobtn.grid(row=0, column=0, sticky="w")
+        infobtn = ttk.Button(self, text="  info  ", command=lambda: messagebox.showinfo(None, "Coming soon..."), takefocus=False)
+        infobtn.grid(row=2, column=0, sticky="ne")
         # methode button
-        methodbtn = ttk.Button(self, text="De methode", command=lambda: messagebox.showinfo(None, "Coming soon..."), takefocus=False)
-        methodbtn.grid(row=0, column=0, sticky="nes")
+        pipelinebtn = ttk.Button(self, text="pipeline", command=lambda: messagebox.showinfo(None, "Coming soon..."), takefocus=False)
+        pipelinebtn.grid(row=2, column=1, sticky="nw")
 
         # start button
-        self.startbtnimg = tk.PhotoImage(file="GUI_images/startbutton3.png")
-        self.startbtnimg_ = self.startbtnimg.subsample(13, 13)
+        self.startbtnimg = tk.PhotoImage(file="GUI_images/startbutton1.png")
+        self.startbtnimg_ = self.startbtnimg.subsample(7, 8)
         start_button = ttk.Button(self, text="Start", command=lambda: controller.show_frame(ScanScreen),
                                   image=self.startbtnimg_, takefocus=False)
-        start_button.grid(row=1, column=0, sticky="news", padx=160, pady=30)
-
-        # credits button
-        credits_button = ttk.Button(self, text="Credits", command=lambda: controller.show_frame(CreditsScreen), takefocus=False)
-        credits_button.grid(row=2, column=0, sticky="n")
+        start_button.grid(row=1, column=0, sticky="news", padx=160, pady=30, columnspan=2)
 
 
 class ScanScreen(tk.Frame):
@@ -117,6 +119,7 @@ class ScanScreen(tk.Frame):
         self.db_applybool = tk.BooleanVar()
         self.boxes_applybool = tk.BooleanVar()
         self.depth_applybool = tk.BooleanVar()
+        self.hasoverlap_applybool = tk.BooleanVar()
 
         # show bools
         self.show_all_bool = tk.BooleanVar()
@@ -131,6 +134,7 @@ class ScanScreen(tk.Frame):
         self.db_showbool = tk.BooleanVar()
         self.boxes_showbool = tk.BooleanVar()
         self.depth_algorithm_showbool = tk.BooleanVar()
+        self.hasoverlap_showbool = tk.BooleanVar()
 
         # save bool
         self.save_bool = tk.BooleanVar()
@@ -197,7 +201,7 @@ class ScanScreen(tk.Frame):
         controller.config(menu=menubar)
 
         # back button
-        menubar.add_command(label='Back', command=lambda: controller.show_frame(MainMenu), underline=0)
+        menubar.add_command(label='Back', command=lambda: controller.show_frame(StartScreen), underline=0)
 
         # apply menu (dropdown)
         applymenu = tk.Menu(menubar)  # , tearoff=0
@@ -206,12 +210,13 @@ class ScanScreen(tk.Frame):
         applymenu.add_checkbutton(label='hysteresis', variable=self.hyst_applybool, command=lambda: self.traverse_to_menu('a'))
         applymenu.add_checkbutton(label='fill', variable=self.fill_applybool, command=lambda: self.traverse_to_menu('a'))
         applymenu.add_separator()
-        applymenu.add_checkbutton(label='senne', variable=self.senne_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='from scratch', variable=self.senne_applybool, command=lambda: self.traverse_to_menu('a'))
         applymenu.add_checkbutton(label='dbscan', variable=self.db_applybool, command=lambda: self.traverse_to_menu('a'))
         applymenu.add_separator()
-        applymenu.add_checkbutton(label='boxes', variable=self.boxes_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='draw boxes', variable=self.boxes_applybool, command=lambda: self.traverse_to_menu('a'))
         applymenu.add_separator()
         applymenu.add_checkbutton(label='depth', variable=self.depth_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='has overlap', variable=self.hasoverlap_applybool, command=lambda: self.traverse_to_menu('a'))
         menubar.add_cascade(menu=applymenu, label="Apply", underline=0)
 
         # show menu (dropdown)
@@ -225,18 +230,19 @@ class ScanScreen(tk.Frame):
         showmenu.add_checkbutton(label='hysteresis', variable=self.hyst_showbool, command=lambda: self.traverse_to_menu('s'))
         showmenu.add_checkbutton(label='fill', variable=self.fill_showbool, command=lambda: self.traverse_to_menu('s'))
         showmenu.add_separator()
-        showmenu.add_checkbutton(label='senne', variable=self.senne_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='from scratch', variable=self.senne_showbool, command=lambda: self.traverse_to_menu('s'))
         showmenu.add_checkbutton(label='dbscan', variable=self.db_showbool, command=lambda: self.traverse_to_menu('s'))
         showmenu.add_separator()
-        showmenu.add_checkbutton(label='boxes', variable=self.boxes_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='draw boxes', variable=self.boxes_showbool, command=lambda: self.traverse_to_menu('s'))
         showmenu.add_separator()
         showmenu.add_checkbutton(label='depth', variable=self.depth_algorithm_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='has overlap', variable=self.hasoverlap_showbool, command=lambda: self.traverse_to_menu('s'))
         showmenu.add_separator()
         showmenu.add_checkbutton(label='show all', variable=self.show_all_bool, command=lambda: self.traverse_to_menu('s'))
         menubar.add_cascade(menu=showmenu, label="Show", underline=0)
 
         # help menu
-        menubar.add_command(label="Help", underline=0, command=lambda: print('fuck you'))
+        menubar.add_command(label="Help", underline=0, command=lambda: print('coming soon'))
 
         # submenu = tk.Menu(apply)  # , tearoff=0
         # submenu.add_command(label='Spam', command=self.quit, underline=0)
@@ -319,7 +325,7 @@ class ScanScreen(tk.Frame):
         else:
             color_path = filedialog.askopenfilename()
         if color_path == "":  # if no picture selected, return
-            print("No picture selected")
+            messagebox.showinfo("No picture selected", "Pipeline hasn't been executed, please select a picture and try again.")
             return
         self.color_hold_path.set(color_path)  # keep updating the selected image path
         color_image = np.array(Image.open(color_path))  # convert to workable array
@@ -345,6 +351,9 @@ class ScanScreen(tk.Frame):
 
             if self.depthimg_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Selected Depth Image": (depth_image, 'gray')})
+
+        global time0
+        time0 = time.time()
 
         if not self.depth_applybool.get():
             self.color_pipeline(color_image, show_dict, save_dict)
@@ -446,6 +455,10 @@ class ScanScreen(tk.Frame):
                 show_dict.update({"Boxes": (boxes, 'gray')})
             save_dict.update({"Boxes": (boxes, f'{ESAT7A1}/Images/draw boxes/')})
 
+        t1 = time.time()
+        global time0
+        print(t1 - time0)
+
         # save and show
         if len(show_dict):  # als de lengte van show_dict groter is dan 0
             p = Process(target=wp.show_images, args=(show_dict,))
@@ -509,19 +522,21 @@ class ScanScreen(tk.Frame):
                 show_dict.update({"boxes": (boxes, 'gray')})
             save_dict.update({"Boxes": (boxes, f'{ESAT7A1}/Images/draw boxes/')})
 
-        overlap, overlapFrame = wp.has_overlapping_objects(depth_image)
-        if overlap:
-            depth_frame, resultFrame, resultFrame2, remainingResult = wp.depth_general(depth_image, nb_obj)
-            nb_objects = remainingResult
-            show_dict.update({"Depth frame": (depth_frame, 'viridis')})
-            save_dict.update({"Depth frame": (depth_frame, f'{ESAT7A1}/Images/depth frame/')})
+        if self.hasoverlap_applybool.get():
+            overlap, overlapFrame = wp.has_overlapping_objects(depth_image)
+            if overlap:
+                depth_frame, resultFrame, resultFrame2, remainingResult = wp.depth_general(depth_image, nb_obj)
+                nb_objects = remainingResult
+                if self.hasoverlap_showbool.get() or self.show_all_bool.get():
+                    show_dict.update({"Depth frame": (depth_frame, 'viridis')})
+                    show_dict.update({"Overlap visualized": (overlapFrame, 'viridis')})
+                    show_dict.update({"Depth result": (resultFrame, 'viridis')})
+                    show_dict.update({f"Depth final result: \n{nb_objects} objects detected": (resultFrame2, 'viridis')})
 
-            show_dict.update({"Overlap visualized": (overlapFrame, 'viridis')})
-            save_dict.update({"Overlap visualized": (overlapFrame, f'{ESAT7A1}/Images/overlap/')})
-            show_dict.update({"Depth result": (resultFrame, 'viridis')})
-            save_dict.update({"Depth result": (resultFrame, f'{ESAT7A1}/Images/resulting depth/')})
-            show_dict.update({f"Depth final result: \n{nb_objects} objects detected": (resultFrame2, 'viridis')})
-            save_dict.update({"Remaining depth": (resultFrame2, f'{ESAT7A1}/Images/remaining/')})
+                    save_dict.update({"Depth frame": (depth_frame, f'{ESAT7A1}/Images/depth frame/')})
+                    save_dict.update({"Overlap visualized": (overlapFrame, f'{ESAT7A1}/Images/overlap/')})
+                    save_dict.update({"Depth result": (resultFrame, f'{ESAT7A1}/Images/resulting depth/')})
+                    save_dict.update({"Remaining depth": (resultFrame2, f'{ESAT7A1}/Images/remaining/')})
 
         # save and show
         if len(show_dict):
@@ -541,7 +556,7 @@ class CreditsScreen(ttk.Frame):
         self.columnconfigure(0, weight=1)
 
         # 'back' button:
-        back_button = ttk.Button(self, text='back to menu', command=lambda: controller.show_frame(MainMenu), takefocus=False)
+        back_button = ttk.Button(self, text='back to menu', command=lambda: controller.show_frame(StartScreen), takefocus=False)
         back_button.grid(row=0, column=0, sticky='w')
 
         # the credits space ('credits' is a built in function, hence the name 'creditss')
