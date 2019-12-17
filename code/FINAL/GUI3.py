@@ -1,5 +1,5 @@
 # file to process images:
-import Main.Counting_algorithm as wp
+import FINAL.Counting_algorithm as wp
 # tkinter imports:
 import tkinter as tk
 from tkinter import ttk
@@ -7,14 +7,12 @@ from ttkthemes import ThemedTk
 from tkinter import messagebox
 from tkinter import filedialog
 import ctypes
-import matplotlib.pyplot as plt
 
 # other imports:
 import numpy as np
 from scipy import ndimage
 import os
 import pickle
-import copy
 import PIL.ImageOps
 from PIL import Image
 from multiprocessing import Process
@@ -22,17 +20,90 @@ from pykinect2 import PyKinectV2
 from pykinect2 import PyKinectRuntime
 import time
 
-ESAT7A1 = os.path.dirname(os.path.abspath(__file__)).replace("code\\GUI", "")
+import math
+import matplotlib.gridspec as gridspec
+import matplotlib.pyplot as plt
+from matplotlib.backend_tools import ToolBase, ToolToggleBase
+import warnings
+
+plt.rcParams['toolbar'] = 'toolmanager'
+warnings.filterwarnings("ignore")  # surpress printing of the warnings
+
+
+ESAT7A1 = os.path.dirname(os.path.abspath(__file__)).replace("code\\FINAL", "")
 
 kinect = PyKinectRuntime.PyKinectRuntime(PyKinectV2.FrameSourceTypes_Color)
 kinect2 = PyKinectRuntime.PyKinectRuntime(PyKinectV2.FrameSourceTypes_Depth)
 
 
+## 1. Plot functions and classes ##
+
+def show_images(showdict: dict, savedict: dict):
+    """
+        Plot all the images in dict
+    """
+    n = len(showdict)
+    k = int(math.sqrt(n)) + 1
+    f = plt.figure(constrained_layout=True, num=f'Results:')
+    f.canvas.manager.toolmanager.add_tool('Save', SaveTool, savedict=savedict)  # add save all button (SaveTool)
+    f.canvas.manager.toolbar.add_tool('Save', 'foo')
+    spec = gridspec.GridSpec(ncols=k, nrows=n//k+1, figure=f)
+    for i, key, vals in zip(range(n), showdict.keys(), showdict.values()):
+        img, map_ = vals
+        ax = f.add_subplot(spec[i//k, i % k])
+        ax.imshow(img, cmap=map_)
+        plt.xticks([])
+        plt.yticks([])
+        ax.set_xlabel(f"{key}")
+
+    mng = plt.get_current_fig_manager()
+    mng.full_screen_toggle()
+    plt.show()
+
+
+def save_images(d: dict):
+    """
+    Save all the images of the dictionary in their respective directories
+    """
+    if "Gray" in d.keys():
+        storage_limit = 100
+        grayname = "Gray"
+        _, graypath = d[grayname]
+
+        if os.path.exists(graypath + grayname + f"_{storage_limit}.jpg"):
+            print("!!!STORAGE FULL!!!\nYou have stored the maximum capacity of pictures in your Image directory.\n"
+                  "Delete some of the previous pictures or change 'storage_limit' in 'save_images'.")
+
+        for i in range(1, storage_limit+1):
+            # If Gray_{i} doesn't exist, save all the images with index 'i'
+            if not os.path.exists(graypath + grayname + f"_{i}.jpg"):
+                for name, vals in zip(d.keys(), d.values()):
+                    img, path = vals
+                    plt.imsave(path + name + f"_{i}.jpg", img, cmap='gray', format='jpg')
+                messagebox.showinfo(None, f'Images saved as _{i}')
+                break
+    else:
+        print("ERROR:\n'Gray' not found in the save dictionary keys, \nnone of the images have been saved.")
+
+
+class SaveTool(ToolBase):
+    def __init__(self, *args, savedict, **kwargs):
+        self.savedict = savedict
+        super().__init__(*args, **kwargs)
+
+    def trigger(self, sender, event, data=None):
+        # print("save motherfuckers")
+        # print(self.savedict)
+        save_images(self.savedict)
+
+
+## 2. Actual GUI ##
+
 class BROPAS(ThemedTk):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)  # does the same as 'tk.Tk.__init__(self, *args, **kwargs)'
-        self.title("ESAT7A1")  # Object Counting Software
+        self.title("BROPAS")  # Object Counting Software
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         self.geometry("525x300")  # start dimensions
@@ -47,13 +118,13 @@ class BROPAS(ThemedTk):
 
         # 'collect' all the screens/frames/menus that you want to show
         self.frames = {}
-        for F in (StartScreen, CreditsScreen, ScanScreen):
+        for F in (MainMenu, InfoScreen, ScanScreen):
             frame = F(container, self)
             frame.grid(row=0, column=0, sticky="news")
 
             self.frames[F] = frame
 
-        self.show_frame(StartScreen)  # show the default (start) screen
+        self.show_frame(MainMenu)  # show the default (start) screen
 
     def show_frame(self, cont):
         frame = self.frames[cont]
@@ -66,7 +137,7 @@ class BROPAS(ThemedTk):
             self.configure(menu=self.emptyMenu)
 
 
-class StartScreen(ttk.Frame):
+class MainMenu(ttk.Frame):
 
     def __init__(self, parent, controller):
         ttk.Frame.__init__(self, parent)
@@ -136,9 +207,6 @@ class ScanScreen(tk.Frame):
         self.depth_algorithm_showbool = tk.BooleanVar()
         self.hasoverlap_showbool = tk.BooleanVar()
 
-        # save bool
-        self.save_bool = tk.BooleanVar()
-
         # variables (low threshold, high threshold and #gaussian blurs)
         self.low_th = tk.IntVar(self); self.low_th.set(10)
         self.high_th = tk.IntVar(self); self.high_th.set(100)
@@ -201,48 +269,48 @@ class ScanScreen(tk.Frame):
         controller.config(menu=menubar)
 
         # back button
-        menubar.add_command(label='Back', command=lambda: controller.show_frame(StartScreen), underline=0)
+        menubar.add_command(label='Back', command=lambda: controller.show_frame(MainMenu), underline=0)
 
         # apply menu (dropdown)
         applymenu = tk.Menu(menubar)  # , tearoff=0
-        applymenu.add_checkbutton(label='gaussian blur', variable=self.gauss_applybool, command=lambda: self.traverse_to_menu('a'))
-        applymenu.add_checkbutton(label='sobel', variable=self.sobel_applybool, command=lambda: self.traverse_to_menu('a'))
-        applymenu.add_checkbutton(label='hysteresis', variable=self.hyst_applybool, command=lambda: self.traverse_to_menu('a'))
-        applymenu.add_checkbutton(label='fill', variable=self.fill_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='Gaussian blur', variable=self.gauss_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='Sobel', variable=self.sobel_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='Hysteresis', variable=self.hyst_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='Fill', variable=self.fill_applybool, command=lambda: self.traverse_to_menu('a'))
         applymenu.add_separator()
-        applymenu.add_checkbutton(label='from scratch', variable=self.senne_applybool, command=lambda: self.traverse_to_menu('a'))
-        applymenu.add_checkbutton(label='dbscan', variable=self.db_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='Object counting from scratch', variable=self.senne_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='DBSCAN', variable=self.db_applybool, command=lambda: self.traverse_to_menu('a'))
         applymenu.add_separator()
-        applymenu.add_checkbutton(label='draw boxes', variable=self.boxes_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='Draw boxes', variable=self.boxes_applybool, command=lambda: self.traverse_to_menu('a'))
         applymenu.add_separator()
-        applymenu.add_checkbutton(label='depth', variable=self.depth_applybool, command=lambda: self.traverse_to_menu('a'))
-        applymenu.add_checkbutton(label='has overlap', variable=self.hasoverlap_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='Include depth data', variable=self.depth_applybool, command=lambda: self.traverse_to_menu('a'))
+        applymenu.add_checkbutton(label='Plot overlap', variable=self.hasoverlap_applybool, command=lambda: self.traverse_to_menu('a'))
         menubar.add_cascade(menu=applymenu, label="Apply", underline=0)
 
         # show menu (dropdown)
         showmenu = tk.Menu(menubar)  # , tearoff=0
-        showmenu.add_checkbutton(label='color image', variable=self.colorimg_showbool, command=lambda: self.traverse_to_menu('s'))
-        showmenu.add_checkbutton(label='depth image', variable=self.depthimg_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Color image', variable=self.colorimg_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Depth image', variable=self.depthimg_showbool, command=lambda: self.traverse_to_menu('s'))
         showmenu.add_separator()
-        showmenu.add_checkbutton(label='grayscale', variable=self.gray_showbool, command=lambda: self.traverse_to_menu('s'))
-        showmenu.add_checkbutton(label='gaussian blur', variable=self.gauss_showbool, command=lambda: self.traverse_to_menu('s'))
-        showmenu.add_checkbutton(label='sobel', variable=self.sobel_showbool, command=lambda: self.traverse_to_menu('s'))
-        showmenu.add_checkbutton(label='hysteresis', variable=self.hyst_showbool, command=lambda: self.traverse_to_menu('s'))
-        showmenu.add_checkbutton(label='fill', variable=self.fill_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Grayscale', variable=self.gray_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Gaussian blur', variable=self.gauss_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Sobel', variable=self.sobel_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Hysteresis', variable=self.hyst_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Fill', variable=self.fill_showbool, command=lambda: self.traverse_to_menu('s'))
         showmenu.add_separator()
-        showmenu.add_checkbutton(label='from scratch', variable=self.senne_showbool, command=lambda: self.traverse_to_menu('s'))
-        showmenu.add_checkbutton(label='dbscan', variable=self.db_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Object counting from scratch', variable=self.senne_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='DBSCAN', variable=self.db_showbool, command=lambda: self.traverse_to_menu('s'))
         showmenu.add_separator()
-        showmenu.add_checkbutton(label='draw boxes', variable=self.boxes_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Show boxes', variable=self.boxes_showbool, command=lambda: self.traverse_to_menu('s'))
         showmenu.add_separator()
-        showmenu.add_checkbutton(label='depth', variable=self.depth_algorithm_showbool, command=lambda: self.traverse_to_menu('s'))
-        showmenu.add_checkbutton(label='has overlap', variable=self.hasoverlap_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Depth frames', variable=self.depth_algorithm_showbool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Show overlap', variable=self.hasoverlap_showbool, command=lambda: self.traverse_to_menu('s'))
         showmenu.add_separator()
-        showmenu.add_checkbutton(label='show all', variable=self.show_all_bool, command=lambda: self.traverse_to_menu('s'))
+        showmenu.add_checkbutton(label='Show all', variable=self.show_all_bool, command=lambda: self.traverse_to_menu('s'))
         menubar.add_cascade(menu=showmenu, label="Show", underline=0)
 
         # help menu
-        menubar.add_command(label="Help", underline=0, command=lambda: print('coming soon'))
+        menubar.add_command(label="Help", underline=0, command=lambda: print('Coming soon'))
 
         # submenu = tk.Menu(apply)  # , tearoff=0
         # submenu.add_command(label='Spam', command=self.quit, underline=0)
@@ -334,27 +402,30 @@ class ScanScreen(tk.Frame):
         if self.colorimg_showbool.get() or self.show_all_bool.get():
             show_dict.update({"Selected Color Image": (color_image, 'gray')})
         save_dict = {"SelectedColorImage": (color_image, f'{ESAT7A1}/Images/input images/')}
+        if not self.depth_applybool.get():
+            # run the color pipeline
+            self.color_pipeline(color_image, show_dict, save_dict)
 
         # do the same for depth if depth apply is selected
-        if self.depth_applybool.get():
+        else:
             if self.hold_bool.get() and not self.color_hold_path.get() == "":
                 depth_path = self.color_hold_path.get()
             else:
                 depth_path = filedialog.askopenfilename()
-
-            if depth_path == "":  # if no picture selected, return
-                print("No picture selected")
-                return
+                if depth_path == "":  # if no picture selected, return
+                    messagebox.showinfo("No depth pkl selected",
+                                        "Pipeline hasn't been executed, please select a picture and try again.")
+                    return
+                if depth_path[-4:] is not '.pkl':
+                    messagebox.showerror("Wrong format selected", "Depth picture must be a .pkl file.")
+                    return
 
             self.depth_hold_path.set(depth_path)
-            depth_image = np.array(Image.open(depth_path))  # convert to workable array
+            depth_image = pickle.load(open(depth_path, "rb"))  # convert to workable array
 
             if self.depthimg_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Selected Depth Image": (depth_image, 'gray')})
-
-        if not self.depth_applybool.get():
-            self.color_pipeline(color_image, show_dict, save_dict)
-        else:
+            # run the depth pipeline
             self.depth_pipeline(depth_image, color_image, show_dict, save_dict)
 
     def run_with_kinect(self):
@@ -369,8 +440,8 @@ class ScanScreen(tk.Frame):
         else:
             color_image, depth_image = wp.kinect_to_pc(kinect, kinect2, False)
 
-        color_image = color_image[90:990, 310:1610]  # cropping
-        depth_image = depth_image
+        color_image = color_image[100:1000, 315:1600]  # cropping
+        depth_image = depth_image[70:350, :415]
 
         color_show_dict = {}
         if self.colorimg_showbool.get() or self.show_all_bool.get():
@@ -390,6 +461,7 @@ class ScanScreen(tk.Frame):
 
     def color_pipeline(self, image, show_dict, save_dict):
         # maybe multiprocessing when showing images, otherwise you might have to wait to run depth_pipeline
+        pre_time = time.time()
         gray = wp.grayscale(image)  # grayscaling is necessary to the process
         if self.gray_showbool.get() or self.show_all_bool.get():
             show_dict.update({"Grayscaled": (gray, 'gray')})
@@ -416,9 +488,9 @@ class ScanScreen(tk.Frame):
         else:
             hyst = sobel
         if self.fill_applybool.get():
-            filled = ndimage.binary_fill_holes(hyst).astype(np.uint8)
+            filled = ndimage.binary_fill_holes(hyst)
             if self.fill_showbool.get() or self.show_all_bool.get():
-                show_dict.update({"Filled": (filled, 'gray')})
+                show_dict.update({f"Filled, time: {round(time.time() - pre_time, 2)}": (filled, 'gray')})
             save_dict.update({"Filled": (filled, f'{ESAT7A1}/Images/filled images/')})
         else:
             filled = hyst
@@ -426,18 +498,13 @@ class ScanScreen(tk.Frame):
             time_scratch = time.time()
             filled_img = PIL.Image.fromarray(filled)
             (width, height) = filled_img.size
-            filled_img = np.array(filled_img.resize((int(width/5), int(height/5))))  # /5 en /5
-            filled_img = np.array(filled_img)
+            filled_img = np.array(filled_img.resize((int(width / 4), int(height / 4))))
             sobel2 = wp.sobel(filled_img)
-            # # plt.imshow(filled)
-            # plt.imshow(sobel2)
-            # plt.show()
-            # return
             senne_obj, nb_obj = wp.object_counting_from_scratch(sobel2, 100)
             if self.senne_showbool.get() or self.show_all_bool.get():
                 show_dict.update(
-                    {f"BROPAS: \n{nb_obj} objects, time: {round(time.time() - time_scratch, 2)}s": (senne_obj, 'viridis')})
-            save_dict.update({"BROPAS": (senne_obj, f'{ESAT7A1}/Images/sobel images/')})
+                    {f"From scratch: \n{nb_obj} objects, time: {round(time.time() - time_scratch, 2)}s": (senne_obj, 'viridis')})
+            save_dict.update({"FromScratch": (senne_obj, f'{ESAT7A1}/Images/object images/')})
         else:
             senne_obj = filled
 
@@ -447,7 +514,7 @@ class ScanScreen(tk.Frame):
             if self.db_showbool.get() or self.show_all_bool.get():
                 show_dict.update(
                     {f"DBSCAN: \n{nb_objects} objects, time: {round(time.time() - time_db, 2)}s": (db, 'viridis')})
-            save_dict.update({"DetectedObjects": (db, f'{ESAT7A1}/Images/object images/')})
+            save_dict.update({"DBSCAN": (db, f'{ESAT7A1}/Images/object images/')})
         else:
             db = filled
             nb_objects = None
@@ -459,21 +526,20 @@ class ScanScreen(tk.Frame):
 
         # save and show
         if len(show_dict):  # als de lengte van show_dict groter is dan 0
-            p = Process(target=wp.show_images, args=(show_dict,))
+            p = Process(target=show_images, args=(show_dict, save_dict))
             p.start()
             # p.join()
             # wp.show_images(show_dict)
-        if self.save_bool.get():
-            wp.save_images(save_dict)
 
     def depth_pipeline(self, depth_image, image,  show_dict, save_dict):
         gray = wp.grayscale(image)  # grayscaling is necessary to the process
+        pre_time = time.time()
         if self.gray_showbool.get() or self.show_all_bool.get():
             show_dict.update({"Grayscaled": (gray, 'gray')})
         save_dict.update({"Gray": (gray, f'{ESAT7A1}/Images/grayscaled images/')})  # gray is the reference for saving
         if self.gauss_applybool.get():
             gauss = wp.gaussian_blur(gray, self.gauss_reps.get())
-            if self.gauss_showbool.get()or self.show_all_bool.get() :
+            if self.gauss_showbool.get()or self.show_all_bool.get():
                 show_dict.update({"Gaussian Blur": (gauss, 'gray')})
             save_dict.update({"Gauss": (gauss, f'{ESAT7A1}/Images/blurred images/')})
         else:
@@ -495,24 +561,30 @@ class ScanScreen(tk.Frame):
         if self.fill_applybool.get():
             filled = ndimage.binary_fill_holes(hyst)
             if self.fill_showbool.get() or self.show_all_bool.get():
-                show_dict.update({"Filled": (filled, 'gray')})
+                show_dict.update({f"Filled, time: {round(time.time() - pre_time, 2)}": (filled, 'gray')})
             save_dict.update({"Filled": (filled, f'{ESAT7A1}/Images/filled images/')})
         else:
             filled = hyst
 
         if self.db_applybool.get():
+            time_db = time.time()
             db, nb_objects = wp.db_scan(filled)
+            if self.db_showbool.get() or self.show_all_bool.get():
+                show_dict.update(
+                    {f"DBSCAN: \n{nb_objects} objects, time: {round(time.time() - time_db, 2)}s": (db, 'viridis')})
+            save_dict.update({"DBSCAN": (db, f'{ESAT7A1}/Images/object images/')})
         else:
             db = filled
             # nb_objects = 0
 
+        scratch_time = time.time()
         filled = PIL.Image.fromarray(filled)
         (width, height) = filled.size
-        filled = np.array(filled.resize((int(width / 5), int(height / 5))))  # Go faster, lose image quality
+        filled = np.array(filled.resize((int(width / 4), int(height / 4))))  # Go faster, lose image quality
         sobel2 = wp.sobel(filled)
         senne_obj, nb_obj = wp.object_counting_from_scratch(sobel2, 100)
-        show_dict.update({f"BROPAS: {nb_obj} objects": (senne_obj, 'gray')})
-        save_dict.update({"BROPAS": (senne_obj, f'{ESAT7A1}/Images/sobel images/')})
+        show_dict.update({f"From scratch: \n{nb_obj} objects, time: {round(time.time() - scratch_time, 2)}" : (senne_obj, 'gray')})
+        save_dict.update({"FromScratch": (senne_obj, f'{ESAT7A1}/Images/object images/')})
 
         if self.boxes_applybool.get():
             boxes = wp.draw_boxes(image, db)
@@ -521,32 +593,32 @@ class ScanScreen(tk.Frame):
             save_dict.update({"Boxes": (boxes, f'{ESAT7A1}/Images/draw boxes/')})
 
         if self.hasoverlap_applybool.get():
+            overlap_time = time.time()
             overlap, overlapFrame = wp.has_overlapping_objects(depth_image)
-            if overlap:
-                depth_frame, resultFrame, resultFrame2, result, remainingResult = wp.depth_general(depth_image, nb_obj)
-                nb_objects = remainingResult
-                if self.hasoverlap_showbool.get() or self.show_all_bool.get():
-                    show_dict.update({"Depth frame": (depth_frame, 'viridis')})
-                    show_dict.update({"Overlap visualized": (overlapFrame, 'viridis')})
-                    show_dict.update({"Depth result": (resultFrame, 'viridis')})
-                    show_dict.update({f"Depth final result: \n{nb_objects} objects detected": (resultFrame2, 'viridis')})
 
-                    save_dict.update({"Depth frame": (depth_frame, f'{ESAT7A1}/Images/depth frame/')})
-                    save_dict.update({"Overlap visualized": (overlapFrame, f'{ESAT7A1}/Images/overlap/')})
-                    save_dict.update({"Depth result": (resultFrame, f'{ESAT7A1}/Images/resulting depth/')})
-                    save_dict.update({"Remaining depth": (resultFrame2, f'{ESAT7A1}/Images/remaining/')})
+        depth_time = time.time()
+        depth_frame, resultFrame, resultFrame2, remainingResult = wp.depth_general(depth_image, nb_obj)
+        nb_objects = remainingResult
+        show_dict.update({"Depth frame": (depth_frame, 'viridis')})
+        save_dict.update({"DepthFrame": (depth_frame, f'{ESAT7A1}/Images/depth frames/')})
+        if self.hasoverlap_applybool.get():
+            if self.hasoverlap_showbool.get() or self.show_all_bool.get():
+                show_dict.update({f"Overlap visualized, time: {round(time.time() - overlap_time, 2)}": (overlapFrame, 'viridis')})
+            save_dict.update({"Overlap visualized": (overlapFrame, f'{ESAT7A1}/Images/overlap images/')})
+        show_dict.update({f"Depth result: \n{nb_objects} objects detected": (resultFrame, 'viridis')})
+        save_dict.update({"DepthResult": (resultFrame, f'{ESAT7A1}/Images/resulting depth images/')})
+        show_dict.update({f"Depth final result, time: {round(time.time() - depth_time, 2)}": (resultFrame2, 'viridis')})
+        save_dict.update({"RemainingDepth": (resultFrame2, f'{ESAT7A1}/Images/remaining/')})
 
         # save and show
         if len(show_dict):
-            p = Process(target=wp.show_images, args=(show_dict,))
+            p = Process(target=show_images, args=(show_dict, save_dict))
             p.start()
             # p.join()
             # wp.show_images(show_dict)
-        if self.save_bool.get():
-            wp.save_images(save_dict)
 
 
-class CreditsScreen(ttk.Frame):
+class InfoScreen(ttk.Frame):
 
     def __init__(self, parent, controller):
         ttk.Frame.__init__(self, parent)
@@ -554,12 +626,12 @@ class CreditsScreen(ttk.Frame):
         self.columnconfigure(0, weight=1)
 
         # 'back' button:
-        back_button = ttk.Button(self, text='back to menu', command=lambda: controller.show_frame(StartScreen), takefocus=False)
+        back_button = ttk.Button(self, text='Back to menu', command=lambda: controller.show_frame(MainMenu), takefocus=False)
         back_button.grid(row=0, column=0, sticky='w')
 
         # the credits space ('credits' is a built in function, hence the name 'creditss')
         creditss = tk.Text(self, height=2, width=30)
-        creditss.grid(row=1, column=0, sticky="news")
+        creditss.grid(row=1, column=0, sticky=",news")
         creditss.insert(tk.END, "*Brakke Gantt Chart: Robin")
 
 

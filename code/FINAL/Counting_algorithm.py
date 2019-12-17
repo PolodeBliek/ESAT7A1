@@ -1,15 +1,11 @@
 #### OBJECT COUNTING ALGORITHM ESAT7A1
 
-import matplotlib.gridspec as gridspec
 from sklearn.cluster import DBSCAN
-import matplotlib.pyplot as plt
 from PIL import Image, ImageDraw, ImageFont
 from scipy import ndimage
 import numpy as np
 import peakutils
 import pickle
-import time
-import math
 import copy
 import cv2
 import os
@@ -29,67 +25,10 @@ md                     = 15  # Minimum height difference for 2nd object
 nb_overlaps_for_object = 30  # Minimum overlapping points for overlap
 
 
-def get_bin_edges(array):
-    """
-    Get the edges of objects in a bitmap.
-    The edges are all the pixels with value 1 that are connected to at least one 0
-    """
-    kernel = np.array([[0, 1, 0],
-                       [1, 0, 1],
-                       [0, 1, 0]])
-    conv = ndimage.convolve(array, kernel)  # convolve the array, if the pixel is connected to a black one, conv=3 or less
-    edgemap = np.where(conv<4, array, 0)  # pull the values of array back over the pixels connected to a black one, the rest becomes 0
-    return edgemap
-
 ## 1. Auxiliary functions for plotting and GUI ##
 
 def get_globals():
     return globals()
-
-def show_images(d: dict):
-    """
-        Plot all the images in dict
-    """
-    n = len(d)
-    k = int(math.sqrt(n)) + 1
-    f = plt.figure(constrained_layout = True, num = f'Results:')
-    spec = gridspec.GridSpec(ncols=k, nrows=n//k+1, figure=f)
-    for i, key, vals in zip(range(n), d.keys(), d.values()):
-        img, map_ = vals
-        ax = f.add_subplot(spec[i//k, i % k])
-        ax.imshow(img, cmap=map_)
-        plt.xticks([])
-        plt.yticks([])
-        ax.set_xlabel(f"{key}")
-
-    mng = plt.get_current_fig_manager()
-    mng.full_screen_toggle()
-    plt.show()
-
-
-def save_images(d: dict):
-    """
-    Save all the images of the dictionary in their respective directories
-    """
-    if "Gray" in d.keys():
-        storage_limit = 100
-        grayname = "Gray"
-        _, graypath = d[grayname]
-
-        if os.path.exists(graypath + grayname + f"_{storage_limit}.jpg"):
-            print("!!!STORAGE FULL!!!\nYou have stored the maximum capacity of pictures in your Image directory.\n"
-                  "Delete some of the previous pictures or change 'storage_limit' in 'save_images'.")
-
-        for i in range(1, storage_limit+1):
-            # If Gray_{i} doesn't exist, save all the images with index 'i'
-            if not os.path.exists(graypath + grayname + f"_{i}.jpg"):
-                for name, vals in zip(d.keys(), d.values()):
-                    img, path = vals
-                    plt.imsave(path + name + f"_{i}.jpg", img, cmap='gray', format='jpg')
-                print(f"saved as _{i}")
-                break
-    else:
-        print("ERROR:\n'Gray' not found in the save dictionary keys, \nnone of the images have been saved.")
 
 
 ## 2. Take an RGB and a depth image ##
@@ -215,7 +154,8 @@ def is_part_of_an_object(matrix):
     """
     nonzerolist = np.nonzero(matrix)
     objects = list(zip(nonzerolist[0], nonzerolist[1]))
-    return objects
+    matrix = np.where(matrix != 0, 0, 0)
+    return objects, matrix
 
 
 def are_part_of_same_object(pixels, matrix, counter, min_nb_pixels):
@@ -256,12 +196,10 @@ def are_part_of_same_object(pixels, matrix, counter, min_nb_pixels):
 
 def object_counting_from_scratch(matrix, min_nb_pixels):
     counter = 0
-    start1 = time.time()
-    objects = is_part_of_an_object(matrix)
-    matrix = copy.deepcopy(matrix)
+    objects, matrix_visual = is_part_of_an_object(matrix)
     end = False
     while not end:
-        objects, len_object, matrix = are_part_of_same_object(objects, matrix, counter, min_nb_pixels)
+        objects, len_object, matrix = are_part_of_same_object(objects, matrix_visual, counter, min_nb_pixels)
         if len_object > min_nb_pixels:
             counter += 1
 
@@ -271,10 +209,7 @@ def object_counting_from_scratch(matrix, min_nb_pixels):
                 (c_row, c_column) = element
                 matrix[c_row][c_column] = 0  # Make spotted pixels visible in end result
 
-
-    print("FROM SCRATCH: ", - start1 + time.time())
     return matrix, counter
-
 
 
 ## 6. Draw boxes ##
@@ -430,7 +365,7 @@ def depth_counting(objects_c, depth_frame, nb_objects_color):
             colorCounter += 1
             for pixel in area:
                 pixel = tuple(pixel)
-                if peak - md  < depth_frame[pixel] < peak + md:
+                if peak - md + 3 < depth_frame[pixel] < peak + md - 3:
                     plottedPixels.add(pixel)
                     depth_frameCopy[pixel] = 50*(colorCounter + 1)
                     depth_frame2[pixel] = 0
@@ -443,7 +378,7 @@ def depth_counting(objects_c, depth_frame, nb_objects_color):
 
 def remaining_objects(all_coords):
     """
-        Returns groups of connected pixels from depth frame
+        Returns groups of connected pixels from depth frame, currently not used
     """
     chained_pixels, nb_chains = ndimage.label(all_coords)
 
@@ -466,14 +401,11 @@ def remaining_objects(all_coords):
 
 
 def depth_general(depth_frame, nb_objects_color):
-
         object_estimate = get_object_list(depth_frame)
         result, resultFrame, resultFrame2 = depth_counting(object_estimate, depth_frame, nb_objects_color)
+        # Code below could be used to detect non-flat objects
+        #resultFrame2 = cv2.medianBlur(resultFrame2, 3)
+        #objectsLeft, resultFrame2 = remaining_objects(resultFrame2)
+        #remainingResult = len(objectsLeft)
 
-        resultFrame2 = cv2.medianBlur(resultFrame2, 3)
-
-        objectsLeft, resultFrame2 = remaining_objects(resultFrame2)
-        remainingResult = len(objectsLeft)
-
-        return depth_frame, resultFrame, resultFrame2, result,  remainingResult
-
+        return depth_frame, resultFrame, resultFrame2, result
