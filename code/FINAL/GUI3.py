@@ -474,10 +474,14 @@ class ScanScreen(tk.Frame):
         else:
             gauss = gray
         if self.sobel_applybool.get():
-            sobel = wp.sobel(gauss)
+            sobel, hor, ver = wp.sobel(gauss)
             if self.sobel_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Sobel": (sobel, 'gray')})
+                show_dict.update({"Horizontal gradient": (hor, 'gray')})
+                show_dict.update({"Vertical gradient": (ver, 'gray')})
             save_dict.update({"Sobel": (sobel, f'{ESAT7A1}/Images/sobel images/')})
+            save_dict.update({"HorizontalGrad": (hor, f'{ESAT7A1}/Images/sobel images/')})
+            save_dict.update({"VerticalGrad": (ver, f'{ESAT7A1}/Images/sobel images/')})
         else:
             sobel = gauss
         if self.hyst_applybool.get():
@@ -499,8 +503,8 @@ class ScanScreen(tk.Frame):
             filled_img = PIL.Image.fromarray(filled)
             (width, height) = filled_img.size
             filled_img = np.array(filled_img.resize((int(width / 4), int(height / 4))))
-            sobel2 = wp.sobel(filled_img)
-            senne_obj, nb_obj = wp.object_counting_from_scratch(sobel2, 100)
+            sobel2, _, _ = wp.sobel(filled_img)
+            senne_obj, nb_obj = wp.object_counting_from_scratch(sobel2, 50)
             if self.senne_showbool.get() or self.show_all_bool.get():
                 show_dict.update(
                     {f"From scratch: \n{nb_obj} objects, time: {round(time.time() - time_scratch, 2)}s": (senne_obj, 'viridis')})
@@ -545,10 +549,14 @@ class ScanScreen(tk.Frame):
         else:
             gauss = gray
         if self.sobel_applybool.get():
-            sobel = wp.sobel(gauss)
+            sobel, hor, vert = wp.sobel(gauss)
             if self.sobel_showbool.get() or self.show_all_bool.get():
                 show_dict.update({"Sobel": (sobel, 'gray')})
+                show_dict.update({"Horizontal gradient": (hor, 'gray')})
+                show_dict.update({"Vertical gradient": (vert, 'gray')})
             save_dict.update({"Sobel": (sobel, f'{ESAT7A1}/Images/sobel images/')})
+            save_dict.update({"HorizontalGrad": (hor, f'{ESAT7A1}/Images/sobel images/')})
+            save_dict.update({"VerticalGrad": (vert, f'{ESAT7A1}/Images/sobel images/')})
         else:
             sobel = gauss
         if self.hyst_applybool.get():
@@ -581,7 +589,7 @@ class ScanScreen(tk.Frame):
         filled = PIL.Image.fromarray(filled)
         (width, height) = filled.size
         filled = np.array(filled.resize((int(width / 4), int(height / 4))))  # Go faster, lose image quality
-        sobel2 = wp.sobel(filled)
+        sobel2, _, _ = wp.sobel(filled)
         senne_obj, nb_obj = wp.object_counting_from_scratch(sobel2, 100)
         show_dict.update({f"From scratch: \n{nb_obj} objects, time: {round(time.time() - scratch_time, 2)}" : (senne_obj, 'gray')})
         save_dict.update({"FromScratch": (senne_obj, f'{ESAT7A1}/Images/object images/')})

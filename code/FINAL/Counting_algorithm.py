@@ -23,6 +23,7 @@ pd                     = 4   # Distance pixels to compare
 iv                     = 3   # Maximum height difference for same object
 md                     = 15  # Minimum height difference for 2nd object
 nb_overlaps_for_object = 30  # Minimum overlapping points for overlap
+TextDraw = False
 
 
 ## 1. Auxiliary functions for plotting and GUI ##
@@ -113,7 +114,7 @@ def sobel(image):
     gradient = np.interp(gradient, (gradient.min(), gradient.max()), (0, 255))  # Rescale gradient
     gradient = gradient.astype(np.uint8)                                        # Reconvert to uint8
 
-    return gradient
+    return gradient, newHorizontalImage, newVerticalImage
 
 
 def hysteresis(image, low, high):
@@ -231,10 +232,11 @@ def draw_boxes(og_image, obj_image):
 
         draw.line([rechts_boven, links_boven, links_onder, rechts_onder, rechts_boven], fill=(0, 0, 225), width=5)
         PixelToDistanceRatio = None
-        if PixelToDistanceRatio == None:
-            draw.text(links_onder, str(rechts_boven[0] - links_boven[0]) + "px x " + str(abs(rechts_boven[1] - rechts_onder[1])) + "px", font = font)
-        else:
-            draw.text(links_onder, str((rechts_boven[0] - links_boven[0])*PixelToDistanceRatio) + "cm x " + str(abs(rechts_boven[1] - rechts_onder[1])*PixelToDistanceRatio)+ "cm", font = font)
+        if TextDraw:
+            if PixelToDistanceRatio == None:
+                draw.text(links_onder, str(rechts_boven[0] - links_boven[0]) + "px x " + str(abs(rechts_boven[1] - rechts_onder[1])) + "px", font = font)
+            else:
+                draw.text(links_onder, str((rechts_boven[0] - links_boven[0])*PixelToDistanceRatio) + "cm x " + str(abs(rechts_boven[1] - rechts_onder[1])*PixelToDistanceRatio)+ "cm", font = font)
 
     return image
 

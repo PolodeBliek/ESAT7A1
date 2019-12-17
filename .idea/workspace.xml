@@ -13,8 +13,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/FINAL/Counting_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="402" column="12" selection-start-line="402" selection-start-column="4" selection-end-line="402" selection-end-column="12" />
+            <state relative-caret-position="-24">
+              <caret line="215" column="16" selection-start-line="215" selection-start-column="11" selection-end-line="215" selection-end-column="16" />
               <folding>
                 <element signature="e#41#75#0" expanded="true" />
                 <element signature="e#976#992#0" />
@@ -22,7 +22,6 @@
                 <element signature="e#2952#4296#0" />
                 <element signature="e#4357#4495#0" />
                 <element signature="e#4534#4836#0" />
-                <element signature="e#4861#5806#0" />
                 <element signature="e#5847#6994#0" />
                 <element signature="e#7050#7521#0" />
                 <element signature="e#7590#7853#0" />
@@ -43,8 +42,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/FINAL/GUI3.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="148">
-              <caret line="165" column="90" lean-forward="true" selection-start-line="165" selection-start-column="90" selection-end-line="165" selection-end-column="90" />
+            <state relative-caret-position="12">
+              <caret line="586" selection-start-line="586" selection-end-line="586" />
               <folding>
                 <element signature="e#26#63#0" expanded="true" />
                 <element signature="e#934#1478#0" />
@@ -58,8 +57,6 @@
                 <element signature="e#11915#14511#0" />
                 <element signature="e#17071#18897#0" />
                 <element signature="e#16484#18055#0" />
-                <element signature="e#20573#24297#0" />
-                <element signature="e#24455#29079#0" />
                 <element signature="e#26723#27351#0" />
                 <element signature="e#26771#27351#0" />
               </folding>
@@ -78,9 +75,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>nb_gauss</find>
-      <find>messa</find>
-      <find>image</find>
       <find>are_par</find>
       <find>pad</find>
       <find>imgs/</find>
@@ -91,7 +85,6 @@
       <find>time:</find>
       <find>time.tim</find>
       <find>dbs</find>
-      <find>boxes</find>
       <find>message</find>
       <find>senne</find>
       <find>wp.sobel</find>
@@ -108,6 +101,10 @@
       <find>messagebox</find>
       <find>depth_image</find>
       <find>depth_Ge</find>
+      <find>min</find>
+      <find>px</find>
+      <find>sobel</find>
+      <find>boxes</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -339,14 +336,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16060807" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16060807" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -361,24 +357,6 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Images/hysteresis images/Hyst_1.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Images/filled images/Filled_1.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Images/blurred images/Gauss_2.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/Main/whole_process.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="313" selection-start-line="313" selection-end-line="313" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/ttkthemes_try.spec" />
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/build/ttkthemes_try/Analysis-00.toc" />
     <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/build/ttkthemes_try/ttkthemes_try.exe" />
     <entry file="file://$PROJECT_DIR$/code/Testing/ndi_binaryFillHoles.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -711,8 +689,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/FINAL/Counting_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="402" column="12" selection-start-line="402" selection-start-column="4" selection-end-line="402" selection-end-column="12" />
+        <state relative-caret-position="-24">
+          <caret line="215" column="16" selection-start-line="215" selection-start-column="11" selection-end-line="215" selection-end-column="16" />
           <folding>
             <element signature="e#41#75#0" expanded="true" />
             <element signature="e#976#992#0" />
@@ -720,7 +698,6 @@
             <element signature="e#2952#4296#0" />
             <element signature="e#4357#4495#0" />
             <element signature="e#4534#4836#0" />
-            <element signature="e#4861#5806#0" />
             <element signature="e#5847#6994#0" />
             <element signature="e#7050#7521#0" />
             <element signature="e#7590#7853#0" />
@@ -737,10 +714,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Images/filled images/Filled_23.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/filled images/Filled_24.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/draw boxes/Boxes_18.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/draw boxes/Boxes_17.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/draw boxes/Boxes_9.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Images/draw boxes/Boxes_24.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/FINAL/GUI3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="165" column="90" lean-forward="true" selection-start-line="165" selection-start-column="90" selection-end-line="165" selection-end-column="90" />
+        <state relative-caret-position="12">
+          <caret line="586" selection-start-line="586" selection-end-line="586" />
           <folding>
             <element signature="e#26#63#0" expanded="true" />
             <element signature="e#934#1478#0" />
@@ -754,8 +749,6 @@
             <element signature="e#11915#14511#0" />
             <element signature="e#17071#18897#0" />
             <element signature="e#16484#18055#0" />
-            <element signature="e#20573#24297#0" />
-            <element signature="e#24455#29079#0" />
             <element signature="e#26723#27351#0" />
             <element signature="e#26771#27351#0" />
           </folding>
