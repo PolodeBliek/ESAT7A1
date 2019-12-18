@@ -23,7 +23,7 @@ pd                     = 4   # Distance pixels to compare
 iv                     = 3   # Maximum height difference for same object
 md                     = 15  # Minimum height difference for 2nd object
 nb_overlaps_for_object = 30  # Minimum overlapping points for overlap
-TextDraw = False
+TextDraw = True
 
 
 ## 1. Auxiliary functions for plotting and GUI ##
@@ -222,7 +222,7 @@ def draw_boxes(og_image, obj_image):
     image = Image.fromarray(og_image)
     coord = find_corners(obj_image)
     draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype("arial.ttf", 100)
+    font = ImageFont.truetype("arial.ttf", 30)
 
     for i in range(0, len(coord)):
         rechts_boven = (coord[i][1][1]*2, coord[i][0][0]*2)
@@ -231,12 +231,12 @@ def draw_boxes(og_image, obj_image):
         links_onder = (coord[i][2][1]*2, coord[i][3][0]*2)
 
         draw.line([rechts_boven, links_boven, links_onder, rechts_onder, rechts_boven], fill=(0, 0, 225), width=5)
-        PixelToDistanceRatio = None
+        PixelToDistanceRatio = 0.0756
         if TextDraw:
             if PixelToDistanceRatio == None:
-                draw.text(links_onder, str(rechts_boven[0] - links_boven[0]) + "px x " + str(abs(rechts_boven[1] - rechts_onder[1])) + "px", font = font)
+                draw.text(links_onder, str(rechts_boven[0] - links_boven[0]) + "px x " + str(abs(rechts_boven[1] - rechts_onder[1])) + "px", font = font, fill=(0,0,0))
             else:
-                draw.text(links_onder, str((rechts_boven[0] - links_boven[0])*PixelToDistanceRatio) + "cm x " + str(abs(rechts_boven[1] - rechts_onder[1])*PixelToDistanceRatio)+ "cm", font = font)
+                draw.text(links_onder, str(int((rechts_boven[0] - links_boven[0])*PixelToDistanceRatio)) + "cm x " + str(int(abs(rechts_boven[1] - rechts_onder[1])*PixelToDistanceRatio))+ "cm", font = font, fill=(0,0,0))
 
     return image
 
@@ -367,7 +367,7 @@ def depth_counting(objects_c, depth_frame, nb_objects_color):
             colorCounter += 1
             for pixel in area:
                 pixel = tuple(pixel)
-                if peak - md + 3 < depth_frame[pixel] < peak + md - 3:
+                if peak - md  < depth_frame[pixel] < peak + md:
                     plottedPixels.add(pixel)
                     depth_frameCopy[pixel] = 50*(colorCounter + 1)
                     depth_frame2[pixel] = 0
@@ -406,8 +406,8 @@ def depth_general(depth_frame, nb_objects_color):
         object_estimate = get_object_list(depth_frame)
         result, resultFrame, resultFrame2 = depth_counting(object_estimate, depth_frame, nb_objects_color)
         # Code below could be used to detect non-flat objects
-        #resultFrame2 = cv2.medianBlur(resultFrame2, 3)
-        #objectsLeft, resultFrame2 = remaining_objects(resultFrame2)
-        #remainingResult = len(objectsLeft)
+        resultFrame2 = cv2.medianBlur(resultFrame2, 3)
+        objectsLeft, resultFrame2 = remaining_objects(resultFrame2)
+        remainingResult = len(objectsLeft)
 
-        return depth_frame, resultFrame, resultFrame2, result
+        return depth_frame, resultFrame, resultFrame2, result, remainingResult

@@ -13,8 +13,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/FINAL/Counting_algorithm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-47">
-              <caret line="215" column="16" selection-start-line="215" selection-start-column="11" selection-end-line="215" selection-end-column="16" />
+            <state relative-caret-position="240">
+              <caret line="236" column="167" selection-start-line="236" selection-start-column="167" selection-end-line="236" selection-end-column="167" />
               <folding>
                 <element signature="e#41#75#0" expanded="true" />
                 <element signature="e#976#992#0" />
@@ -27,41 +27,9 @@
                 <element signature="e#7590#7853#0" />
                 <element signature="e#7929#9242#0" />
                 <element signature="e#9306#9847#0" />
-                <element signature="e#9912#10958#0" />
-                <element signature="e#10995#11683#0" />
                 <element signature="e#11766#13469#0" />
                 <element signature="e#13509#13923#0" />
-                <element signature="e#13992#15479#0" />
                 <element signature="e#15521#16142#0" />
-                <element signature="e#16203#16650#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/code/FINAL/GUI3.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="522" column="33" lean-forward="true" selection-start-line="522" selection-start-column="33" selection-end-line="522" selection-end-column="33" />
-              <folding>
-                <element signature="e#26#63#0" expanded="true" />
-                <element signature="e#1085#1816#0" />
-                <element signature="e#1849#2932#0" />
-                <element signature="e#2965#3240#0" />
-                <element signature="e#3293#4547#0" />
-                <element signature="e#4607#6492#0" />
-                <element signature="e#5980#9817#0" />
-                <element signature="e#9867#10201#0" />
-                <element signature="e#10248#14359#0" />
-                <element signature="e#14396#16992#0" />
-                <element signature="e#14702#14965#0" />
-                <element signature="e#17074#19229#0" />
-                <element signature="e#19270#20841#0" />
-                <element signature="e#25053#30030#0" />
-                <element signature="e#30069#30624#0" />
-                <element signature="e#30747#31051#0" />
-                <element signature="e#30750#31772#0" />
               </folding>
             </state>
           </provider>
@@ -71,7 +39,7 @@
         <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/plot_pipeline.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
-              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -95,7 +63,7 @@
         <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/scrollcanvas2.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="697">
-              <caret line="41" column="22" lean-forward="true" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="42" />
+              <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="42" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -107,9 +75,27 @@
         <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/scrollcanvas3.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="32" column="52" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="52" />
+              <caret line="32" column="52" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="52" />
               <folding>
                 <element signature="e#24#30#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/code/FINAL/GUI3.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="44">
+              <caret line="606" column="14" selection-start-line="604" selection-start-column="9" selection-end-line="604" selection-end-column="14" />
+              <folding>
+                <element signature="e#26#63#0" expanded="true" />
+                <element signature="e#6562#10427#0" />
+                <element signature="e#10477#10811#0" />
+                <element signature="e#10858#14969#0" />
+                <element signature="e#15006#17602#0" />
+                <element signature="e#17684#19839#0" />
+                <element signature="e#19880#21451#0" />
               </folding>
             </state>
           </provider>
@@ -126,14 +112,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>row=</find>
-      <find>include</find>
-      <find>db</find>
-      <find>time:</find>
-      <find>time.tim</find>
-      <find>dbs</find>
-      <find>message</find>
-      <find>senne</find>
       <find>wp.sobel</find>
       <find>print</find>
       <find>ctypes</find>
@@ -155,6 +133,14 @@
       <find>/ 4</find>
       <find>showinf</find>
       <find>back</find>
+      <find>sobel2</find>
+      <find>remain</find>
+      <find>from_scr</find>
+      <find>color_im</find>
+      <find>textdraw</find>
+      <find>pixel</find>
+      <find>tex</find>
+      <find>time</find>
       <find>boxes</find>
     </findStrings>
   </component>
@@ -196,11 +182,11 @@
         <option value="$PROJECT_DIR$/code/FINAL/__init__.py" />
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/plt_mod_toolbars.py" />
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/plt_in_tk.py" />
-        <option value="$PROJECT_DIR$/code/FINAL/Counting_algorithm.py" />
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/scrollcanvas.py" />
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/scrollcanvas2.py" />
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/scrollcanvas3.py" />
         <option value="$PROJECT_DIR$/code/Testing/GUI_tests/plot_pipeline.py" />
+        <option value="$PROJECT_DIR$/code/FINAL/Counting_algorithm.py" />
         <option value="$PROJECT_DIR$/code/FINAL/GUI3.py" />
       </list>
     </option>
@@ -232,14 +218,13 @@
               <item name="ESAT7A1" type="b2602c69:ProjectViewProjectNode" />
               <item name="ESAT7A1" type="462c0819:PsiDirectoryNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
-              <item name="Testing" type="462c0819:PsiDirectoryNode" />
+              <item name="GUI" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ESAT7A1" type="b2602c69:ProjectViewProjectNode" />
               <item name="ESAT7A1" type="462c0819:PsiDirectoryNode" />
               <item name="code" type="462c0819:PsiDirectoryNode" />
               <item name="Testing" type="462c0819:PsiDirectoryNode" />
-              <item name="GUI_tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ESAT7A1" type="b2602c69:ProjectViewProjectNode" />
@@ -285,6 +270,27 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.GUI3 (1)">
+    <configuration name="Counting_algorithm" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="ESAT7A1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/FINAL" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/FINAL/Counting_algorithm.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="GUI3 (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ESAT7A1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -306,6 +312,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="GUI3" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="ESAT7A1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/GUI" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/GUI/GUI3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="plot_pipeline" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ESAT7A1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -319,48 +346,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/Testing/GUI_tests/plot_pipeline.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="scrollcanvas" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="ESAT7A1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/Testing/GUI_tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/Testing/GUI_tests/scrollcanvas.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="scrollcanvas2" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="ESAT7A1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/code/Testing/GUI_tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/code/Testing/GUI_tests/scrollcanvas2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -393,10 +378,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.GUI3 (1)" />
+        <item itemvalue="Python.Counting_algorithm" />
+        <item itemvalue="Python.GUI3" />
         <item itemvalue="Python.plot_pipeline" />
         <item itemvalue="Python.scrollcanvas3" />
-        <item itemvalue="Python.scrollcanvas2" />
-        <item itemvalue="Python.scrollcanvas" />
       </list>
     </recent_temporary>
   </component>
@@ -422,7 +407,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3286119" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3385269" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39943343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -583,25 +568,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/GUI/GUI3.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
-          <caret line="525" column="58" selection-start-line="525" selection-start-column="58" selection-end-line="525" selection-end-column="58" />
-          <folding>
-            <element signature="e#26#62#0" expanded="true" />
-            <element signature="e#2092#3379#0" />
-            <element signature="e#3490#7389#0" />
-            <element signature="e#7439#7773#0" />
-            <element signature="e#7459#7773#0" />
-            <element signature="e#7820#11880#0" />
-            <element signature="e#11917#14513#0" />
-            <element signature="e#14595#16442#0" />
-            <element signature="e#16483#18038#0" />
-            <element signature="e#26299#26929#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/Main/Counting_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="131">
@@ -718,16 +684,6 @@
     <entry file="file://$PROJECT_DIR$/Images/object images/DBSCAN_32.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/scrollcanvas.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../2019-2020/P&amp;03/code/P&amp;O3_code/venv/Lib/site-packages/PIL/Image.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="149">
@@ -741,7 +697,7 @@
     <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/scrollcanvas3.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="32" column="52" lean-forward="true" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="52" />
+          <caret line="32" column="52" selection-start-line="32" selection-start-column="18" selection-end-line="32" selection-end-column="52" />
           <folding>
             <element signature="e#24#30#0" expanded="true" />
           </folding>
@@ -751,7 +707,7 @@
     <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/scrollcanvas2.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
-          <caret line="41" column="22" lean-forward="true" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="42" />
+          <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="42" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
@@ -761,17 +717,43 @@
     <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/plot_pipeline.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/code/GUI/GUI3.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="97">
+          <caret line="522" column="41" lean-forward="true" selection-start-line="522" selection-start-column="41" selection-end-line="522" selection-end-column="41" />
+          <folding>
+            <element signature="e#26#62#0" expanded="true" />
+            <element signature="e#2092#3379#0" />
+            <element signature="e#3490#7389#0" />
+            <element signature="e#7439#7773#0" />
+            <element signature="e#7459#7773#0" />
+            <element signature="e#7820#11880#0" />
+            <element signature="e#11917#14513#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/code/Testing/GUI_tests/scrollcanvas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/FINAL/Counting_algorithm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-47">
-          <caret line="215" column="16" selection-start-line="215" selection-start-column="11" selection-end-line="215" selection-end-column="16" />
+        <state relative-caret-position="240">
+          <caret line="236" column="167" selection-start-line="236" selection-start-column="167" selection-end-line="236" selection-end-column="167" />
           <folding>
             <element signature="e#41#75#0" expanded="true" />
             <element signature="e#976#992#0" />
@@ -784,39 +766,25 @@
             <element signature="e#7590#7853#0" />
             <element signature="e#7929#9242#0" />
             <element signature="e#9306#9847#0" />
-            <element signature="e#9912#10958#0" />
-            <element signature="e#10995#11683#0" />
             <element signature="e#11766#13469#0" />
             <element signature="e#13509#13923#0" />
-            <element signature="e#13992#15479#0" />
             <element signature="e#15521#16142#0" />
-            <element signature="e#16203#16650#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/code/FINAL/GUI3.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="522" column="33" lean-forward="true" selection-start-line="522" selection-start-column="33" selection-end-line="522" selection-end-column="33" />
+        <state relative-caret-position="44">
+          <caret line="606" column="14" selection-start-line="604" selection-start-column="9" selection-end-line="604" selection-end-column="14" />
           <folding>
             <element signature="e#26#63#0" expanded="true" />
-            <element signature="e#1085#1816#0" />
-            <element signature="e#1849#2932#0" />
-            <element signature="e#2965#3240#0" />
-            <element signature="e#3293#4547#0" />
-            <element signature="e#4607#6492#0" />
-            <element signature="e#5980#9817#0" />
-            <element signature="e#9867#10201#0" />
-            <element signature="e#10248#14359#0" />
-            <element signature="e#14396#16992#0" />
-            <element signature="e#14702#14965#0" />
-            <element signature="e#17074#19229#0" />
-            <element signature="e#19270#20841#0" />
-            <element signature="e#25053#30030#0" />
-            <element signature="e#30069#30624#0" />
-            <element signature="e#30747#31051#0" />
-            <element signature="e#30750#31772#0" />
+            <element signature="e#6562#10427#0" />
+            <element signature="e#10477#10811#0" />
+            <element signature="e#10858#14969#0" />
+            <element signature="e#15006#17602#0" />
+            <element signature="e#17684#19839#0" />
+            <element signature="e#19880#21451#0" />
           </folding>
         </state>
       </provider>

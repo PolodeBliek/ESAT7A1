@@ -11,7 +11,7 @@ import ctypes
 # other imports:
 import numpy as np
 from scipy import ndimage
-import os
+import sys, os
 import pickle
 import PIL.ImageOps
 from PIL import Image, ImageTk
@@ -23,8 +23,9 @@ import time
 import math
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
-from matplotlib.backend_tools import ToolBase, ToolToggleBase
+from matplotlib.backend_tools import ToolBase
 import warnings
+
 
 plt.rcParams['toolbar'] = 'toolmanager'
 warnings.filterwarnings("ignore")  # surpress printing of the warnings
@@ -92,8 +93,6 @@ class SaveTool(ToolBase):
         super().__init__(*args, **kwargs)
 
     def trigger(self, sender, event, data=None):
-        # print("save motherfuckers")
-        # print(self.savedict)
         save_images(self.savedict)
 
 
@@ -184,9 +183,9 @@ class ScanScreen(tk.Frame):
     # making the scanscreen
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
-        self.columnconfigure(0, weight=1)
-        self.columnconfigure(1, weight=1)
-        self.rowconfigure(1, weight=1)
+        self.columnconfigure(0, weight=1, minsize=267)
+        self.columnconfigure(1, weight=1, minsize=267)
+        self.rowconfigure(1, weight=1, )
         # self.grid_propagate()
 
         # for keeping the menu open
@@ -414,7 +413,7 @@ class ScanScreen(tk.Frame):
 
         show_dict = {}
         if self.colorimg_showbool.get() or self.show_all_bool.get():
-            show_dict.update({"Selected Color Image": (color_image, 'gray')})
+            show_dict.update({"Selected Color Image": (color_image, 'viridis')})
         save_dict = {"SelectedColorImage": (color_image, f'{ESAT7A1}/Images/input images/')}
         if not self.depth_applybool.get():
             # run the color pipeline
@@ -454,12 +453,12 @@ class ScanScreen(tk.Frame):
         else:
             color_image, depth_image = wp.kinect_to_pc(kinect, kinect2, False)
 
-        color_image = color_image[100:1000, 315:1600]  # cropping
-        depth_image = depth_image[70:350, :415]
+        color_image = color_image[230:870, 460:1440]  # cropping
+        depth_image = depth_image[95:320, 97:510]
 
         color_show_dict = {}
         if self.colorimg_showbool.get() or self.show_all_bool.get():
-            color_show_dict.update({"Color Image": (color_image, 'gray')})
+            color_show_dict.update({"Color Image": (color_image, 'viridis')})
         color_save_dict = {"ColorImage": (color_image, f'{ESAT7A1}/Images/input images/')}
 
         if not self.initialize.get():
@@ -490,9 +489,9 @@ class ScanScreen(tk.Frame):
         if self.sobel_applybool.get():
             sobel, hor, ver = wp.sobel(gauss)
             if self.sobel_showbool.get() or self.show_all_bool.get():
+                # show_dict.update({"Horizontal gradient": (hor, 'gray')})
+                # show_dict.update({"Vertical gradient": (ver, 'gray')})
                 show_dict.update({"Sobel": (sobel, 'gray')})
-                show_dict.update({"Horizontal gradient": (hor, 'gray')})
-                show_dict.update({"Vertical gradient": (ver, 'gray')})
             save_dict.update({"Sobel": (sobel, f'{ESAT7A1}/Images/sobel images/')})
             save_dict.update({"HorizontalGrad": (hor, f'{ESAT7A1}/Images/sobel images/')})
             save_dict.update({"VerticalGrad": (ver, f'{ESAT7A1}/Images/sobel images/')})
@@ -508,7 +507,7 @@ class ScanScreen(tk.Frame):
         if self.fill_applybool.get():
             filled = ndimage.binary_fill_holes(hyst)
             if self.fill_showbool.get() or self.show_all_bool.get():
-                show_dict.update({f"Filled, time: {round(time.time() - pre_time, 2)}": (filled, 'gray')})
+                show_dict.update({f"Filled, time: {round(time.time() - pre_time, 2)}s": (filled, 'gray')})
             save_dict.update({"Filled": (filled, f'{ESAT7A1}/Images/filled images/')})
         else:
             filled = hyst
@@ -518,7 +517,7 @@ class ScanScreen(tk.Frame):
             (width, height) = filled_img.size
             filled_img = np.array(filled_img.resize((int(width / 4), int(height / 4))))
             sobel2, _, _ = wp.sobel(filled_img)
-            senne_obj, nb_obj = wp.object_counting_from_scratch(sobel2, 50)
+            senne_obj, nb_obj = wp.object_counting_from_scratch(sobel2, 20)
             if self.senne_showbool.get() or self.show_all_bool.get():
                 show_dict.update(
                     {f"From scratch: \n{nb_obj} objects, time: {round(time.time() - time_scratch, 2)}s": (senne_obj, 'viridis')})
@@ -567,9 +566,9 @@ class ScanScreen(tk.Frame):
         if self.sobel_applybool.get():
             sobel, hor, vert = wp.sobel(gauss)
             if self.sobel_showbool.get() or self.show_all_bool.get():
+                # show_dict.update({"Horizontal gradient": (hor, 'gray')})
+                # show_dict.update({"Vertical gradient": (vert, 'gray')})
                 show_dict.update({"Sobel": (sobel, 'gray')})
-                show_dict.update({"Horizontal gradient": (hor, 'gray')})
-                show_dict.update({"Vertical gradient": (vert, 'gray')})
             save_dict.update({"Sobel": (sobel, f'{ESAT7A1}/Images/sobel images/')})
             save_dict.update({"HorizontalGrad": (hor, f'{ESAT7A1}/Images/sobel images/')})
             save_dict.update({"VerticalGrad": (vert, f'{ESAT7A1}/Images/sobel images/')})
@@ -585,7 +584,7 @@ class ScanScreen(tk.Frame):
         if self.fill_applybool.get():
             filled = ndimage.binary_fill_holes(hyst)
             if self.fill_showbool.get() or self.show_all_bool.get():
-                show_dict.update({f"Filled, time: {round(time.time() - pre_time, 2)}": (filled, 'gray')})
+                show_dict.update({f"Filled, time: {round(time.time() - pre_time, 2)}s": (filled, 'gray')})
             save_dict.update({"Filled": (filled, f'{ESAT7A1}/Images/filled images/')})
         else:
             filled = hyst
@@ -606,14 +605,14 @@ class ScanScreen(tk.Frame):
         (width, height) = filled.size
         filled = np.array(filled.resize((int(width / 4), int(height / 4))))  # Go faster, lose image quality
         sobel2, _, _ = wp.sobel(filled)
-        senne_obj, nb_obj = wp.object_counting_from_scratch(sobel2, 100)
-        show_dict.update({f"From scratch: \n{nb_obj} objects, time: {round(time.time() - scratch_time, 2)}" : (senne_obj, 'gray')})
+        senne_obj, nb_obj = wp.object_counting_from_scratch(sobel2, 20)
+        show_dict.update({f"From scratch: \n{nb_obj} objects, time: {round(time.time() - scratch_time, 2)}s" : (senne_obj, 'viridis')})
         save_dict.update({"FromScratch": (senne_obj, f'{ESAT7A1}/Images/object images/')})
 
         if self.boxes_applybool.get():
             boxes = wp.draw_boxes(image, db)
             if self.boxes_showbool.get() or self.show_all_bool.get():
-                show_dict.update({"boxes": (boxes, 'gray')})
+                show_dict.update({"Boxes": (boxes, 'gray')})
             save_dict.update({"Boxes": (boxes, f'{ESAT7A1}/Images/draw boxes/')})
 
         if self.hasoverlap_applybool.get():
@@ -621,17 +620,17 @@ class ScanScreen(tk.Frame):
             overlap, overlapFrame = wp.has_overlapping_objects(depth_image)
 
         depth_time = time.time()
-        depth_frame, resultFrame, resultFrame2, remainingResult = wp.depth_general(depth_image, nb_obj)
-        nb_objects = remainingResult
+        depth_frame, resultFrame, resultFrame2, result, remainingResult = wp.depth_general(depth_image, nb_obj)
+        nb_objects = result
         show_dict.update({"Depth frame": (depth_frame, 'viridis')})
         save_dict.update({"DepthFrame": (depth_frame, f'{ESAT7A1}/Images/depth frames/')})
         if self.hasoverlap_applybool.get():
             if self.hasoverlap_showbool.get() or self.show_all_bool.get():
-                show_dict.update({f"Overlap visualized, time: {round(time.time() - overlap_time, 2)}": (overlapFrame, 'viridis')})
+                show_dict.update({f"Overlap visualized, time: {round(time.time() - overlap_time, 2)}s": (overlapFrame, 'viridis')})
             save_dict.update({"Overlap visualized": (overlapFrame, f'{ESAT7A1}/Images/overlap images/')})
         show_dict.update({f"Depth result: \n{nb_objects} objects detected": (resultFrame, 'viridis')})
         save_dict.update({"DepthResult": (resultFrame, f'{ESAT7A1}/Images/resulting depth images/')})
-        show_dict.update({f"Depth final result, time: {round(time.time() - depth_time, 2)}": (resultFrame2, 'viridis')})
+        show_dict.update({f"Depth final result, time: {round(time.time() - depth_time, 2)}s, Total objects: {nb_objects + remainingResult}": (resultFrame2, 'viridis')})
         save_dict.update({"RemainingDepth": (resultFrame2, f'{ESAT7A1}/Images/remaining/')})
 
         # save and show
@@ -659,7 +658,10 @@ class InfoScreen(ttk.Frame):
         # text
         info_title = "ESAT7A1 Object Counting Tool"
         titlefont = "Verdana, 12"
-        info_text = "tekst"
+        info_text = "With this tool you can count the number of objects in an image." \
+                    "\nConnect your computer to a Kinect, press start and get ready to take some pictures." \
+                    "\n\nDon't have a Kinect? No problem! " \
+                    "\nYou can also choose to select already existing pictures on your computer."
 
         titlebtn = tk.Label(self, text=info_title, font=titlefont)
         titlebtn.grid(column=0, row=1)
@@ -667,7 +669,7 @@ class InfoScreen(ttk.Frame):
         infolbl.grid(column=0, row=2, sticky='news')
 
 
-## 6. Pipeline Picture ##
+## 6. Pipeline Picture Screen ##
 
 class PipelineScreen(tk.Frame):
     def __init__(self, parent, controller):
