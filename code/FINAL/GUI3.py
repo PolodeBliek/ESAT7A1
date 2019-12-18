@@ -14,7 +14,7 @@ from scipy import ndimage
 import os
 import pickle
 import PIL.ImageOps
-from PIL import Image
+from PIL import Image, ImageTk
 from multiprocessing import Process
 from pykinect2 import PyKinectV2
 from pykinect2 import PyKinectRuntime
@@ -36,7 +36,7 @@ kinect = PyKinectRuntime.PyKinectRuntime(PyKinectV2.FrameSourceTypes_Color)
 kinect2 = PyKinectRuntime.PyKinectRuntime(PyKinectV2.FrameSourceTypes_Depth)
 
 
-## 1. Plot functions and classes ##
+## 1. Saving and Showing funtions and tool ##
 
 def show_images(showdict: dict, savedict: dict):
     """
@@ -79,7 +79,7 @@ def save_images(d: dict):
             if not os.path.exists(graypath + grayname + f"_{i}.jpg"):
                 for name, vals in zip(d.keys(), d.values()):
                     img, path = vals
-                    plt.imsave(path + name + f"_{i}.jpg", img, cmap='gray', format='jpg')
+                    plt.imsave(path + name + f"_{i}.jpg", img, cmap='viridis', format='jpg')
                 messagebox.showinfo(None, f'Images saved as _{i}')
                 break
     else:
@@ -97,13 +97,13 @@ class SaveTool(ToolBase):
         save_images(self.savedict)
 
 
-## 2. Actual GUI ##
+## 2. Root of the GUI ##
 
 class BROPAS(ThemedTk):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)  # does the same as 'tk.Tk.__init__(self, *args, **kwargs)'
-        self.title("BROPAS")  # Object Counting Software
+        self.title("ESAT7A1 - Object Counting Tool")  # Object Counting Software
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)
         self.geometry("525x300")  # start dimensions
@@ -118,7 +118,7 @@ class BROPAS(ThemedTk):
 
         # 'collect' all the screens/frames/menus that you want to show
         self.frames = {}
-        for F in (MainMenu, InfoScreen, ScanScreen):
+        for F in (MainMenu, InfoScreen, ScanScreen, PipelineScreen):
             frame = F(container, self)
             frame.grid(row=0, column=0, sticky="news")
 
@@ -137,34 +137,48 @@ class BROPAS(ThemedTk):
             self.configure(menu=self.emptyMenu)
 
 
+## 3. Start Screen ##
+
 class MainMenu(ttk.Frame):
 
     def __init__(self, parent, controller):
         ttk.Frame.__init__(self, parent)
-        self.columnconfigure(0, weight=1, minsize=50)
+        # self.columnconfigure(0, weight=1, minsize=50)
         self.rowconfigure(1, weight=1, minsize=100)
         self.rowconfigure(2, weight=1)
-        self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
+        self.columnconfigure(2, weight=1)
 
-        # padframe:
-        padfr = tk.Frame(self)
-        padfr.grid(row=0, column=0, columnspan=2, sticky='news', pady=20)
+        # # padframes
+        pad1 = tk.Frame(self)  # , bg='black'
+        pad1.grid(row=0, column=0, rowspan=2, sticky='news')
+        self.columnconfigure(0, weight=6)
+        pad2 = tk.Frame(self)  # , bg='black'
+        pad2.grid(row=0, column=3, rowspan=2, sticky='news')
+        self.columnconfigure(3, weight=6)
+        pad3 = tk.Frame(self)  # , bg='black'
+        pad3.grid(row=0, column=1, columnspan=2, sticky='news')
+        self.rowconfigure(0, weight=4)
+        pad4 = tk.Frame(self)  # , bg='black'
+        pad4.grid(row=3, column=1, columnspan=2, sticky='news')
+        self.rowconfigure(3, weight=4)
 
         # info button
-        infobtn = ttk.Button(self, text="  info  ", command=lambda: messagebox.showinfo(None, "Coming soon..."), takefocus=False)
-        infobtn.grid(row=2, column=0, sticky="ne")
+        infobtn = ttk.Button(self, text="  info  ", command=lambda: controller.show_frame(InfoScreen), takefocus=False)
+        infobtn.grid(row=2, column=1, sticky="se")
         # methode button
-        pipelinebtn = ttk.Button(self, text="pipeline", command=lambda: messagebox.showinfo(None, "Coming soon..."), takefocus=False)
-        pipelinebtn.grid(row=2, column=1, sticky="nw")
+        pipelinebtn = ttk.Button(self, text="pipeline", command=lambda: controller.show_frame(PipelineScreen), takefocus=False)
+        pipelinebtn.grid(row=2, column=2, sticky="sw")
 
         # start button
         self.startbtnimg = tk.PhotoImage(file="GUI_images/startbutton1.png")
         self.startbtnimg_ = self.startbtnimg.subsample(7, 8)
         start_button = ttk.Button(self, text="Start", command=lambda: controller.show_frame(ScanScreen),
                                   image=self.startbtnimg_, takefocus=False)
-        start_button.grid(row=1, column=0, sticky="news", padx=160, pady=30, columnspan=2)
+        start_button.grid(row=1, column=1, sticky="news", columnspan=2)  # , padx=160, pady=30
 
+
+## 4. Scan Screen ##
 
 class ScanScreen(tk.Frame):
     # making the scanscreen
@@ -508,6 +522,8 @@ class ScanScreen(tk.Frame):
             if self.senne_showbool.get() or self.show_all_bool.get():
                 show_dict.update(
                     {f"From scratch: \n{nb_obj} objects, time: {round(time.time() - time_scratch, 2)}s": (senne_obj, 'viridis')})
+                # show_dict.update(
+                #     {f"Sobel2": (sobel2, 'gray')})
             save_dict.update({"FromScratch": (senne_obj, f'{ESAT7A1}/Images/object images/')})
         else:
             senne_obj = filled
@@ -626,21 +642,69 @@ class ScanScreen(tk.Frame):
             # wp.show_images(show_dict)
 
 
+## 5. Information Screen ##
+
 class InfoScreen(ttk.Frame):
 
     def __init__(self, parent, controller):
         ttk.Frame.__init__(self, parent)
-        self.rowconfigure(1, weight=1)
+        # self.rowconfigure(1, weight=1)
+        self.rowconfigure(2, weight=1)
         self.columnconfigure(0, weight=1)
 
         # 'back' button:
         back_button = ttk.Button(self, text='Back to menu', command=lambda: controller.show_frame(MainMenu), takefocus=False)
         back_button.grid(row=0, column=0, sticky='w')
 
-        # the credits space ('credits' is a built in function, hence the name 'creditss')
-        creditss = tk.Text(self, height=2, width=30)
-        creditss.grid(row=1, column=0, sticky=",news")
-        creditss.insert(tk.END, "*Brakke Gantt Chart: Robin")
+        # text
+        info_title = "ESAT7A1 Object Counting Tool"
+        titlefont = "Verdana, 12"
+        info_text = "tekst"
+
+        titlebtn = tk.Label(self, text=info_title, font=titlefont)
+        titlebtn.grid(column=0, row=1)
+        infolbl = tk.Label(self, text=info_text, anchor='n')
+        infolbl.grid(column=0, row=2, sticky='news')
+
+
+## 6. Pipeline Picture ##
+
+class PipelineScreen(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(1, weight=1)
+        backbtn = ttk.Button(self, text='back to menu', command=lambda: controller.show_frame(MainMenu), takefocus=False)
+        backbtn.grid(row=0, column=0, sticky='w')
+        pipeln = ScrolledCanvas(self)
+        pipeln.grid(row=1, column=0)
+
+
+class ScrolledCanvas(tk.Frame):
+    def __init__(self, parent=None):
+        tk.Frame.__init__(self, parent)
+        self.grid(sticky='nesw')
+        canv = tk.Canvas(self, relief='sunken')
+        canv.config(width=400, height=200)
+        canv.config(highlightthickness=0)
+        sbarV = tk.Scrollbar(self, orient='vertical')
+        sbarH = tk.Scrollbar(self, orient='horizontal')
+        sbarV.config(command=canv.yview)
+        sbarH.config(command=canv.xview)
+        canv.config(yscrollcommand=sbarV.set)
+        canv.config(xscrollcommand=sbarH.set)
+        sbarV.pack(side='right', fill='y')
+        sbarH.pack(side='bottom', fill='x')
+        canv.pack(side='left', expand='yes', fill='both')
+        self.im = Image.open("GUI_images/TreeDiagram.png")
+        # w, h = self.im.size
+        # self.im = self.im.resize((int(w/2), int(h/2)))
+        width, height = self.im.size
+        canv.config(scrollregion=(0, 0, width, height))
+        self.im2 = ImageTk.PhotoImage(self.im)
+        self.imgtag = canv.create_image(0, 0, anchor="nw", image=self.im2)
+
+## End ##
 
 
 if __name__ == '__main__':
